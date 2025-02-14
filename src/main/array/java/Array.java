@@ -12,10 +12,6 @@ public class Array<T> {
 	 * O array em si.
 	 */
 	protected T[] array;
-	/**
-	 * O tamanho do array.
-	 */
-	protected int size;
 
 	/**
 	 * O construtor da classe de array.
@@ -23,9 +19,8 @@ public class Array<T> {
 	 * @param size O tamanho do array a ser criado.
 	 */
 	@SuppressWarnings("unchecked")
-	public Array(int size) {
-		this.array = (T[]) new Object[size];
-		this.size = size;
+	public Array(int capacity) {
+		this.array = (T[]) new Object[capacity];
 	}
 	
 	/**
@@ -35,7 +30,7 @@ public class Array<T> {
 	 * @return O elemento especificado pelo índice, caso encontrado.
 	 */
 	public T getElement(int index) {
-		if (index < 0 || index >= size) 
+		if (isIndexValid(index) == false)
 			throw new IndexOutOfBoundsException("Índice inválido!");
 		return array[index];
 	}
@@ -48,7 +43,7 @@ public class Array<T> {
 	 * @return Status de sucesso da operação.
 	 */
 	public boolean setElement(T element, int index) {
-		if (index < 0 || index >= size)
+		if (isIndexValid(index) == false)
 			return false;
 		array[index] = element;
 		return true;
@@ -61,9 +56,15 @@ public class Array<T> {
 	 * @return Status de sucesso da operação.
 	 */
 	public boolean rmElement(int index) {
-		if (index < 0 || index >= size)
+		if (isIndexValid(index) == false)
 			return false;
 		array[index] = null;
+		return true;
+	}
+
+	private boolean isIndexValid(int index) {
+		if (index < 0 || index >= this.array.length)
+			return false;
 		return true;
 	}
 
