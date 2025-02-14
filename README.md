@@ -20,11 +20,11 @@ A entrega do trabalho envolverá a disponibilização de a) código-fonte dos al
 
 ## Planejamento da proposta
 
-### Etapa 1: estudar as estruturas de dados
+### Etapa 1: estudar estruturas de dados
 
 Nesta etapa, estudaremos a teoria a respeito das estruturas de dados escolhidas para subsidiar e delimitar as implementações.
 
-### Etapa 2: implementar e testar as estruturas de dados
+### Etapa 2: implementar e testar estruturas de dados
 
 Nesta etapa, implementamos as estruturas de dados escolhidas e já estudadas nas diferentes linguagens de programação e faremos testes.
 
@@ -36,7 +36,7 @@ A partir desses dados de entrada, executaremos os algoritmos e colheremos os dad
 
 Por fim, com os dados relativos às saídas em mãos, geramos os gráficos comparativos sobre consumo de memória, de tempo e capacidades de volumes de entrada.
 
-### Etapa 4: fazer o relatório
+### Etapa 4: fazer relatório
 
 Nesta etapa, analisaremos os dados coletados e agregaremos as explicações em um relatório.
 
