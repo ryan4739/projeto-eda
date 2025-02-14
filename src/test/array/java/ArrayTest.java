@@ -38,7 +38,7 @@ public class ArrayTest {
 
 	@Test
 	void rmElement() {
-		assertTrue(array_2.removeElement(0));
+		assertTrue(array_2.rmElement(0));
 		assertEquals(null, array_2.getElement(0));
 	}
 

@@ -9,23 +9,33 @@ package queue;
 public class Queue<T> {
 
 	/**
-	 * Tamanho da fila.
-	 */
-	protected int length;
-	/**
 	 * Fila em si.
 	 */
 	protected T[] queue;
+	/**
+	 * Tamanho da fila.
+	 */
+	protected int size;
+	/**
+	 * Ponteiro para o início da fila.
+	 */
+	protected int head;
+	/**
+	 * Ponteiro para o final da fila.
+	 */
+	protected int tail;
 
 	/**
 	 * O construtor da classe de fila.
 	 *
-	 * @param length O tamanho da fila.
+	 * @param size O tamanho da fila.
 	 *
 	 */
-	public Queue(int length) {
-		this.length = length;
-		this.queue = (T[]) new Object[length];
+	public Queue(int size) {
+		this.queue = (T[]) new Object[size];
+		this.size = 0;
+		this.head = -1;
+		this.tail = -1;
 	} 
 
 }

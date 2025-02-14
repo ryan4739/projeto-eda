@@ -9,23 +9,23 @@ package array;
 public class Array<T> {
 
 	/**
-	 * O tamanho do array.
-	 */
-	protected int length;
-	/**
 	 * O array em si.
 	 */
 	protected T[] array;
+	/**
+	 * O tamanho do array.
+	 */
+	protected int size;
 
 	/**
 	 * O construtor da classe de array.
 	 *
-	 * @param length O tamanho do array a ser criado.
+	 * @param size O tamanho do array a ser criado.
 	 */
 	@SuppressWarnings("unchecked")
-	public Array(int length) {
-		this.length = length;
-		this.array = (T[]) new Object[length];
+	public Array(int size) {
+		this.array = (T[]) new Object[size];
+		this.size = size;
 	}
 	
 	/**
@@ -35,7 +35,7 @@ public class Array<T> {
 	 * @return O elemento especificado pelo índice, caso encontrado.
 	 */
 	public T getElement(int index) {
-		if (index < 0 || index >= length) 
+		if (index < 0 || index >= size) 
 			throw new IndexOutOfBoundsException("Índice inválido!");
 		return array[index];
 	}
@@ -48,7 +48,7 @@ public class Array<T> {
 	 * @return Status de sucesso da operação.
 	 */
 	public boolean setElement(T element, int index) {
-		if (index < 0 || index >= length)
+		if (index < 0 || index >= size)
 			return false;
 		array[index] = element;
 		return true;
@@ -60,8 +60,8 @@ public class Array<T> {
 	 * @param index Índice do elemento a ser removido.
 	 * @return Status de sucesso da operação.
 	 */
-	public boolean removeElement(int index) {
-		if (index < 0 || index >= length)
+	public boolean rmElement(int index) {
+		if (index < 0 || index >= size)
 			return false;
 		array[index] = null;
 		return true;
