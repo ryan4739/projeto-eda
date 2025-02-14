@@ -14,3 +14,19 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/array/java'
+            srcDir 'src/main/arraylist/java'
+            srcDir 'src/main/queue/java'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/array/java'
+            srcDir 'src/test/queue/java'
+        }
+    }
+}
