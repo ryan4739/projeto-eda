@@ -24,25 +24,27 @@ public class Array<T> {
 	}
 	
 	/**
-	 * Retorna o elemento relativo ao índice indicado.
+	 * Retorna o primeiro índice relativo ao elemento indicado.
 	 *
-	 * @param index Índice do elemento a ser retornado.
-	 * @return O elemento especificado pelo índice, caso encontrado.
+	 * @param element Elemento a ser buscado.
+	 * @return Índice do elemento, caso encontrado, ou -1, caso não encontrado.
 	 */
-	public T getElement(int index) {
-		if (isIndexValid(index) == false)
-			throw new IndexOutOfBoundsException("Índice inválido!");
-		return array[index];
+	public int searchElement(T element) {
+		for (int i = 0; i < this.array.length; i++) {
+			if (this.array[i] != null && this.array[i].equals(element))
+				return i;
+		}
+		return -1;
 	}
 
 	/**
-	 * Adiciona o elemento no índice indicado.
+	 * Insere o elemento no índice indicado.
 	 *
-	 * @param element O elemento a ser adicionado.
-	 * @param index O índice do elemento a ser adicionado.
-	 * @return Status de sucesso da operação.
+	 * @param element Elemento a ser inserido.
+	 * @param index Índice do elemento a ser inserido.
+	 * @return Estado de sucesso da operação.
 	 */
-	public boolean setElement(T element, int index) {
+	public boolean insertElement(T element, int index) {
 		if (isIndexValid(index) == false)
 			return false;
 		array[index] = element;
@@ -53,15 +55,21 @@ public class Array<T> {
 	 * Remove o elemento do índice indicado.
 	 *
 	 * @param index Índice do elemento a ser removido.
-	 * @return Status de sucesso da operação.
+	 * @return Estado de sucesso da operação.
 	 */
-	public boolean rmElement(int index) {
+	public boolean removeElement(int index) {
 		if (isIndexValid(index) == false)
 			return false;
 		array[index] = null;
 		return true;
 	}
 
+	/**
+	 * Verifica se o índice é válido.
+	 *
+	 * @param index Índice a ser validado.
+	 * @return Validez do índice.
+	 */
 	private boolean isIndexValid(int index) {
 		if (index < 0 || index >= this.array.length)
 			return false;

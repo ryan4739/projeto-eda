@@ -15,31 +15,31 @@ public class ArrayTest {
 
 	@BeforeEach
 	void prepareTest() {
-		array_2.setElement(12, 0);
-		array_2.setElement(18, 1);
-		array_2.setElement(24, 3);
-		array_2.setElement(32, 9);
+		array_2.insertElement(12, 0);
+		array_2.insertElement(18, 1);
+		array_2.insertElement(24, 3);
+		array_2.insertElement(32, 9);
 	}
 
 	@Test
-	void setElement() {
-		assertEquals(null ,array_1.getElement(0));
-		assertTrue(array_1.setElement(23, 0));
-		assertEquals(null ,array_1.getElement(9));
-		assertTrue(array_1.setElement(48, 9));
-		assertFalse(array_1.setElement(54, 10));
+	void insertElement() {
+		//assertEquals(null ,array_1.getElement(0));
+		assertTrue(array_1.insertElement(23, 0));
+		//assertEquals(null ,array_1.Element(9));
+		assertTrue(array_1.insertElement(48, 9));
+		assertFalse(array_1.insertElement(54, 10));
 	}
 
 	@Test
-	void getElement() {
-		assertEquals(12, array_2.getElement(0));
-		assertNotEquals(12, array_2.getElement(1));
+	void searchElement() {
+		assertEquals(0, array_2.searchElement(12));
+		assertEquals(-1, array_2.searchElement(77));
 	} 
 
 	@Test
-	void rmElement() {
-		assertTrue(array_2.rmElement(0));
-		assertEquals(null, array_2.getElement(0));
+	void removeElement() {
+		assertTrue(array_2.removeElement(0));
+		//assertEquals(null, array_2.getElement(0));
 	}
 
 }

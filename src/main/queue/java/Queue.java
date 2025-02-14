@@ -39,12 +39,12 @@ public class Queue<T> {
 	}
 
 	/**
-	 * Adiciona elemento do tipo T à fila.
+	 * Insere elemento na fila.
 	 *
-	 * @param element Elemento à ser adicionado à fila.
+	 * @param element Elemento à ser inserido na fila.
 	 * @return Status de sucesso da operação.
 	 */
-	public void addElement(T element) {
+	public void insertElement(T element) {
 		if (isFull() == true)
 			throw new IllegalStateException("Queue is full!");
 		updateTail();
@@ -62,6 +62,22 @@ public class Queue<T> {
 			throw new IllegalStateException("Queue is empty!");
 		updateHead();	
 		return this.queue[this.head - 1];
+	}
+
+	/**
+	 * Busca elemento na fila e retorna o índice do elemento, caso encontrado,
+	 * ou -1, caso não encontrado.
+	 *
+	 * @param element Elemento a ser buscado.
+	 * @return Índice do elemento ou indicação de que o elemento não foi
+	 * encontrado.
+	 */
+	public int searchElement(T element) {
+		for (int i = 0; i < this.queue.length; i++) {
+			if (this.queue[i].equals(element))
+				return i;
+		}
+		return -1;
 	}
 
 	/**
