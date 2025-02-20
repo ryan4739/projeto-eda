@@ -30,8 +30,8 @@ class Stack:
       for i in range(valor,array.length):
          array[i-1] = array[i]
    def esquerda(valor):
-      for i in range(valor,array.length):
-         array[i-1] = array[i]
+      for i in range(array.length-1,valor):
+         array[i+1] = array[i]
    def removeLast():
       esquerda(1)
       tail--
