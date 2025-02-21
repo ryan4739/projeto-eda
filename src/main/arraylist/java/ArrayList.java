@@ -1,56 +1,146 @@
 package arraylist;
 
 /**
-* uma classe genérica de ArrayList criada para criar uma lista de tamanho indeterminado
+ * uma classe genérica de ArrayList criada para criar uma lista de tamanho indeterminado
 * e realizar operações simples com ela tais quais, adicionar e remover elementos baseado em indices
 * e sem indices
 */
-public class ArrayList<T>{
+public class ArrayList{
+		
+	/**
+	 * declarando uma lista para numeros inteiros
+	 *
+	 * @param capacidade serve para determinar o tamanho inicial do array list, também pode ser passado como parâmetro usado no construtor. 
+	 * @param last serve para controlarmos o array baseado na última posição da lista
+	 **/ 
+	private int[] lista;
+	private static final int capacidade = 20;
+	private int last = -1;
+	
+
+	/**
+	 * construtor onde não passamos o tamanho inicial do Array
+	 **/
+	public ArrayList(){
+		this.lista = new int[this.capacidade];
+	}
+
+	/**
+	 * construtor onde passamos o tamanho inicial do array
+	 **/
+	public ArrayList(int capacidade){
+		this.capacidade = capacidade;
+		this.lista = new int[capacidade];
+	}
+
+	/**
+	 * 
+	 **/
+	private boolean isEmpty(){
+		return last == -1;
+	}
 	
 	/**
-	 * declarando uma lista para elementos genericos	
-	 **/ 
-	private T[] lista;
+	 *
+	 **/
+	private boolean isFull(){
+		return last == capacidade-1;
+	}
 		
 	/**
 	 * adicionando elementos na lista sem uso de indices na última posição da lista
 	 *
 	 * @param T elemento genérico que será adicionado na lista
 	 **/
-	public boolean addElementosList(T elemento){
-		//lista.add(elemento);
-		return true;
-	}
-		
-	/**
-	 * adicionando elementos na lista com uso de indice para uma posição n na lista
-	 *
-	 * @param T elemento genérico que será adicionado na lista
-	 * @param index indice onde T será posicionado
-	 **/
-	public boolean addElementosListIndex(T elemento, int index){
-		//lista.add(index, elemento);
+	public boolean addLast(int elemento){
+		if (isFull()){
+			resize();
+		}
+		lista[++last] = elemento;
 		return true;
 	}
 
-	/**
-	 * Buscando elemento na lista através do indice
-	 *
-	 * @param index indice que será buscado
-	 **/
-	public boolean getElemento(int index){
-		//lista.get(index);
+	public boolean addFirst(int elemento){
+		shiftDireita(0);
+		lista[0] = elemento;
+		return true;
+	}
+
+	public boolean addIndex(int elemento, int index){
+		if (index < 0 || index > this.capacidade)
+            		throw new IndexOutOfBoundsException();
+		shiftDireita(index)
+		lista[index] = elemento;
+		return true;
+	}
+
+	public boolean addMid(int elemento){
+		meio = ((last+1)/2)-1;
+		shiftDireita(meio);
+		lista[meio] = elemento;
+		return true;
+	}
+
+	private void shiftDireita(index){
+		if (isFull()){
+                        resize();
+                }
+		for (int i = ++last; i >index; i--){
+			lista[i] = lista[i-1]
+		}
+	}
+
+	private void resize(){
+		int[] listaAux = new int[capacidade*2]
+		for (i = 0; i<lista.length;i++){
+			listaAux[i] = lista[i];
+		}
+		lista = listaAux;
+	}
+
+	public boolean contains(int elemento){
+		if (isEmpty()){
+			return false;
+		}
+		for(int i = 0; i<=last; i++){
+			if(lista(i) = elemento){
+				return true
+			}
+		}
+		return false;
+	}
+
+	public boolean rmvLast(){
+		if (isEmpty()){
+			throw new Exception("Lista vazia");
+		}
+		last--;
+		return true;
+	}
+
+	public boolean rmvFirst(){
+		shiftEsquerda(0);
+		return true;
+	}
+
+	public boolean rmvIndex(int index){
+		shiftEsquerda(index);
+		return true;
+	}
+
+	public boolean rmvMid(){
+		meio = ((last+1)/2)-1;
+		shiftEsquerda(meio);
 		return true;
 	}
 	
-	/**
-	 * removendo elemento na lista através do indice
-	 *
-	 * @param index indice que será removido da lista
-	 **/
-	public boolean removeElemento(int index){
-		//lista.pop(index);
-		return true;
+	private void shiftEsquerda(index){
+		if (isEmpty()){
+                        throw new Exception("Lista vazia");
+                }
+		for (int i = index; i<--last; i++){
+			lista[i] = lista[i+1];
+		}
 	}
 
 }	
