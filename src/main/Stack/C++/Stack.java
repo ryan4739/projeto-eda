@@ -12,32 +12,47 @@ class Stack {       // The class
   public:             // Access specifier
     int tail =-1;        // Attribute (int variable)
     int[] array;// Attribute (string variable)
-    void direita(){
-        
+    void direita(int valor){
+        for(int i =valor; i<tail; i++){
+          array[i-1] = array[i];
+        }
     }
-    void esquerda(){
-        
+    void esquerda(int valor){
+        for(int i =valor; i<tail; i++){
+          array[i+1] = array[i];
+        }
     }
     int pop(){
         V = array[tail];
         tail--;
         return tail;
     }
-    int indexOf(valor){
+    int indexOf(int valor){
         
     }
     string toString(){
-        
+        int numero = tail;
+        string stringaro = "";
+        for(int i =0; i<numero;i++){
+            stringaro+=array[i];
+            tail+=-1
+            if(!isEmpty()){
+              stringaro+=", ";
+            }
+        }
+        tail+=numero;
+        return stringaro;
     }
-    int peek(valor){
+    int peek(int valor){
         return array[valor];
     }
-    void push(valor){
+    void push(int valor){
         tail+=1;
         array[tail]= valor;
     }
-    void PushIndex(){
-        
+    void PushIndex(int valor){
+        direita(valor);
+      array
     }
     int size(){
         return tail+1;
