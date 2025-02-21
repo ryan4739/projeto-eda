@@ -7,11 +7,12 @@ Code, Compile, Run and Debug online from anywhere in world.
 
 *******************************************************************************/
 #include <iostream>
-
+#include <string>
 class Stack {       // The class
-  public:             // Access specifier
-    int tail =-1;        // Attribute (int variable)
+  private:
+     int tail =-1;        // Attribute (int variable)
     int[] array;// Attribute (string variable)
+  public:             // Access specifier
     void direita(int valor){
         for(int i =valor; i<tail; i++){
           array[i-1] = array[i];
@@ -30,7 +31,7 @@ class Stack {       // The class
     int indexOf(int valor){
         
     }
-    string toString(){
+    void toString(){
         int numero = tail;
         string stringaro = "";
         for(int i =0; i<numero;i++){
@@ -57,13 +58,13 @@ class Stack {       // The class
     int size(){
         return tail+1;
     }
-    boolean isFull(){
+    bool isFull(){
         if((tail+1)== sizeof(array)){
             return true;
         }
         return false;
     }
-    boolean isEmpty(){
+    bool isEmpty(){
         if(tail<0){
             return true;
         return false
