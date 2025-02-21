@@ -19,19 +19,22 @@ class Stack {       // The class
         
     }
     int pop(){
-        
+        V = array[tail];
+        tail--;
+        return tail;
     }
-    int indexOf(){
+    int indexOf(valor){
         
     }
     string toString(){
         
     }
-    int peek(){
-        
+    int peek(valor){
+        return array[valor];
     }
-    void push(){
-        
+    void push(valor){
+        tail+=1;
+        array[tail]= valor;
     }
     void PushIndex(){
         
