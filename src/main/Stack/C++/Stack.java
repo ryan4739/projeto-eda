@@ -7,7 +7,7 @@ Code, Compile, Run and Debug online from anywhere in world.
 
 *******************************************************************************/
 #include <iostream>
-#include <string>
+#include <vector>
 class Stack {       // The class
   private:
      int tail =-1;        // Attribute (int variable)
