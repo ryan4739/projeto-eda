@@ -21,10 +21,12 @@ class Stack {       // The class
             array = new int[capacidade];
             this-> count = capacidade;
         }
-        void direita(int valor){
-            for(int i =valor; i<tail; i++){
+        void direita(int valor, int index){
+            this-> tail+=1;
+            for(int i =0; i<=index; i++){
               array[i-1] = array[i];
             }
+            array[index]= valor;
         }
         void esquerda(int valor){
             for(int i =valor; i<tail; i++){
@@ -67,7 +69,40 @@ class Stack {       // The class
             tail+=numero;
             std::cout << stringaro;
         }
+        int peekValorPrimeiro(int valor){
+            if(tail<valor){
+                throw std::runtime_error("Não deu");
+            }
+            int numero = -1;
+            for(int i =0;i<tail;i++){
+                if(!(numero==-1)){
+                    return numero;
+                }
+                if(valor==array[i]){
+                    numero=i;
+                }
+            }
+            return numero;
+        }
+        int peekValorUltimo(int valor){
+            if(tail<valor){
+                throw std::runtime_error("Não deu");
+            }
+            int numero = -1;
+            for(int i =tail;i>0;i--){
+                if(!(numero==-1)){
+                    return numero;
+                }
+                if(valor==array[i]){
+                    numero=i;
+                }
+            }
+            return numero;
+        }
         int peek(int valor){
+            if(tail<valor){
+                throw std::runtime_error("Não deu");
+            }
             return array[valor];
         }
         void push(int valor){
@@ -77,9 +112,17 @@ class Stack {       // The class
             this ->  tail+=1;
             array[tail]= valor;
         }
-        void PushIndex(int valor){
-            direita(valor);
-            array;
+        void PushIndex(int valor, int index){
+            direita(valor, index);
+        }
+        void RemoveFirst(){
+            esquerda()
+        }
+        void RemoveLast(){
+            
+        }
+        void RemoveIndex(){
+            
         }
         int size(){
             return tail+1;
@@ -107,14 +150,7 @@ class Stack {       // The class
 int main()
 {
     Stack stacks(7);
-    stacks.push(1);
-    stacks.push(2);
-    stacks.push(3);
-    stacks.push(4);
-    stacks.push(5);
-    stacks.push(6);
-    stacks.push(7);
-    stacks.pop();
+    stacks.PushIndex(6,4);
     stacks.toString();
     return 0;
 }
