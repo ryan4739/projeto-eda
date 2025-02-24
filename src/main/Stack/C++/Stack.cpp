@@ -23,12 +23,24 @@ class Stack {       // The class
         }
         void direita(int valor, int index){
             this-> tail+=1;
+            if(isFull()){
+                throw std::runtime_error("Não deu");
+            }
+            if(index>=count){
+                throw std::runtime_error("Não deu");
+            }
             for(int i =0; i<=index; i++){
               array[i-1] = array[i];
             }
             array[index]= valor;
         }
         void esquerda(int valor){
+            if(isFull()){
+                throw std::runtime_error("Não deu");
+            }
+            if(valor>=count){
+                throw std::runtime_error("Não deu");
+            }
             for(int i =valor; i<tail; i++){
               array[i+1] = array[i];
             }
@@ -55,7 +67,7 @@ class Stack {       // The class
         void toString(){
             int numero = tail;
             std::string stringaro = "";
-            for(int i =0; i<count;i++){
+            for(int i =0; i<=tail+1;i++){
                 if(isEmpty()){
                   stringaro+=", ";
                 }
@@ -70,9 +82,6 @@ class Stack {       // The class
             std::cout << stringaro;
         }
         int peekValorPrimeiro(int valor){
-            if(tail<valor){
-                throw std::runtime_error("Não deu");
-            }
             int numero = -1;
             for(int i =0;i<tail;i++){
                 if(!(numero==-1)){
@@ -85,9 +94,6 @@ class Stack {       // The class
             return numero;
         }
         int peekValorUltimo(int valor){
-            if(tail<valor){
-                throw std::runtime_error("Não deu");
-            }
             int numero = -1;
             for(int i =tail;i>0;i--){
                 if(!(numero==-1)){
@@ -116,19 +122,19 @@ class Stack {       // The class
             direita(valor, index);
         }
         void RemoveFirst(){
-            esquerda()
+            esquerda(0);
         }
-        void RemoveLast(){
-            
+        void RemoveValor(){
+            esquerda(tail);
         }
-        void RemoveIndex(){
-            
+        void RemoveIndex(int index){
+            esquerda(index);
         }
         int size(){
             return tail+1;
         }
         bool isFull(){
-            if(this->tail+1 == count){
+            if(this->tail+1 >= count){
                 return true;
             }
             return false;
@@ -151,6 +157,11 @@ int main()
 {
     Stack stacks(7);
     stacks.PushIndex(6,4);
+    stacks.PushIndex(6,3);
+    stacks.PushIndex(6,2);
+    stacks.PushIndex(6,1);
+    stacks.RemoveIndex(4);
     stacks.toString();
+    std::cout << stacks.peekValorPrimeiro(6);
     return 0;
 }
