@@ -1,11 +1,3 @@
-/******************************************************************************
-
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
-C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
-Code, Compile, Run and Debug online from anywhere in world.
-
-*******************************************************************************/
 #include <iostream>
 #include <stdexcept>
 class Stack {       // The class
@@ -29,7 +21,7 @@ class Stack {       // The class
             if(index>=count){
                 throw std::runtime_error("Não deu");
             }
-            for(int i =0; i<=index; i++){
+            for(int i=index; i<tail; i++){
               array[i-1] = array[i];
             }
             array[index]= valor;
@@ -41,6 +33,7 @@ class Stack {       // The class
             if(valor>=count){
                 throw std::runtime_error("Não deu");
             }
+            
             for(int i =valor; i<tail; i++){
               array[i+1] = array[i];
             }
@@ -67,7 +60,7 @@ class Stack {       // The class
         void toString(){
             int numero = tail;
             std::string stringaro = "";
-            for(int i =0; i<=tail+1;i++){
+            for(int i =0; i<=numero;i++){
                 if(isEmpty()){
                   stringaro+=", ";
                 }
@@ -124,8 +117,12 @@ class Stack {       // The class
         void RemoveFirst(){
             esquerda(0);
         }
-        void RemoveValor(){
-            esquerda(tail);
+        void RemoveValor(int valor){
+        for(int i=0; i<tail;i++){
+            if(array[i]==valor){
+                esquerda(i);
+            }
+        }
         }
         void RemoveIndex(int index){
             esquerda(index);
@@ -156,12 +153,9 @@ class Stack {       // The class
 int main()
 {
     Stack stacks(7);
+    stacks.PushIndex(6,5);
     stacks.PushIndex(6,4);
     stacks.PushIndex(6,3);
-    stacks.PushIndex(6,2);
-    stacks.PushIndex(6,1);
-    stacks.RemoveIndex(4);
     stacks.toString();
-    std::cout << stacks.peekValorPrimeiro(6);
     return 0;
 }
