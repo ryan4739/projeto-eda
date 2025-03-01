@@ -1,167 +1,171 @@
-package lljava;
+package java;
+
+import java.util.NoSuchElementException;
 
 public class LinkedList {
     private Node head;
+    private Node tail;
+    private int size;
 
     public LinkedList() {
         this.head = null;
+        this.tail = null;
+        this.size = 0;
     }
     
-    public void adicionaNoInicio(int valor) {
-        Node novoNode = new Node(valor);
-        novoNode.next = this.head;
-        this.head = novoNode;
+    public boolean isEmpty() {
+        return this.size == 0;
     }
 
-    public void adicionaPorIndice(int valor, int indice) {
-        if (indice == 0) {
-            this.adicionaNoInicio(valor);
-            return;
+    public void addFirst(int value) {
+        Node newNode = new Node(value);
+
+        if (isEmpty()) {
+            this.head = newNode;
+            this.tail = newNode;
+        } else {
+            newNode.next = this.head;
+            this.head = newNode;
         }
+        this.size++;
+    }
+
+    public void addLast(int value) {
+        Node newNode = new Node(value);
         
-        Node nodeAtual = this.head;
-        int posicao = 0;
-        while ((nodeAtual != null) && (posicao + 1) != indice) {
-            posicao += 1;
-            nodeAtual = nodeAtual.next;
-        }
-
-        if (nodeAtual != null) {
-            Node novoNode = new Node(valor);
-            novoNode.next = nodeAtual.next;
-            nodeAtual.next = novoNode;
+        if (isEmpty()) {
+            this.head = newNode;
+            this.tail = newNode;
         } else {
-            System.out.println("Índice não existe!");
+            this.tail.next = newNode;
+            this.tail = newNode;
         }
+        this.size++;
     }
 
-    public void adicionaNoFinal(int valor) {
-        Node novoNode = new Node(valor);
-        if (this.head == null) {
-            this.adicionaNoInicio(valor);
-            return;
-        }
-
-        Node nodeAtual = this.head;
-        while (nodeAtual.next != null) {
-            nodeAtual = nodeAtual.next;
-        }
-
-        nodeAtual.next = novoNode;
-    }
-
-    public void alteraNode(int valor, int indice) {
-        Node nodeAtual = this.head;
-        int posicao = 0;
-        if (posicao == indice) {
-            nodeAtual.valor = valor;
-        } else {
-            while (nodeAtual != null && posicao != indice) {
-                nodeAtual = nodeAtual.next;
-            }
-
-            if (nodeAtual != null) {
-                nodeAtual.valor = valor;
-            } else {
-                System.out.println("Índice não existe!");
-            }
-        }
-    }
-
-    public void removePrimeiroNode() {
-        if (this.head == null) return;
-
-        this.head = this.head.next;
-    }
-
-    public void removeNodeIndice(int indice) {
-        if (this.head == null) return;
-        
-        Node nodeAtual = this.head;
-        int posicao = 0;
-
-        if (indice == 0) {
-            this.removePrimeiroNode();
-        } else {
-            while (nodeAtual != null && posicao < indice - 1) {
-                posicao += 1;
-                nodeAtual = nodeAtual.next;
-            }
+    public void add(int value, int indice) {
+        if (indice == 0)
+            addFirst(value);
+        else if (indice == this.size-1)
+            addLast(value);
+        else {
+            Node newNode = new Node(value);
+            Node prevNode = getNodeIndice(indice-1);
             
-            if (nodeAtual == null || posicao < indice - 1) {
-                System.err.println("Índice não existe!");
-            } else {
-                nodeAtual.next = nodeAtual.next.next;
-            }
-        }    
+            newNode.next = prevNode.next;
+            prevNode.next = newNode;
+        }
     }
 
-    public void removeUltimoNode() {
-        if (this.head == null) return;
-
-        if (this.head.next == null) this.removePrimeiroNode();
-        
-        Node nodeAtual = this.head;
-        while (nodeAtual != null && nodeAtual.next.next != null) {
-            nodeAtual = nodeAtual.next;
-        }
-
-        nodeAtual.next = null;
+    public void alteraNode(int value, int indice) {
+        Node node = getNodeIndice(indice);
+        node.value = value;
     }
 
-    public void removeNode(int valor) {
-        Node nodeAtual = this.head;
+    public void removeFirst() {
+        if (isEmpty()) throw new NoSuchElementException("Node não existe");
 
-        if (nodeAtual.valor == valor) {
-            this.removePrimeiroNode();
-            return;
-        }
-
-        while (nodeAtual != null && nodeAtual.next.valor != valor) {
-            nodeAtual = nodeAtual.next;
-        }
-
-        if (nodeAtual == null) {
-            return;
+        if (this.size == 1) {
+            this.head = null;
+            this.tail = null;
         } else {
-            nodeAtual.next = nodeAtual.next.next;
+            this.head = this.head.next;            
         }
+        this.size--;
     }
 
-    public int tamanhoLinkedList() {
-        int tamanho = 0;
-        Node nodeAtual = this.head; 
-        while (nodeAtual != null) {
-            tamanho += 1;
-            nodeAtual = nodeAtual.next;
-        }
+    public void removeLast() {
+        if (isEmpty()) throw new NoSuchElementException("Node não existe");
 
-        return tamanho;
+        if (this.size == 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            Node prevNode = getNodeIndice(this.size-2);
+            prevNode.next = null;
+            this.tail = prevNode;
+        }
+        this.size--;
     }
 
-    public void imprimeLinkedList() {
-        Node nodeAtual = this.head;
-        while (nodeAtual != null) {
-            System.out.println(nodeAtual.valor);
-            nodeAtual = nodeAtual.next;
-        }
-    }
-
-    public int getElementoIndice(int indice) {
-        Node nodeAtual = this.head;
+    public void removeByIndex(int indice) {
+        if (indice < 0 || indice > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
         
-        int posicao = 0;
-        while (nodeAtual != null && posicao < indice) {
-            nodeAtual = nodeAtual.next;
-            posicao++;
-        }
+        if (indice == 0)
+            removeFirst();
+        else if (indice == this.size-1)
+            removeLast();
+        else {
+            Node prevNode = getNodeIndice(indice);
+            prevNode.next = prevNode.next.next;
 
-        if (nodeAtual == null) {
-            System.out.println("Índice não existe!");
-            return 0;
+            this.size--;
         }
+    }
 
-        return nodeAtual.valor;
+    public void removeByValue(int value) {
+        if (!contains(value)) throw new NoSuchElementException("value não existe");
+        
+        int indice = getPrimeiraOcorrencia(value);
+        removeByIndex(indice);
+    }   
+
+    public int sizeLL() {
+        return this.size;
+    }
+
+    public String toString() {
+        String llString = "";
+
+        Node nodeAtual = this.head;
+        for (int i = 0; i < this.size; i++) {
+            llString += nodeAtual.value;
+            if (i != this.size-2)
+                llString += " -> ";
+        }
+        return llString;
+    }
+
+    public int getValue(int indice) {
+        return getNodeIndice(indice).value;
+    }
+
+    private Node getNodePorIndice(int indice) {
+        Node node = this.head;
+        for (int i = 0; i < indice; i++)
+            node = node.next;
+
+        return node;
+    }
+
+    private int getPrimeiraOcorrencia(int value) {
+        Node node = this.head;
+        for (int i = 0; i < this.size; i++) {
+            if (node.value == value)
+                return i;
+
+            node = node.next;
+        }
+        return -1;
+    }
+
+    public boolean contains(int value) {
+        Node node = this.head;
+        for (int i = 0; i < this.size; i++)
+            if (node.value == value)
+                return true;
+        
+        return false;
+    }
+
+    public static class Node {
+        int value;
+        Node next;
+
+        public Node(int value) {
+            this.value = value;
+            this.next = null;
+        }
     }
 
 }
