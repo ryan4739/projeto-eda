@@ -51,8 +51,8 @@ public class Queue<T> {
 	 */
 	public void addLast(T element) {
 		if (isFull() == true)
-			throw new IllegalStateException("Queue is full!");
-		updateTail();
+			throw new IllegalStateException("Fila cheia.");
+		this.tail = (this.tail + 1) % this.capacity;
 		this.queue[this.tail] = element;
 		this.size++;
 	}
