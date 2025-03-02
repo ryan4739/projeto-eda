@@ -109,15 +109,6 @@ public class Queue<T> {
 	}
 
 	/**
-	 * Atualiza o ponteiro de final da fila.
-	 */
-	private void updateTail() {
-		if (this.tail + 1 == this.queue.length)
-			this.tail = 0;
-		this.tail++;
-	}
-
-	/**
 	 * Verifica se a fila está vazia.
 	 *
 	 * @return Status de esvaziez (:D) da fila.
