@@ -19,14 +19,17 @@ sourceSets {
     main {
         java {
             srcDir 'src/main/arraylist/java'
-            srcDir 'src/main/queue/java'
+            srcDir 'src/main/deque/java'
             srcDir 'src/main/linkedlist/java'
+            srcDir 'src/main/queue/java'
         }
     }
     test {
         java {
-            srcDir 'src/test/queue/java'
+            srcDir 'src/test/arraylist/java'
+            srcDir 'src/test/deque/java'
             srcDir 'src/test/linkedlist/java'
+            srcDir 'src/test/queue/java'
         }
     }
 }

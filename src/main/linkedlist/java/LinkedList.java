@@ -75,20 +75,59 @@ public class LinkedList {
      * @param value o valor a ser adicionado
      * @param index a posição na qual ele será adicionado
      */
-    public void add(int value, int index) {
-        if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
-
+    public void add(int value, int index) {        
         if (index == 0)
             addFirst(value);
-        else if (index == this.size-1)
+        else if (index == this.size)
             addLast(value);
         else {
+            if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
+            
             Node newNode = new Node(value);
             Node prevNode = getNodeByIndex(index-1);
             
             newNode.next = prevNode.next;
             prevNode.next = newNode;
+            this.size++;
         }
+    }
+
+    /**
+     * Informa o valor do primeiro elemento da lista
+     * 
+     * @return o valor do primeiro elemento da lista
+     */
+    public int getFirst() {
+        return this.head.value;
+    }
+
+    /**
+     * Informa o valor do último elemento da lista
+     * 
+     * @return o último elemento da lista
+     */
+    public int getLast() {
+        return this.tail.value;
+    }
+
+    /**
+     * Pega o valor do node a partir de seu índice
+     * 
+     * @param index o índice do node
+     * @return o valor contido no node
+     */
+    public int get(int index) {
+        if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
+        
+        int value;
+        if (index == 0)
+            value = getFirst();
+        else if (index == this.size-1)
+            value = getLast();
+        else
+            value = getNodeByIndex(index).value;
+            
+        return value;
     }
 
     /**
@@ -104,17 +143,6 @@ public class LinkedList {
         node.value = value;
     }
 
-    /**
-     * Pega o valor do node a partir de seu índice
-     * 
-     * @param index o índice do node
-     * @return o valor contido no node
-     */
-    public int getValue(int index) {
-        if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
-        return getNodeByIndex(index).value;
-    }
-    
     /**
      * Remove o primeiro elemento da lista
      */
@@ -160,7 +188,7 @@ public class LinkedList {
         else if (index == this.size-1)
             removeLast();
         else {
-            Node prevNode = getNodeByIndex(index);
+            Node prevNode = getNodeByIndex(index-1);
             prevNode.next = prevNode.next.next;
 
             this.size--;
@@ -172,20 +200,23 @@ public class LinkedList {
      * 
      * @param value o valor a ser removido
      */
-    public void removeByValue(int value) {
-        if (!contains(value)) throw new NoSuchElementException("Valor não está contido");
-        
-        int index = getFirstOccurrence(value);
-        removeByIndex(index);
+    public boolean removeByValue(int value) {        
+        int index = indexOf(value);
+
+        if (index != -1) {
+            removeByIndex(index);
+            return true;
+        }
+        return false;
     }   
     
     /**
      * Informa o índice da primeira ocorrência de um valor. Se não estiver presente na lista, retornará -1
      * 
      * @param value o valor a ser encontrado
-     * @return o índice, caso o valor esteja na lista, -1 caso não.
+     * @return o índice da primeira ocorrência do valor, caso esteja na lista, -1 caso não.
      */
-    private int getFirstOccurrence(int value) {
+    public int indexOf(int value) {
         if (isEmpty()) throw new NoSuchElementException("Elemento não existe");
 
         Node node = this.head;
@@ -196,6 +227,27 @@ public class LinkedList {
             node = node.next;
         }
         return -1;
+    }
+
+    /**
+     * Informa o índice da última ocorrência de um valor. Se não estiver presente na lista, retornará -1
+     * 
+     * @param value o valor buscado
+     * @return o índice da última ocorrência do valor, caso esteja na lista, -1 caso não
+     */
+    public int lastIndexOf(int value) {
+        if (isEmpty()) throw new NoSuchElementException("Elemento não existe");
+        
+        int index = -1;
+        
+        Node node = this.head;
+        for (int i = 0; i < this.size; i++) {
+            if (node.value == value)
+                index = i;
+            
+            node = node.next;
+        }
+        return index;
     }
 
     /**
@@ -230,28 +282,23 @@ public class LinkedList {
      * @return true caso o valor esteja contido, false caso não
      */
     public boolean contains(int value) {
-        Node node = this.head;
-        for (int i = 0; i < this.size; i++)
-        if (node.value == value)
-        return true;
-        
-        return false;
+       return indexOf(value) != -1;
     }
 
     /**
      * Representação textual da lista no formato "a -> b -> c [...]"
      */
     public String toString() {
+        if (isEmpty()) return "";
+
+        Node currNode = this.head;
         String llString = "";
-    
-        Node nodeAtual = this.head;
-        for (int i = 0; i < this.size; i++) {
-            llString += nodeAtual.value;
-            if (i != this.size-2)
-                llString += " -> ";
+        while (currNode != null) {
+            llString += currNode.value + " -> ";
+            currNode = currNode.next;
         }
-        return llString;
-    }
+        return llString.substring(0, llString.length() - 4);
+        }
     
     /**
      * Representação de um Nó da lista
