@@ -44,7 +44,7 @@ public class Queue<T> {
 	 * @param element Elemento à ser inserido na fila.
 	 * @return Status de sucesso da operação.
 	 */
-	public void insertElement(T element) {
+	public void addLast(T element) {
 		if (isFull() == true)
 			throw new IllegalStateException("Queue is full!");
 		updateTail();
@@ -52,16 +52,32 @@ public class Queue<T> {
 		this.size++;
 	}
 
+	public void addFirst(T element) {
+		//TODO
+	}
+
+	public void add(T element, int index) {
+		//TODO
+	}
+
 	/**
 	 * Remove e retorna elemento da fila.
 	 *
 	 * @return Elemento removido.
 	 */
-	public T removeElement() {
+	public T removeFirst() {
 		if (isEmpty() == true)
 			throw new IllegalStateException("Queue is empty!");
 		updateHead();	
 		return this.queue[this.head - 1];
+	}
+
+	public T removeLast() {
+		//TODO
+	}
+
+	public T remove(int index) {
+		//TODO
 	}
 
 	/**
@@ -72,12 +88,8 @@ public class Queue<T> {
 	 * @return Índice do elemento ou indicação de que o elemento não foi
 	 * encontrado.
 	 */
-	public int searchElement(T element) {
-		for (int i = 0; i < this.queue.length; i++) {
-			if (this.queue[i].equals(element))
-				return i;
-		}
-		return -1;
+	public int indexOf(T element) {
+		//TODO
 	}
 
 	/**
