@@ -2,13 +2,13 @@
 
 ## Resumo da proposta
 
-Comparar a eficiência das estruturas de dados lineares Array, ArrayList, LinkedList, Stack, Queue e Deque nas linguagens de programação Python, Java e C++ nos sistemas operacionais Windows 11, Fedora 41 e Ubuntu 24.04. A comparação será referente à eficiência de tempo, eficiência de memória e limites de tamanhos de entrada de cada algoritmo executando funções de inserção, remoção e busca.
+Comparar a eficiência das estruturas de dados lineares Array, ArrayList, LinkedList, Stack, Queue e Deque nas linguagens de programação Python, Java e C++. A comparação será referente à eficiência de tempo, eficiência de memória e limites de tamanhos de entrada de cada algoritmo executando funções de inserção, remoção e busca.
 
 ## Desenvolvimento da proposta
 
 ### Ideia do projeto
 
-A ideia do projeto é a) implementar os algoritmos referentes às estruturas de dados Array, ArrayList, LinkedList, Stack, Queue e Deque nas linguagens de programação Python, Java e C++. Em seguida, b) executar funções de inserção, remoção e busca nos algoritmos implementados, medindo a eficiência de tempo, eficiência de memória e limites de tamanhos de entrada. A partir daí, elaborar um c) relatório com os resultados obtidos e explicações a respeito.
+A ideia do projeto é a) implementar os algoritmos referentes às estruturas de dados ArrayList, LinkedList, Stack, Queue e Deque nas linguagens de programação Python, Java e C++. Em seguida, b) executar funções de inserção, remoção e busca nos algoritmos implementados, medindo a eficiência de tempo e eficiência de memória. A partir daí, elaborar um c) relatório com os resultados obtidos e explicações a respeito.
 
 ### Motivação
 
@@ -30,11 +30,11 @@ Nesta etapa, implementamos as estruturas de dados escolhidas e já estudadas nas
 
 ### Etapa 3: gerar os dados de entrada, de saída e plotar gráficos
 
-Nesta etapa, geramos os dados de entrada que alimentarão os algoritmos, a partir de Shell ou formas alternativas, iniciando com entradas pequenas e aumentando exponencialmente até o limite de cada algoritmo.
+Nesta etapa, geramos os dados de entrada que alimentarão os algoritmos, a partir de Shell ou formas alternativas, a fim de testar inserções, remoções e buscas nas estruturas com tamanhos variados.
 
-A partir desses dados de entrada, executaremos os algoritmos e colheremos os dados de saída, em forma de a) monitoramento dos tempos de execução com algoritmos nas próprias linguagens, b) monitoramento da memória usada para execução, por meio de perfilamento de memória e c) observação das capacidades de volumes de entrada.
+A partir desses dados de entrada, executaremos os algoritmos e colheremos os dados de saída, em forma de a) monitoramento dos tempos de execução com algoritmos nas próprias linguagens e b) monitoramento da memória usada para execução, por meio de perfilamento de memória.
 
-Por fim, com os dados relativos às saídas em mãos, geramos os gráficos comparativos sobre consumo de memória, de tempo e capacidades de volumes de entrada.
+Por fim, com os dados relativos às saídas em mãos, geramos os gráficos comparativos sobre tempo de execução e consumo de memória.
 
 ### Etapa 4: fazer relatório
 
