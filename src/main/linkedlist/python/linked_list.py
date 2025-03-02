@@ -1,126 +1,192 @@
-class node:
-    def __init__(self, valor=None):
-        self.valor = valor
-        self.next = None
-
 class linked_list:
     def __init__(self):
-        self.head = node()
+        self.head = None
+        self.tail = None
+        self.size = 0
 
 
-    def adiciona_no_inicio(self, valor):
-        novo_node = node(valor, self.head)
-        self.head = novo_node
+    def is_empty(self):
+        return self.size == 0
 
 
-    def adiciona_no_indice(self, valor, indice):
-        if indice == 0:
-            self.adiciona_no_inicio(valor)
-            return
+    def add_first(self, value):
+        new_node = node(value, self.head)
         
-        node_atual = self.head
-        posicao = 0
-        while node_atual != None and posicao + 1 != indice:
-            posicao += 1
-            node_atual = node_atual.next
-
-        if node_atual != None:
-            novo_node = node(valor)
-            novo_node.next = node_atual.next
-            node_atual.next = novo_node
+        if self.size == 0:
+            self.head = new_node
+            self.tail = new_node
         else:
-            print("Índice não existe!")
-
-
-    def adiciona_no_final(self, valor):
-        novo_node = node(valor)
-
-        no_atual = self.head
-        while no_atual.next != None:
-            no_atual = no_atual.next
+            new_node.next = self.head
+            self.head = new_node
         
-        no_atual.next = novo_node
+        self.size += 1
 
-    def altera_node(self, valor, indice):
-        node_atual = self.head
-        posicao = 0
-        if posicao == indice:
-            node_atual.valor = valor
+
+    def add_last(self, value):
+        new_node = node(value)
+
+        if self.size == 0:
+            self.head = new_node
+            self.tail = new_node
         else:
-            while node_atual != None and posicao != indice:
-                posicao += 1
-                node_atual = node_atual.next
-
-            if node_atual != None:
-                node_atual.valor = valor
-            else:
-                print("Índice não existe!")
-            
-
-    def remove_primeiro_node(self):
-        if self.head == None:
-            return
+            self.tail.next = new_node
+            self.tail = new_node
         
-        self.head = self.head.next
+        self.size += 1
 
-    def remove_node_indice(self, indice):
-        if self.head == None:
-            return
         
-        node_atual = self.head
-        posicao = 0
 
-        if indice == 0:
-            self.remove_primeiro_node()
+
+    def add(self, value, index):
+        if index == 0:
+            self.add_first(value)
+        elif (index == self.size)
+            self.add_last(value)
         else:
-            while node_atual != None and posicao < indice - 1:
-                posicao += 1
-                node_atual = node_atual.next
-            
-            if node_atual is None or node_atual.next is None:
-                print("Índice não existe!")
-            else:
-                node_atual.next = node_atual.next.next 
+            if index < 0 or index > self.size-1: raise IndexError("Índice inválido")
 
+            new_node = node(value)
+            prev_node = self.__get_node_by_index(index-1)
 
-    def remove_ultimo_node(self):
-        if self.head.next == None:  
-            return
-        
-        node_atual = self.head
-        while node_atual != None and node_atual.next.next != None:
-            node_atual = node_atual.next
-        
-        node_atual.next = None
+            new_node.next = prev_node.next
+            prev_node.next = new_node
+
+            self.size += 1
 
     
-    def remove_node(self, valor):
-        node_atual = self.head
+    def get_first(self):
+        return self.head.value
 
-        if node_atual.valor == valor:
-            self.remove_primeiro_node()
-            return
+
+    def get_last(self):
+        return self.tail.value
+
+
+    def get(self, index):
+        if index < 0 or index > self.size-1: raise IndexError("Índice inválido")
+
+        if index == 0:
+            return self.get_first()
+        elif index == self.size-1:
+            return self.get_last()
         
-        while node_atual != None and node_atual.next.valor != valor:
-            node_atual = node_atual.next
+        return self.__get_node_by_index(index).value
 
-        if node_atual is None:
-            return
+
+    def update_node(self, value, index):
+        if index < 0 or index > self.size-1: raise IndexError("Índice inválido")
+
+        node = self.__get_node_by_index(index)
+        node.value = value
+
+
+    def remove_first(self):
+        if self.is_empty(): raise Exception("Lista vazia")
+        
+        if self.size == 1:
+            self.head = None
+            self.tail = None
         else:
-            node_atual.next = node_atual.next.next
+            self.head = self.head.next
+
+        self.size -= 1
+
+
+    def remove_last(self):
+        if self.is_empty(): raise Exception("Lista vazia")
         
+        if self.size == 1:
+            self.head = None
+            self.tail = None
+        else:
+            prev_node = self.__get_node_by_index(self.size-2)
+            prev_node.next = None
+            self.tail = prev_node
+        
+        self.size -= 1
+    
 
-    def tamanho_linked_list(self):
-        size = 0
-        node_atual = self.head
-        while node_atual:
-            tamanho += 1
-            node_atual = node_atual.next
-        return size
+    def remove_by_index(self, index):
+        if index < 0 or index > self.size-1: raise IndexError("Índice inválido")
+
+        if index == 0:
+            self.remove_first()
+        elif index == self.size-1:
+            self.remove_last()
+        else:
+            prev_node= self.__get_node_by_index(index-1)
+            prev_node.next = prev_node.next.next
+
+            self.size -= 1
 
 
-    def imprime_linked_list(self):
-        node_atual = self.head
-        while node_atual:
-            print(node_atual.valor)
-            node_atual = node_atual.next
+    def remove_by_value(self, value):
+        index = self.index_of(value)
+
+        if index != -1:
+            self.remove_by_index(index)    
+
+
+    def index_of(self, value):
+        if self.is_empty(): raise Exception("Lista vazia")
+
+        node = self.head
+        for i in range(self.size):
+            if node.value == value:
+                return i
+        
+            node = node.next
+        
+        return -1
+
+
+    def last_index_of(self, value):
+        if self.is_empty(): return
+
+        index = -1
+
+        node = self.head
+        for i in range(self.size):
+            if node.value == value:
+                index = i
+            
+            node = node.next
+        
+        return index
+
+
+    def __get_node_by_index(self, index):
+        if index < 0 or index > self.size-1: return
+
+        node = self.head
+        for i in range(index):
+            node = node.next
+        
+        return node
+
+
+    def size_ll(self):
+        return self.size
+
+
+    def contains(self, value):
+        return self.index_of(value) != -1
+
+
+    def toString(self):
+        llString = ""   
+        node = self.head
+        for i in range(self.size):
+            llString += node.value
+            if node.next != None:
+                llString += " -> "
+            
+            node = node.next
+        
+        return llString
+    
+
+class node:
+    def __init__(self, value=None):
+        self.value = value
+        self.next = None
