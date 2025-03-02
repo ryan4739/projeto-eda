@@ -123,9 +123,7 @@ public class Queue<T> {
 	 * @return Status de esvaziez (:D) da fila.
 	 */
 	private boolean isEmpty() {
-		if (this.head == this.tail)
-			return true;
-		return false;
+		return this.head == -1 && this.tail == -1;
 	}
 
 	/**
