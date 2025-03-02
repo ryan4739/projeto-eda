@@ -119,15 +119,12 @@ public class LinkedList {
     public int get(int index) {
         if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
         
-        int value;
         if (index == 0)
-            value = getFirst();
+            return getFirst();
         else if (index == this.size-1)
-            value = getLast();
-        else
-            value = getNodeByIndex(index).value;
-            
-        return value;
+            return getLast();
+        
+        return getNodeByIndex(index).value;
     }
 
     /**
@@ -200,14 +197,11 @@ public class LinkedList {
      * 
      * @param value o valor a ser removido
      */
-    public boolean removeByValue(int value) {        
+    public void removeByValue(int value) {        
         int index = indexOf(value);
 
-        if (index != -1) {
+        if (index != -1) 
             removeByIndex(index);
-            return true;
-        }
-        return false;
     }   
     
     /**
@@ -237,7 +231,7 @@ public class LinkedList {
      */
     public int lastIndexOf(int value) {
         if (isEmpty()) throw new NoSuchElementException("Elemento não existe");
-        
+
         int index = -1;
         
         Node node = this.head;
@@ -261,7 +255,7 @@ public class LinkedList {
 
         Node node = this.head;
         for (int i = 0; i < index; i++)
-        node = node.next;
+            node = node.next;
         
         return node;
     }
@@ -298,7 +292,7 @@ public class LinkedList {
             currNode = currNode.next;
         }
         return llString.substring(0, llString.length() - 4);
-        }
+    }
     
     /**
      * Representação de um Nó da lista
