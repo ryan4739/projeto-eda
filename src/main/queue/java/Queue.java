@@ -9,13 +9,9 @@ package queue;
 public class Queue<T> {
 
 	/**
-	 * Fila em si.
+	 * Array de elementos do tipo genérico que representa a fila.
 	 */
 	private T[] queue;
-	/**
-	 * Tamanho da fila.
-	 */
-	private int size;
 	/**
 	 * Ponteiro para o início da fila.
 	 */
@@ -24,6 +20,14 @@ public class Queue<T> {
 	 * Ponteiro para o final da fila.
 	 */
 	private int tail;
+	/**
+	 * Capacidade da fila.
+	 */
+	private int capacity;
+	/**
+	 * Tamanho da fila.
+	 */
+	private int size;
 
 	/**
 	 * O construtor da classe de fila.
@@ -33,9 +37,10 @@ public class Queue<T> {
 	 */
 	public Queue(int capacity) {
 		this.queue = (T[]) new Object[capacity];
-		this.size = 0;
 		this.head = -1;
 		this.tail = -1;
+		this.capacity = capacity;
+		this.size = 0;
 	}
 
 	/**
