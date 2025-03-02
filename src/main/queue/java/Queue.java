@@ -71,10 +71,16 @@ public class Queue<T> {
 	 * @return Elemento removido.
 	 */
 	public T removeFirst() {
-		if (isEmpty() == true)
-			throw new IllegalStateException("Queue is empty!");
-		updateHead();	
-		return this.queue[this.head - 1];
+		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
+		int element = this.queue[this.head];
+		this.size--;
+		if (this.head == this.tail) {
+			this.head = -1;
+			this.tail = -1;
+		} else {
+			this.head = (this.head + 1) % this.capacity;
+		}
+		return element;
 	}
 
 	public T removeLast() {
