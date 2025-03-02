@@ -39,7 +39,7 @@ public class Queue<T> {
 	}
 
 	/**
-	 * Insere elemento na fila.
+	 * Insere elemento no final da fila.
 	 *
 	 * @param element Elemento à ser inserido na fila.
 	 * @return Status de sucesso da operação.
