@@ -91,6 +91,18 @@ public class Queue<T> {
 		//TODO
 	}
 
+	public T getFirst() {
+		//TODO
+	}
+
+	public T getLast() {
+		//TODO
+	}
+
+	public T get() {
+		//TODO
+	}
+
 	/**
 	 * Busca elemento na fila e retorna o primeiro índice do elemento, caso
 	 * encontrado, ou -1, caso não encontrado.
@@ -108,6 +120,10 @@ public class Queue<T> {
 			this.addLast(value);
 		}
 		return index;
+	}
+
+	public int lastIndexOf(T element) {
+		//TODO
 	}
 
 	/**
