@@ -47,18 +47,25 @@ public class Queue<T> {
 	 * Insere elemento no final da fila.
 	 *
 	 * @param element Elemento à ser inserido na fila.
-	 * @return Status de sucesso da operação.
 	 */
 	public void addLast(T element) {
-		if (isFull() == true)
-			throw new IllegalStateException("Fila cheia.");
+		if (isFull()) throw new IllegalStateException("Fila cheia.");
 		this.tail = (this.tail + 1) % this.capacity;
 		this.queue[this.tail] = element;
 		this.size++;
 	}
 
+	/**
+	 * Insere elemento no começo da fila.
+	 *
+	 * @param element Elemento à ser inserido na fila.
+	 */
 	public void addFirst(T element) {
-		//TODO
+		if (isFull()) throw new IllegalStateException("Fila cheia.");
+		addLast(element);
+		for (int i = 0; i < this.size; i++)
+			addLast(removeFirst());
+		this.size++;
 	}
 
 	public void add(T element, int index) {
