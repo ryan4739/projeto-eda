@@ -134,11 +134,7 @@ public class Queue<T> {
 	 * @return Status de cheiez (:D) da fila.
 	 */
 	private boolean isFull() {
-		if (this.tail + 1 == this.head)
-			return true;
-		if ((this.tail + 1 == this.queue.length) && (this.head == 0))
-			return true;
-		return false;
+		return (this.tail + 1) % this.capacity == this.head;
 	}
 
 }
