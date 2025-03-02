@@ -2,7 +2,7 @@
 
 ## Resumo da proposta
 
-Comparar a eficiência das estruturas de dados lineares Array, ArrayList, LinkedList, Stack, Queue e Deque nas linguagens de programação Python, Java e C++ nos sistemas operacionais Windows 11, Fedora 41 e Ubuntu 24.04. A comparação será referente à eficiência de tempo, eficiência de memória e limites de tamanhos de entrada de cada algoritmo executando funções de inserção, remoção e busca.
+Comparar a eficiência das estruturas de dados lineares Array, ArrayList, LinkedList, Stack, Queue e Deque nas linguagens de programação Python, Java e C++. A comparação será referente à eficiência de tempo, eficiência de memória e limites de tamanhos de entrada de cada algoritmo executando funções de inserção, remoção e busca.
 
 ## Desenvolvimento da proposta
 
