@@ -100,15 +100,6 @@ public class Queue<T> {
 	}
 
 	/**
-	 * Atualiza o ponteiro de início da fila.
-	 */
-	private void updateHead() {
-		if (this.head + 1 == this.queue.length)
-			this.head = 0;
-		this.head++;
-	}
-
-	/**
 	 * Verifica se a fila está vazia.
 	 *
 	 * @return Status de esvaziez (:D) da fila.
