@@ -208,7 +208,7 @@ public class LinkedList {
      * Informa o índice da primeira ocorrência de um valor. Se não estiver presente na lista, retornará -1
      * 
      * @param value o valor a ser encontrado
-     * @return o índice da primeira ocorrência do valor, caso esteja na lista, -1 caso não.
+     * @return o índice da primeira ocorrência do valor, caso esteja na lista, -1 caso não
      */
     public int indexOf(int value) {
         if (isEmpty()) throw new NoSuchElementException("Elemento não existe");
