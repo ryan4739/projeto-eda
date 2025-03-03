@@ -68,8 +68,25 @@ public class Queue<T> {
 		this.size++;
 	}
 
+	/**
+	 * Insere elemento na posição indicada da fila.
+	 *
+	 * @param element Elemento à ser inserido na fila.
+	 */
 	public void add(T element, int index) {
-		//TODO
+		if (isFull()) throw new IllegalStateException("Fila cheia.");
+		if (index == 0) addFirst(element);
+		else if (index == this.size - 1) addLast(element);
+		else {
+			Queue<T> aux = new Queue<>(this.capacity);
+			for (int i = 0; i < index; i++)
+				aux.addLast(this.removeFirst());
+			aux.addLast(element);
+			for (int i = 0; i < this.size; i++)
+				aux.addLast(this.removeFirst());
+			for (int i = 0; i < aux.size(); i++)
+				this.addLast(aux.removeFirst());
+		}
 	}
 
 	/**
@@ -79,7 +96,7 @@ public class Queue<T> {
 	 */
 	public T removeFirst() {
 		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
-		int element = this.queue[this.head];
+		T element = this.queue[this.head];
 		this.size--;
 		if (this.head == this.tail) {
 			this.head = -1;
@@ -121,7 +138,7 @@ public class Queue<T> {
 	public int indexOf(T element) {
 		int index = -1;
 		for (int i = 0; i < this.size; i++) {
-			int value = this.removeFirst();
+			T value = this.removeFirst();
 			if (index == -1 && value == element)
 				index = i;
 			this.addLast(value);
@@ -131,6 +148,15 @@ public class Queue<T> {
 
 	public int lastIndexOf(T element) {
 		//TODO
+	}
+
+	/**
+	 * Retorna o tamanho da fila.
+	 *
+	 * @return Tamanho da fila.
+	 */
+	public int size() {
+		return this.size;
 	}
 
 	/**
