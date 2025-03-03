@@ -91,7 +91,7 @@ public class Queue<T> {
 	}
 
 	/**
-	 * Remove e retorna elemento da fila.
+	 * Remove e retorna o primeiro elemento da fila.
 	 *
 	 * @return Elemento removido.
 	 */
@@ -108,9 +108,20 @@ public class Queue<T> {
 		return element;
 	}
 
+	/**
+	 * Remove e retorna o último elemento da fila.
+	 */
 	public T removeLast() {
-		//TODO
-		return null;
+		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
+		T element = this.queue[this.tail];
+		this.size--;
+		if (this.head == this.tail) {
+			this.head = -1;
+			this.tail = -1;
+		} else {
+			this.tail = (this.tail - 1 + this.capacity) % this.capacity;
+		}
+		return element;
 	}
 
 	public T remove(int index) {
