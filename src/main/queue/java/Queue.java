@@ -118,11 +118,21 @@ public class Queue<T> {
 		return null;
 	}
 
+	/**
+	 * Retorna o primeiro elemento da fila.
+	 *
+	 * @return Primeiro elemento da fila.
+	 */
 	public T getFirst() {
 		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
 		return this.queue[this.head];
 	}
 
+	/**
+	 * Retorna o último elemento da fila.
+	 *
+	 * @return Último elemento da fila.
+	 */
 	public T getLast() {
 		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
 		return this.queue[this.tail];
