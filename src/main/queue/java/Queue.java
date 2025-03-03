@@ -76,8 +76,10 @@ public class Queue<T> {
 	 */
 	public void add(T element, int index) {
 		if (isFull()) throw new IllegalStateException("Fila cheia.");
+		if (index < 0 || index >= this.size)
+			throw new IndexOutOfBoundsException("Índice inválido.");
 		if (index == 0) addFirst(element);
-		else if (index == this.size - 1) addLast(element);
+		else if (index == this.size) addLast(element);
 		else {
 			Queue<T> aux = new Queue<>(this.capacity);
 			for (int i = 0; i < index; i++)
@@ -132,9 +134,9 @@ public class Queue<T> {
 	 * @return Elemento removido.
 	 */
 	public T remove(int index) {
-		if (isEmpty() throw new IllegalStateException("Fila vazia."));
+		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
 		if (index < 0 || index >= this.size)
-			throw new IndexOutOfBoundException("Índice inválido.");
+			throw new IndexOutOfBoundsException("Índice inválido.");
 		if (index == 0) return removeFirst();
 		if (index == this.size - 1) return removeLast();
 
@@ -174,10 +176,10 @@ public class Queue<T> {
 	 *
 	 * @return Elemento do índice indicado da fila.
 	 */
-	public T get() {
+	public T get(int index) {
 		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
 		if (index < 0 || index >= this.size)
-			throw new IndexOutOfBoundException("Índice inválido.");
+			throw new IndexOutOfBoundsException("Índice inválido.");
 		
 		Queue<T> aux = new Queue<>(this.capacity);
 		for (int i = 0; i < index; i++)
