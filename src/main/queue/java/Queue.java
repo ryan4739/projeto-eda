@@ -110,6 +110,8 @@ public class Queue<T> {
 
 	/**
 	 * Remove e retorna o último elemento da fila.
+	 *
+	 * @return Elemento removido.
 	 */
 	public T removeLast() {
 		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
@@ -124,9 +126,27 @@ public class Queue<T> {
 		return element;
 	}
 
+	/**
+	 * Remove e retorna o elemento do índice indicado.
+	 *
+	 * @return Elemento removido.
+	 */
 	public T remove(int index) {
-		//TODO
-		return null;
+		if (isEmpty() throw new IllegalStateException("Fila vazia."));
+		if (index < 0 || index >= this.size)
+			throw new IndexOutOfBoundException("Índice inválido.");
+		if (index == 0) return removeFirst();
+		if (index == this.size - 1) return removeLast();
+
+		Queue<T> aux = new Queue<>(this.capacity);
+		for (int i = 0; i < index; i++)
+			aux.addLast(this.removeFirst());
+		T element = this.removeFirst();
+		while (!this.isEmpty())
+			aux.addLast(this.removeFirst());
+		while (!aux.isEmpty())
+			this.addLast(aux.removeFirst());
+		return element;
 	}
 
 	/**
