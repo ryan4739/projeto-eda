@@ -1,13 +1,17 @@
 class Queue:
 
     def __init__(self, capacity):
-        #TODO
+        self.capacity = capacity
+        self.queue = [None] * capacity
+        self.head = -1
+        self.tail = -1
+        self.size = 0
 
     def is_empty(self):
-        #TODO
+        return self.head == - 1 and self.tail == -1
 
     def is_full(self):
-        #TODO
+        return (self.tail + 1) % self.capacity == self.head
 
     def add_last(self, element):
         #TODO
