@@ -109,22 +109,27 @@ public class Queue<T> {
 
 	public T removeLast() {
 		//TODO
+		return null;
 	}
 
 	public T remove(int index) {
 		//TODO
+		return null;
 	}
 
 	public T getFirst() {
 		//TODO
+		return null;
 	}
 
 	public T getLast() {
 		//TODO
+		return null;
 	}
 
 	public T get() {
 		//TODO
+		return null;
 	}
 
 	/**
@@ -148,6 +153,7 @@ public class Queue<T> {
 
 	public int lastIndexOf(T element) {
 		//TODO
+		return -1;
 	}
 
 	/**
