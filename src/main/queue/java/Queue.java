@@ -169,9 +169,25 @@ public class Queue<T> {
 		return this.queue[this.tail];
 	}
 
+	/**
+	 * Retorna o elemento do índice indicado da fila.
+	 *
+	 * @return Elemento do índice indicado da fila.
+	 */
 	public T get() {
-		//TODO
-		return null;
+		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
+		if (index < 0 || index >= this.size)
+			throw new IndexOutOfBoundException("Índice inválido.");
+		
+		Queue<T> aux = new Queue<>(this.capacity);
+		for (int i = 0; i < index; i++)
+			aux.addLast(this.removeFirst());
+		T element = this.queue[this.head];
+		while (!this.isEmpty())
+			aux.addLast(this.removeFirst());
+		while (!aux.isEmpty())
+			this.addLast(aux.removeFirst());
+		return element;
 	}
 
 	/**
