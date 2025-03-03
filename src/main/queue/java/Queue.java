@@ -50,6 +50,7 @@ public class Queue<T> {
 	 */
 	public void addLast(T element) {
 		if (isFull()) throw new IllegalStateException("Fila cheia.");
+		if (isEmpty()) this.head = 0;
 		this.tail = (this.tail + 1) % this.capacity;
 		this.queue[this.tail] = element;
 		this.size++;
@@ -118,13 +119,13 @@ public class Queue<T> {
 	}
 
 	public T getFirst() {
-		//TODO
-		return null;
+		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
+		return this.queue[this.head];
 	}
 
 	public T getLast() {
-		//TODO
-		return null;
+		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
+		return this.queue[this.tail];
 	}
 
 	public T get() {
