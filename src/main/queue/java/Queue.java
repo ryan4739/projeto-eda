@@ -191,27 +191,41 @@ public class Queue<T> {
 	}
 
 	/**
-	 * Busca elemento na fila e retorna o primeiro índice do elemento, caso
-	 * encontrado, ou -1, caso não encontrado.
+	 * Busca elemento indicado na fila e retorna o primeiro índice do elemento, 
+	 * caso encontrado, ou -1, caso não encontrado.
 	 *
 	 * @param element Elemento a ser buscado.
 	 * @return Índice do elemento ou indicação de que o elemento não foi
 	 * encontrado.
 	 */
-	public int indexOf(T element) {
+	public int indexOf(T element_to_find) {
 		int index = -1;
 		for (int i = 0; i < this.size; i++) {
-			T value = this.removeFirst();
-			if (index == -1 && value == element)
+			T element = this.removeFirst();
+			if (index == -1 && element == element_to_find)
 				index = i;
-			this.addLast(value);
+			this.addLast(element);
 		}
 		return index;
 	}
 
-	public int lastIndexOf(T element) {
-		//TODO
-		return -1;
+	/**
+	 * Busca o elemento indicado na fila e retorna a última ocorrênia do elemento,
+	 * caso encontrado, ou -1, caso não encontrado.
+	 *
+	 * @param element Elemento a ser buscado.
+	 * @return Índice do elemento ou indicação de que o elemento não foi
+	 * encontrado.
+	 */
+	public int lastIndexOf(T element_to_find) {
+		int index = -1;
+		for (int i = 0; i < this.size; i++) {
+			T element = this.removeFirst();
+			if (element == element_to_find)
+				index = i;
+			this.addLast(element);
+		}
+		return index;
 	}
 
 	/**
