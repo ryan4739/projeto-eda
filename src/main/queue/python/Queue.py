@@ -1,6 +1,12 @@
 class Queue:
 
     def __init__(self, capacity):
+        """
+        Representação de uma fila.
+
+        Args:
+            capacity (int): a capacidade da fila.
+        """
         self.capacity = capacity
         self.queue = [None] * capacity
         self.head = -1
@@ -8,9 +14,21 @@ class Queue:
         self.size = 0
 
     def is_empty(self):
+        """
+        Verifica se a fila está vazia.
+
+        Returns:
+            boolean: true, caso a fila esteja vazia, e false, caso não esteja.
+        """
         return self.head == - 1 and self.tail == -1
 
     def is_full(self):
+        """
+        Verifica se a fila está cheia.
+
+        Returns:
+            boolean: true, caso a fila esteja cheia, e false, caso não esteja.
+        """
         return (self.tail + 1) % self.capacity == self.head
 
     def add_last(self, element):
