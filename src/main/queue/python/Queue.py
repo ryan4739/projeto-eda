@@ -32,7 +32,21 @@ class Queue:
         return (self.tail + 1) % self.capacity == self.head
 
     def add_last(self, element):
-        #TODO
+        """
+        Adiciona um elemento no final da fila.
+
+        Args:
+            element (T): elemento a ser adicionado.
+        """
+        is self.is_full():
+            raise Exception("Fila está cheia.")
+        if self.is_empty():
+            self.head = 0
+            self.tail = 0
+        else:
+            self.tail = (self.tail + 1) % self.capacity
+        self.queue[self.tail] = element
+        self.size += 1
 
     def add_first(self, element):
         #TODO
