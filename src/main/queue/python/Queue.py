@@ -38,8 +38,7 @@ class Queue:
         Args:
             element (Any): elemento a ser adicionado.
         """
-        if self.is_full():
-            raise Exception("Fila está cheia.")
+        if self.is_full(): raise Exception("Fila está cheia.")
         if self.is_empty():
             self.head = 0
             self.tail = 0
@@ -55,14 +54,32 @@ class Queue:
         Args:
             element (Any): elemento a ser adicionado.
         """
-        if self.is_full():
-            raise Exception("Fila está cheia.")
+        if self.is_full(): raise Exception("Fila está cheia.")
         self.add_last(element)
         for i in range(self.size):
             self.add_last(self.remove_first())
 
     def add(self, element, index):
-        #TODO
+        """
+        Adiciona um elemento na posição indicada da fila.
+
+        Args:
+            element (Any): elemento a ser adicionado.
+            index (int): posição para incluir o elemento.
+        """
+        if self.is_full(): raise Exception("Fila está cheia.")
+        if (index < 0 or index >= self.size): raise Exception("Índice inválido.")
+        if index == 0: add_first(element)
+        elif index == self.size: add_last(element)
+        else:
+            aux = Queue(self.capacity)
+            for _ in range(index):
+                aux.add_last(self.remove_first())
+            aux.add_last(element)
+            for _ in range(self.size):
+                aux.add_last(self.remove_first())
+            for _ in range(aux.size()):
+                self.add_last(aux.remove_first())
 
     def remove_first(self):
         #TODO
