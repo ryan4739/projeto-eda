@@ -94,7 +94,7 @@ public class LinkedListTest {
         try {
         	ll.contains(5);      
         } catch (Exception e) {
-            assertEquals(e.getMessage(),"Elemento não existe");
+            assertEquals(e.getMessage(),"Lista vazia");
         }
 
         ll.addLast(10);
@@ -284,7 +284,7 @@ public class LinkedListTest {
         try {
             ll.indexOf(10);
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Elemento não existe");
+            assertEquals(e.getMessage(), "Lista vazia");
         }
 
         ll.addLast(10);
@@ -303,7 +303,7 @@ public class LinkedListTest {
         try {
             ll.lastIndexOf(10);
         } catch (Exception e) {
-            assertEquals(e.getMessage(), "Elemento não existe");
+            assertEquals(e.getMessage(), "Lista vazia");
         }
 
         ll.addLast(10);
