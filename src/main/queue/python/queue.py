@@ -163,7 +163,19 @@ class queue:
         Returns:
             any: elemento do índice indicado da fila.
         """
-        #TODO
+        if index < 0 or index >= self.size: raise Exception("Índice inválido.")
+        if index == 0: return self.get_first()
+        elif index == self.size - 1: return self.get_last()
+        else:
+            aux = Queue(self.capacity)
+        for _ in range(index):
+                aux.add_last(self.remove_first())
+            element = self.get_first()
+            for _ in range(self.size):
+                aux.add_last(self.remove_first())
+            for _ in range(aux.size):
+                self.add_last(aux.remove_first())
+            return element
 
     def index_of(self, element):
         #TODO
