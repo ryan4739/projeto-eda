@@ -83,10 +83,10 @@ class queue:
 
     def remove_first(self):
         """
-        Remove o primeiro elemento da fila.
+        Remove e retorna o primeiro elemento da fila.
 
         Returns:
-            Any: elemento removido.
+            any: elemento removido.
         """
         if self.is_empty(): raise Exception("Fila está vazia.")
         element = self.queue[self.head]
@@ -99,7 +99,21 @@ class queue:
         return element
 
     def remove_last(self):
-        #TODO
+        """
+        Remove e retorna o último elemento da fila.
+
+        Returns:
+            any: elemento removido.
+        """
+        if self.is_empty(): raise Exception("Fila está vazia.")
+        element = self.queue[self.tail]
+        self.size -= 1
+        if self.head == self.tail:
+            self.head = -1
+            self.tail = -1
+        else:
+            self.tail = (self.tail - 1) % self.capacity
+        return element
 
     def remove(self, index):
         #TODO
