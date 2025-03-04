@@ -75,7 +75,7 @@ public class Queue<T> {
 	 */
 	public void add(T element, int index) {
 		if (isFull()) throw new IllegalStateException("Fila cheia.");
-		if (index < 0 || index >= this.size)
+		if (index < 0 || index > this.size)
 			throw new IndexOutOfBoundsException("Índice inválido.");
 		if (index == 0) addFirst(element);
 		else if (index == this.size) addLast(element);
@@ -84,9 +84,9 @@ public class Queue<T> {
 			for (int i = 0; i < index; i++)
 				aux.addLast(this.removeFirst());
 			aux.addLast(element);
-			for (int i = 0; i < this.size; i++)
+			while (!this.isEmpty())
 				aux.addLast(this.removeFirst());
-			for (int i = 0; i < aux.size(); i++)
+			while (!aux.isEmpty())
 				this.addLast(aux.removeFirst());
 		}
 	}
@@ -241,7 +241,7 @@ public class Queue<T> {
 	 *
 	 * @return Status de esvaziez (:D) da fila.
 	 */
-	private boolean isEmpty() {
+	public boolean isEmpty() {
 		return this.head == -1 && this.tail == -1;
 	}
 
@@ -250,7 +250,7 @@ public class Queue<T> {
 	 *
 	 * @return Status de cheiez (:D) da fila.
 	 */
-	private boolean isFull() {
+	public boolean isFull() {
 		return (this.tail + 1) % this.capacity == this.head;
 	}
 
