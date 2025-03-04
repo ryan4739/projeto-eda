@@ -7,133 +7,145 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 public class QueueTest {
-	
-	private Queue s1;
-	private Queue s2;
-	private Queue s3;
-
-	@BeforeEach
-	void prepareTest() {
-		s1 = new Queue(10);
-		s2 = new Queue(1);
-		s3 = new Queue(10);
-	}
 
 	@Test
-	void addLastWithSpace() {
-		assertDoesNotThrow(() -> s1.addLast(12));
-		assertEquals(12, s1.getLast());
-		s3.addLast(16);
-		assertDoesNotThrow(() -> s3.addLast(18));
-		assertEquals(18, s3.getLast());
-		assertDoesNotThrow(() -> s2.addLast(20));
-		assertEquals(20, s2.getLast());
-	} 
+    public void testQueueCreation() {
+        Queue<Integer> queue = new Queue<>(5);
+        assertTrue(queue.isEmpty());
+        assertEquals(0, queue.size());
+    }
 
-	@Test
-	void addLastWithoutSpace() {
-		s2.addLast(12);
-		assertThrows(IllegalStateException.class, () -> s2.addLast(22));
-		assertEquals(12, s2.getLast());
-	}
+    @Test
+    public void testAddLast() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addLast(3);
 
-	@Test
-	void addFirstWithSpace() {
-		s1.addFirst(10);
-		assertEquals(10, s1.getFirst());
-		s1.addFirst(20);
-		assertEquals(20, s1.getFirst());
-	}
+        assertFalse(queue.isEmpty());
+        assertEquals(3, queue.size());
+        assertEquals(1, queue.getFirst());
+        assertEquals(3, queue.getLast());
+    }
 
-	@Test
-	void addFirstWithoutSpace() {
-		s2.addFirst(10);
-		assertThrows(IllegalStateException.class, () -> s2.addFirst(20));
-	}
+    @Test
+    public void testAddFirst() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addFirst(0);
 
-	@Test
-	void addWithSpace() {
-		s1.addLast(10);
-		s1.addLast(20);
-		s1.add(15, 1);
-		assertEquals(15, s1.get(1));
-	}
+        assertEquals(3, queue.size());
+        assertEquals(0, queue.getFirst());
+        assertEquals(2, queue.getLast());
+    }
 
-	@Test
-	void addWithoutSpace() {
-		s2.addLast(10);
-		assertThrows(IllegalStateException.class, () -> s2.add(20, 1));
-	}
+    @Test
+    public void testAddAtIndex() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(3);
+        queue.add(2, 1);
 
-	@Test
-	void addInvalidIndex() {
-		assertThrows(IndexOutOfBoundsException.class, () -> s1.add(10, -1));
-		assertThrows(IndexOutOfBoundsException.class, () -> s1.add(10, 11));
-	}
+        assertEquals(3, queue.size());
+        assertEquals(1, queue.getFirst());
+        assertEquals(3, queue.getLast());
+        assertEquals(2, queue.get(1));
+    }
 
-	@Test
-	void removeFirstNotEmptyQueue() {
-		s1.addLast(10);
-		s1.addLast(20);
-		assertEquals(10, s1.removeFirst());
-		assertEquals(20, s1.getFirst());
-	}
+    @Test
+    public void testRemoveFirst() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addLast(3);
 
-	@Test
-	void removeFirstEmptyQueue() {
-		assertThrows(IllegalStateException.class, () -> s1.removeFirst());
-	}
+        assertEquals(1, queue.removeFirst());
+        assertEquals(2, queue.size());
+        assertEquals(2, queue.getFirst());
+    }
 
-	@Test
-	void removeLastNotEmptyQueue() {
-		s1.addLast(10);
-		s1.addLast(20);
-		assertEquals(20, s1.removeLast());
-		assertEquals(10, s1.getLast());
-	}
+    @Test
+    public void testRemoveLast() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addLast(3);
 
-	@Test
-	void removeLastEmptyQueue() {
-		assertThrows(IllegalStateException.class, () -> s1.removeLast());
-	}
+        assertEquals(3, queue.removeLast());
+        assertEquals(2, queue.size());
+        assertEquals(2, queue.getLast());
+    }
 
-	@Test
-	void removeNotEmptyQueue() {
-		s1.addLast(10);
-		s1.addLast(20);
-		s1.addLast(30);
-		assertEquals(20, s1.remove(1));
-		assertEquals(30, s1.get(1));
-	}
+    @Test
+    public void testRemoveAtIndex() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addLast(3);
 
-	@Test
-	void removeEmptyQueue() {
-		assertThrows(IllegalStateException.class, () -> s1.remove(0));
-	}
+        assertEquals(2, queue.remove(1));
+        assertEquals(2, queue.size());
+        assertEquals(1, queue.getFirst());
+        assertEquals(3, queue.getLast());
+    }
 
-	@Test
-	void removeInvalidIndex() {
-		s1.addLast(10);
-		s1.addLast(20);
-		assertThrows(IndexOutOfBoundsException.class, () -> s1.remove(-1));
-		assertThrows(IndexOutOfBoundsException.class, () -> s1.remove(10));
-	}
+    @Test
+    public void testIndexOf() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addLast(3);
 
-	@Test
-	void getFirstNotEmptyQueue() {
-		s1.addLast(10);
-		s1.addLast(20);
-    assertEquals(10, s1.getFirst());
-	}
+        assertEquals(1, queue.indexOf(2));
+        assertEquals(-1, queue.indexOf(4));
+    }
 
-	@Test
-	void getFirstEmptyQueue() {
-		assertThrows(IllegalStateException.class, () -> s1.getFirst());
-	}
+    @Test
+    public void testLastIndexOf() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addLast(2);
+        queue.addLast(3);
+
+        assertEquals(2, queue.lastIndexOf(2));
+        assertEquals(-1, queue.lastIndexOf(4));
+    }
+
+    @Test
+    public void testIsFull() {
+        Queue<Integer> queue = new Queue<>(3);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addLast(3);
+
+        assertTrue(queue.isFull());
+        assertThrows(IllegalStateException.class, () -> queue.addLast(4));
+    }
+
+    @Test
+    public void testIsEmpty() {
+        Queue<Integer> queue = new Queue<>(3);
+        assertTrue(queue.isEmpty());
+        queue.addLast(1);
+        assertFalse(queue.isEmpty());
+    }
+
+    @Test
+    public void testSize() {
+        Queue<Integer> queue = new Queue<>(5);
+        queue.addLast(1);
+        queue.addLast(2);
+        queue.addLast(3);
+
+        assertEquals(3, queue.size());
+        queue.removeFirst();
+        assertEquals(2, queue.size());
+    }
 
 }
