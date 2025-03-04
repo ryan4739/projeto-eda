@@ -106,14 +106,7 @@ class queue:
             any: elemento removido.
         """
         if self.is_empty(): raise Exception("Fila está vazia.")
-        element = self.queue[self.tail]
-        self.size -= 1
-        if self.head == self.tail:
-            self.head = -1
-            self.tail = -1
-        else:
-            self.tail = (self.tail - 1) % self.capacity
-        return element
+        #TODO
 
     def remove(self, index):
         """
@@ -152,12 +145,18 @@ class queue:
         Retorna o último elemento da fila.
 
         Returns:
-            Any: último elemento da fila.
+            any: último elemento da fila.
         """
         if self.is_empty(): raise Exception("Fila está vazia.")
-        return self.queue[self.tail]
+        #TODO
 
     def get(self, index):
+        """
+        Retorna o elemento do índice indicado da fila.
+
+        Returns:
+            any: elemento do índice indicado da fila.
+        """
         #TODO
 
     def index_of(self, element):
