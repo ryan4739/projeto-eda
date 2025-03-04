@@ -66,7 +66,6 @@ public class Queue<T> {
 		addLast(element);
 		for (int i = 0; i < this.size; i++)
 			addLast(removeFirst());
-		this.size++;
 	}
 
 	/**
