@@ -11,10 +11,6 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
-test {
-    useJUnitPlatform()
-}
-
 sourceSets {
     main {
         java {
@@ -22,6 +18,7 @@ sourceSets {
             srcDir 'src/main/deque/java'
             srcDir 'src/main/linkedlist/java'
             srcDir 'src/main/queue/java'
+            srcDir 'src/main/stack/java'
         }
     }
     test {
@@ -30,6 +27,12 @@ sourceSets {
             srcDir 'src/test/deque/java'
             srcDir 'src/test/linkedlist/java'
             srcDir 'src/test/queue/java'
+            srcDir 'src/test/stack/java'
         }
     }
 }
+
+test {
+    useJUnitPlatform()
+}
+
