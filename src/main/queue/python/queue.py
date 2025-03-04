@@ -150,7 +150,11 @@ class queue:
             any: último elemento da fila.
         """
         if self.is_empty(): raise Exception("Fila está vazia.")
-        #TODO
+        for _ in range(self.size - 1):
+            self.add_last(self.remove_first())
+        element = self.get_first()
+        self.add_last(self.remove_first())
+        return element
 
     def get(self, index):
         """
