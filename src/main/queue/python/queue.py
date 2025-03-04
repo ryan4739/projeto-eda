@@ -56,7 +56,7 @@ class Queue:
         """
         if self.is_full(): raise Exception("Fila está cheia.")
         self.add_last(element)
-        for i in range(self.size):
+        for i in range(self.size - 1):
             self.add_last(self.remove_first())
 
     def add(self, element, index):
@@ -78,7 +78,7 @@ class Queue:
             aux.add_last(element)
             for _ in range(self.size):
                 aux.add_last(self.remove_first())
-            for _ in range(aux.size()):
+            for _ in range(aux.size):
                 self.add_last(aux.remove_first())
 
     def remove_first(self):
