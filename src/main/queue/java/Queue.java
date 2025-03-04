@@ -116,15 +116,9 @@ public class Queue<T> {
 	 */
 	public T removeLast() {
 		if (isEmpty()) throw new IllegalStateException("Fila vazia.");
-		T element = this.queue[this.tail];
-		this.size--;
-		if (this.head == this.tail) {
-			this.head = -1;
-			this.tail = -1;
-		} else {
-			this.tail = (this.tail - 1 + this.capacity) % this.capacity;
-		}
-		return element;
+		for (int i = 0; i < this.size - 1; i++)
+			this.addLast(removeFirst());
+		return removeFirst();
 	}
 
 	/**
