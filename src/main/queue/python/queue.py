@@ -178,7 +178,50 @@ class Queue:
             return element
 
     def index_of(self, element):
-        #TODO
+        """
+        Retorna o índice da primeira ocorrência do elemento na fila.
+
+        Args:
+            element (Any): elemento a ser procurado.
+
+        Returns:
+            int: índice da primeira ocorrência do elemento, ou -1 se não encontrado.
+        """
+        if self.is_empty(): raise Exception("Fila está vazia.")
+        aux = Queue(self.capacity)
+        index = 0
+        found = False
+        while not self.is_empty():
+            current_element = self.remove_first()
+            aux.add_last(current_element)
+            if not found and current_element == element:
+                found = True
+                result = index
+            index += 1
+        while not aux.is_empty():
+            self.add_last(aux.remove_first())
+        return result if found else -1
 
     def last_index_of(self, element):
-        #TODO
+        """
+        Retorna o índice da última ocorrência do elemento na fila.
+
+        Args:
+            element (Any): elemento a ser procurado.
+
+        Returns:
+            int: índice da última ocorrência do elemento, ou -1 se não encontrado.
+        """
+        if self.is_empty(): raise Exception("Fila está vazia.")
+        aux = Queue(self.capacity)
+        index = 0
+        last_index = -1
+        while not self.is_empty():
+            current_element = self.remove_first()
+            aux.add_last(current_element)
+            if current_element == element:
+                last_index = index
+            index += 1
+        while not aux.is_empty():
+            self.add_last(aux.remove_first())
+        return last_index
