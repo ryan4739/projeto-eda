@@ -120,5 +120,25 @@ class QueueTest(unittest.TestCase):
         self.assertEqual(q.get(3), 40)
         with self.assertRaises(Exception): q.get(5)
 
+    def test_index_of(self):
+        q = Queue(5)
+        q.add_last(10)
+        q.add_last(20)
+        q.add_last(30)
+        q.add_last(20)
+        self.assertEqual(q.index_of(20), 1)
+        self.assertEqual(q.index_of(30), 2)
+        self.assertEqual(q.index_of(40), -1)
+
+    def test_last_index_of(self):
+        q = Queue(5)
+        q.add_last(10)
+        q.add_last(20)
+        q.add_last(30)
+        q.add_last(20)
+        self.assertEqual(q.last_index_of(20), 3)
+        self.assertEqual(q.last_index_of(30), 2)
+        self.assertEqual(q.last_index_of(40), -1)
+
 if __name__ == '__main__':
     unittest.main()
