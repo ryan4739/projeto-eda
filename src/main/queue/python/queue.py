@@ -138,10 +138,24 @@ class queue:
             return element
 
     def get_first(self):
-        #TODO
+        """
+        Retorna o primeiro elemento da fila.
+
+        Returns:
+            any: primeiro elemento da fila.
+        """
+        if self.is_empty(): raise Exception("Fila está vazia.")
+        return self.queue[self.head]
 
     def get_last(self):
-        #TODO
+        """
+        Retorna o último elemento da fila.
+
+        Returns:
+            Any: último elemento da fila.
+        """
+        if self.is_empty(): raise Exception("Fila está vazia.")
+        return self.queue[self.tail]
 
     def get(self, index):
         #TODO
