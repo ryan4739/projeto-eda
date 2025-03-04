@@ -82,7 +82,21 @@ class queue:
                 self.add_last(aux.remove_first())
 
     def remove_first(self):
-        #TODO
+        """
+        Remove o primeiro elemento da fila.
+
+        Returns:
+            Any: elemento removido.
+        """
+        if self.is_empty(): raise Exception("Fila está vazia.")
+        element = self.queue[self.head]
+        self.size -= 1
+        if self.head == self.tail:
+            self.head = -1
+            self.tail = -1
+        else:
+            self.head = (self.head + 1) % self.capacity
+        return element
 
     def remove_last(self):
         #TODO
