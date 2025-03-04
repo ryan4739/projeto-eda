@@ -64,7 +64,7 @@ public class Queue<T> {
 	public void addFirst(T element) {
 		if (isFull()) throw new IllegalStateException("Fila cheia.");
 		addLast(element);
-		for (int i = 0; i < this.size; i++)
+		for (int i = 0; i < this.size - 1; i++)
 			addLast(removeFirst());
 	}
 
