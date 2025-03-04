@@ -117,20 +117,20 @@ class Queue:
         Returns:
             any: elemento removido.
         """
-        is self.is_empty(): raise Exception("Fila está vazia.")
+        if self.is_empty(): raise Exception("Fila está vazia.")
         if index < 0 or index >= self.size: raise Exception("Índice inválido.")
         if index == 0: return self.remove_first()
         elif index == self.size - 1: return self.remove_last()
         else:
             aux = Queue(self.capacity)
         for _ in range(index):
-                aux.add_last(self.remove_first())
-            element = self.remove_first()
-            for _ in range(self.size):
-                aux.add_last(self.remove_first())
-            for _ in range(aux.size):
-                self.add_last(aux.remove_first())
-            return element
+            aux.add_last(self.remove_first())
+        element = self.remove_first()
+        for _ in range(self.size):
+            aux.add_last(self.remove_first())
+        for _ in range(aux.size):
+            self.add_last(aux.remove_first())
+        return element
 
     def get_first(self):
         """
@@ -169,13 +169,13 @@ class Queue:
         else:
             aux = Queue(self.capacity)
         for _ in range(index):
-                aux.add_last(self.remove_first())
-            element = self.get_first()
-            for _ in range(self.size):
-                aux.add_last(self.remove_first())
-            for _ in range(aux.size):
-                self.add_last(aux.remove_first())
-            return element
+            aux.add_last(self.remove_first())
+        element = self.get_first()
+        for _ in range(self.size):
+            aux.add_last(self.remove_first())
+        for _ in range(aux.size):
+            self.add_last(aux.remove_first())
+        return element
 
     def index_of(self, element):
         """
