@@ -23,5 +23,19 @@ class QueueTest(unittest.TestCase):
         with self.assertRaises(Exception): q.add_last(40)
         self.assertEqual(q.get_last(), 30)
 
+    def test_add_first(self):
+        q = Queue(3)
+        q.add_first(10)
+        self.assertEqual(q.get_first(), 10)
+        q.add_first(20)
+        self.assertEqual(q.get_first(), 20)
+        q.add_first(30)
+        self.assertEqual(q.size, 3)
+        self.assertEqual(q.get_first(), 30)
+        self.assertEqual(q.get_last(), 10)
+        self.assertTrue(q.is_full())
+        with self.assertRaises(Exception): q.add_first(40)
+        self.assertEqual(q.get_first(), 30)
+
 if __name__ == '__main__':
     unittest.main()
