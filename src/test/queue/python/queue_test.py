@@ -83,5 +83,42 @@ class QueueTest(unittest.TestCase):
         self.assertEqual(q.get(2), 40)
         with self.assertRaises(Exception): q.remove(5)
 
+    def test_get_first(self):
+        q = Queue(3)
+        q.add_last(10)
+        q.add_last(20)
+        q.add_last(30)
+        self.assertEqual(q.get_first(), 10)
+        q.remove_first()
+        self.assertEqual(q.get_first(), 20)
+        q.remove_first()
+        self.assertEqual(q.get_first(), 30)
+        q.remove_first()
+        with self.assertRaises(Exception): q.get_first()
+
+    def test_get_last(self):
+        q = Queue(3)
+        q.add_last(10)
+        q.add_last(20)
+        q.add_last(30)
+        self.assertEqual(q.get_last(), 30)
+        q.remove_last()
+        self.assertEqual(q.get_last(), 20)
+        q.remove_last()
+        self.assertEqual(q.get_last(), 10)
+        q.remove_last()
+        with self.assertRaises(Exception): q.get_last()
+
+    def test_get(self):
+        q = Queue(5)
+        q.add_last(10)
+        q.add_last(20)
+        q.add_last(30)
+        q.add_last(40)
+        self.assertEqual(q.get(0), 10)
+        self.assertEqual(q.get(2), 30)
+        self.assertEqual(q.get(3), 40)
+        with self.assertRaises(Exception): q.get(5)
+
 if __name__ == '__main__':
     unittest.main()
