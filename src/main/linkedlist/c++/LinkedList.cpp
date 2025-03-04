@@ -5,17 +5,26 @@
 using namespace std;
 
 struct Node {
-    int data;
-    Node* next;
+    int data; /**< O valor sendo armazenado na lista */
+    Node* next; /**< O próximo elemento da lista */
 
     Node(int value) : data(value), next(nullptr) {}
 };
 
+/**
+     * Representação de um Nó da lista
+     */
 class LinkedList {
-    Node* head;
-    Node* tail;
-    int size;
+    Node* head; /**< Ponteiro para o primeiro nó da lista */
+    Node* tail; /**< Ponteiro para o último nó da lista */
+    int size; /**< O tamanho da lista*/
 
+    /**
+     * Pega o node em um índice informado
+     * 
+     * @param index o índice do node
+     * @return o node
+     */
     Node* getNodeByIndex(int index) {
         if (index < 0 || index >= this->size) {
             throw std::out_of_range("Índice inválido");
@@ -32,10 +41,20 @@ public:
 
     LinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
+    /**
+     * Verifica se a lista está vazia
+     * 
+     * @return true caso esteja vazia, false caso não
+     */
     bool isEmpty() {
         return size == 0;
     }
-
+    
+    /**
+     * Adiciona um elemento na primeira posição da lista
+     * 
+     * @param value o valor a ser adicionado
+     */
     void addFirst(int value) {
         Node* newNode = new Node(value);
         
@@ -49,6 +68,11 @@ public:
         size++;
     }
     
+    /**
+     * Adiciona um elemento na última posição da lista
+     * 
+     * @param value o valor a ser adicionado
+     */
     void addLast(int value) {
         Node* newNode = new Node(value);
         
@@ -62,6 +86,12 @@ public:
         size++;
     }
 
+    /**
+     * Adiciona um elemento em um índice específico da lista
+     * 
+     * @param value o valor a ser adicionado
+     * @param index a posição na qual ele será adicionado
+     */
     void add(int value, int index) {
         if (index < 0 || index > size) {
             throw std::out_of_range("Índice inválido");
@@ -83,14 +113,30 @@ public:
         }
     }
 
+    /**
+     * Informa o valor do primeiro elemento da lista
+     * 
+     * @return o valor do primeiro elemento da lista
+     */
     int getFirst() {
         return head->data;
     }
 
+    /**
+     * Informa o valor do último elemento da lista
+     * 
+     * @return o último elemento da lista
+     */
     int getLast() {
         return tail->data;
     }
 
+    /**
+     * Pega o valor do node a partir de seu índice
+     * 
+     * @param index o índice do node
+     * @return o valor contido no node
+     */
     int get(int index) {
         if (index < 0 || index >= size) {
             throw std::out_of_range("índice inválido");
@@ -100,6 +146,12 @@ public:
         return node->data;
     }
 
+    /**
+     * Altera o valor de um nó na lista
+     * 
+     * @param value o valor a ser alterado
+     * @param index o índice do valor a ser alterado
+     */
     void updateNode(int index, int value) {
         if (index < 0 || index >= size) {
             throw std::out_of_range("índice inválido");
@@ -109,6 +161,9 @@ public:
         node->data = value;
     }
     
+    /**
+     * Remove o primeiro elemento da lista
+     */
     void removeFirst() {
         if (isEmpty()) {
             throw std::out_of_range("Lista vazia");
@@ -125,6 +180,9 @@ public:
         size--;
     }
 
+    /**
+     * Remove o último elemento da lista
+     */
     void removeLast() {
         if (isEmpty()) {
             throw std::out_of_range("Lista vazia");
@@ -136,12 +194,17 @@ public:
         } else {
             Node* prevNode = getNodeByIndex(size-2);
             delete prevNode->next;
-            prevNode->next = nullptr;
             tail = prevNode;
+            tail->next = nullptr;
         }
         size--;
     }
 
+    /**
+     * Remove um elemento da lista a partir de seu índice
+     * 
+     * @param index o índice do elemento a ser removido
+     */
     void removeByIndex(int index) {
         if (index < 0 || index >= size) {
             throw std::out_of_range("Índice inválido");
@@ -162,6 +225,11 @@ public:
         size--;
     }
 
+    /**
+     * Remove o primeiro elemento da lista que tiver o valor informado
+     * 
+     * @param value o valor a ser removido
+     */
     void removeByValue(int value) {
         int index = indexOf(value);
         if (index != -1) {
@@ -169,6 +237,12 @@ public:
         }
     }
 
+    /**
+     * Informa o índice da primeira ocorrência de um valor. Se não estiver presente na lista, retornará -1
+     * 
+     * @param value o valor a ser encontrado
+     * @return o índice da primeira ocorrência do valor, caso esteja na lista, -1 caso não
+     */
     int indexOf(int value) {
         if (isEmpty()) {
             throw std::exception("Lista vazia");
@@ -183,6 +257,12 @@ public:
         return -1;
     }
 
+    /**
+     * Informa o índice da última ocorrência de um valor. Se não estiver presente na lista, retornará -1
+     * 
+     * @param value o valor buscado
+     * @return o índice da última ocorrência do valor, caso esteja na lista, -1 caso não
+     */
     int lastIndexOf(int value) {
         if (isEmpty()) {
             throw std::exception("Lista vazia");
@@ -199,14 +279,28 @@ public:
         return index;
     }
 
+    /**
+     * Informa o tamanho da lista
+     * 
+     * @return o tamanho da lista
+     */
     int sizeLL() {
         return size;
     }
 
+    /**
+     * Verifica se um valor está contido ou não na lista
+     * 
+     * @param value o valor a ser buscado
+     * @return true caso o valor esteja contido, false caso não
+     */
     bool contains(int value) {
         return indexOf(value) != -1;
     }
 
+    /**
+     * Representação textual da lista no formato "a -> b -> c [...]"
+     */
     string toString() {
         string llString = "";
 
