@@ -2,6 +2,7 @@ class linked_list:
     """
     Representação de uma lista encadeada
     """
+    
     def __init__(self):
         self.head = None
         self.tail = None
@@ -64,12 +65,13 @@ class linked_list:
             value (int): o valor a ser adicionado
             index (int): a posição na qual ele será adicionado
         """
-        if index == 0:
+        if index < 0 or index > self.size: raise IndexError("Índice inválido")
+        
+        if index == 0 or self.is_empty():
             self.add_first(value)
-        elif (index == self.size)
+        elif (index == self.size):
             self.add_last(value)
         else:
-            if index < 0 or index > self.size-1: raise IndexError("Índice inválido")
 
             new_node = node(value)
             prev_node = self.__get_node_by_index(index-1)
@@ -109,7 +111,7 @@ class linked_list:
         Returns:
                 int: o valor contido no node
         """
-        if index < 0 or index > self.size-1: raise IndexError("Índice inválido")
+        if index < 0 or index >= self.size: raise IndexError("Índice inválido")
 
         if index == 0:
             return self.get_first()
@@ -127,7 +129,7 @@ class linked_list:
             value (int): o valor a ser alterado
             index (int): o índice do valor a ser alterado
         """
-        if index < 0 or index > self.size-1: raise IndexError("Índice inválido")
+        if index < 0 or index >= self.size: raise IndexError("Índice inválido")
 
         node = self.__get_node_by_index(index)
         node.value = value
@@ -168,7 +170,7 @@ class linked_list:
         Args:
             index (int): o índice do elemento a ser removido
         """
-        if index < 0 or index > self.size-1: raise IndexError("Índice inválido")
+        if index < 0 or index >= self.size: raise IndexError("Índice inválido")
 
         if index == 0:
             self.remove_first()
@@ -226,7 +228,7 @@ class linked_list:
         Returns:
             int: o índice da última ocorrência do valor, caso esteja na lista, -1 caso não
         """
-        if self.is_empty(): return
+        if self.is_empty(): raise Exception("Lista vazia")
 
         index = -1
 
@@ -250,7 +252,7 @@ class linked_list:
         Returns:
             node: o node
         """
-        if index < 0 or index > self.size-1: return
+        if index < 0 or index > self.size-1: raise Exception("Índice inválido")
 
         node = self.head
         for i in range(index):
