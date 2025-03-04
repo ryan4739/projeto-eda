@@ -36,9 +36,9 @@ class Queue:
         Adiciona um elemento no final da fila.
 
         Args:
-            element (T): elemento a ser adicionado.
+            element (Any): elemento a ser adicionado.
         """
-        is self.is_full():
+        if self.is_full():
             raise Exception("Fila está cheia.")
         if self.is_empty():
             self.head = 0
@@ -49,7 +49,17 @@ class Queue:
         self.size += 1
 
     def add_first(self, element):
-        #TODO
+        """
+        Adiciona um elemento no começo da fila.
+
+        Args:
+            element (Any): elemento a ser adicionado.
+        """
+        if self.is_full():
+            raise Exception("Fila está cheia.")
+        self.add_last(element)
+        for i in range(self.size):
+            self.add_last(self.remove_first())
 
     def add(self, element, index):
         #TODO
