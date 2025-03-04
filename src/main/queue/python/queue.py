@@ -106,7 +106,9 @@ class queue:
             any: elemento removido.
         """
         if self.is_empty(): raise Exception("Fila está vazia.")
-        #TODO
+        for _ in range(self.size - 1):
+            self.add_last(self.remove_first())
+        return self.remove_first()
 
     def remove(self, index):
         """
