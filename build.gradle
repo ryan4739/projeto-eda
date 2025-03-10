@@ -36,3 +36,33 @@ test {
     useJUnitPlatform()
 }
 
+task testArrayList(type: Test) {
+    useJUnitPlatform {
+        include '**/arraylist/**'
+    }
+}
+
+task testDeque(type: Test) {
+    useJUnitPlatform {
+        include '**/deque/**'
+    }
+}
+
+task testLinkedList(type: Test) {
+    useJUnitPlatform {
+        include '**/linkedlist/**'
+    }
+}
+
+task testQueue(type: Test) {
+    useJUnitPlatform {
+        include '**/queue/**'
+    }
+}
+
+task testStack(type: Test) {
+    useJUnitPlatform {
+        include '**/stack/**'
+    }
+}
+
