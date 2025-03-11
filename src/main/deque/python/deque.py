@@ -1,60 +1,57 @@
-from collections import deque
-from memory_profiler import profile
-import timeit
-import random
+class Deque:
 
-def append_left(dq: deque,entrada):
-    for i in range(entrada):
-        dq.appendleft(i)
-    return dq
-
-def append_right(dq: deque,entrada):
-    for i in range(entrada):
-        dq.append(i)
-    return dq
-
-def extend_left(dq: deque, valores):    
-    dq.extendleft(valores)
-    return dq
-
-def extend_right(dq: deque, valores):    
-    dq.extend(valores)
-    return dq
-
-def pop_left(dq: deque):
-    while dq: 
-        dq.popleft()
-    return dq
-
-def pop_right(dq: deque):
-    while dq:
-        dq.pop()
-    return dq
-
-def access_left(dq: deque):
-    return dq[0]
-
-def access_right(dq: deque):
-    return dq[-1]
-
-def access_random(dq: deque):
-    if not dq:
-        return None
-    index = random.randint(0, len(dq) - 1)
-    return dq[index]
-
-def rotate_deque(dq: deque, n: int):   
-    dq.rotate(n)
-    return dq
-
-def remove_value(dq: deque, value):    
-    try:
-        dq.remove(value)
-    except ValueError:
-        pass  # Ignora erro se o valor não estiver no deque
-    return dq
-
-def count_value(dq: deque, value):    
-    return dq.count(value)
-
-
+    def __init__(self, capacity):
+        self.dq = [None] * capacity
+        self.cap = capacity
+        self.size = 0
+        self.head = 0
+    
+    def append_left(self, value):
+        if self.is_full():
+            return
+        else:
+            self.head = (self.head - 1 + self.cap) % self.cap
+            self.dq[self.head] = value
+            self.size += 1
+    
+    def append_right(self, value):
+        if self.is_full():
+            return
+        else:
+            tail = (self.head + self.size) % self.cap
+            self.dq[tail] = value
+            self.size += 1
+    
+    def pop_left(self):
+        if self.dq.is_empty():
+            return None
+        else:
+            aux = self.dq[self.tail]
+            self.tail = (self.tail + 1) % self.cap
+            self.size -= 1
+            return aux
+    
+    def pop_right(self):
+        if self.dq.is_empty():
+            return
+        else:
+            tail = (self.head + self.size - 1) % self.cap
+            self.size -= 1
+            return self.dq[tail]
+    
+    def peek_left(self):
+        return self.dq[self.head]
+    
+    def peek_right(self):
+        tail = (self.head + self.size - 1) % self.cap
+        return self.dq[tail]
+    
+    def is_full(self):
+        if self.size == self.cap:
+            return True
+        return False
+    
+    def is_empty(self):
+        if self.size == 0:
+            return True
+        return False
