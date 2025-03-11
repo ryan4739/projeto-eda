@@ -24,7 +24,17 @@ public:
 		delete[] queue;
 	}
 
-	void addLast(T element) {}
+	void addLast(T element) {
+		if (isFull()) {
+			throw std::overflow_error("Fila está cheia.");
+		}
+		is (isEmpty()) {
+			head = 0;
+		}
+		tail = (tail + 1) % capacity;
+		queue[tail] = element;
+		size++;
+	}
 
 	void addFirst(T element) {}
 
@@ -54,4 +64,3 @@ public:
 
 };
 
-int main() {}
