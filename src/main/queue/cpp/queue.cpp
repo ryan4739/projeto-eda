@@ -28,7 +28,7 @@ public:
 		if (isFull()) {
 			throw std::overflow_error("Fila está cheia.");
 		}
-		is (isEmpty()) {
+		if (isEmpty()) {
 			head = 0;
 		}
 		tail = (tail + 1) % capacity;
