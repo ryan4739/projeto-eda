@@ -1,80 +1,98 @@
-import java.util.*;
+package main.deque.Java;
 
-public class Deque {
+public class Deque<Obj> {
 
-    public static void appendLeft(Deque<Integer> dq, int entrada) {
-        for (int i = 0; i < entrada; i++) {
-            dq.addFirst(i);
-        }
-    }
-
-    public static void appendRight(Deque<Integer> dq, int entrada) {
-        for (int i = 0; i < entrada; i++) {
-            dq.addLast(i);
-        }
-    }
-
-    public static void extendLeft(Deque<Integer> dq, Deque<Integer> valores) {
-        dq.addAll(0, valores);
-    }
-
-    public static void extendRight(Deque<Integer> dq, Deque<Integer> valores) {
-        dq.addAll(valores);
-    }
-
-    public static void popLeft(Deque<Integer> dq) {
-        while (!dq.isEmpty()) {
-            dq.removeFirst();
-        }
-    }
-
-    public static void popRight(Deque<Integer> dq) {
-        while (!dq.isEmpty()) {
-            dq.removeLast();
-        }
-    }
-
-    public static Integer accessLeft(Deque<Integer> dq) {
-        return dq.peekFirst();
-    }
-
-    public static Integer accessRight(Deque<Integer> dq) {
-        return dq.peekLast();
-    }
-
-    public static Integer accessRandom(Deque<Integer> dq) {
-        if (dq.isEmpty()) return null;
-        int index = new Random().nextInt(dq.size());
-        int i = 0;
-        for (Integer elem : dq) {
-            if (i == index) {
-                return elem;
-            }
-            i++;
-        }
-        return null;
-    }
-
-    public static void rotateDeque(Deque<Integer> dq, int n) {
-        for (int i = 0; i < n; i++) {
-            Integer last = dq.removeLast();
-            dq.addFirst(last);
-        }
-    }
-
-    public static void removeValue(Deque<Integer> dq, Integer value) {
-        dq.remove(value);
-    }
-
-    public static int countValue(Deque<Integer> dq, Integer value) {
-        int count = 0;
-        for (Integer elem : dq) {
-            if (elem.equals(value)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
+    public static final int Default = 20;
+    private Obj[] deque;
+    private int size;
+    private int head;
+    private int capacity;
     
+    
+    
+    public Deque() {
+        this(Default);
+    }
+    
+    public Deque(int capacidade) {
+        deque = new Obj[capacidade];
+        size = 0;
+        head = 0;
+        capacity = capacidade;
+
+    }
+
+
+    public void appendLeft(Obj entrada) {
+        if(isFull()){
+            resize();
+        }
+        head = (head - 1 + capacity) % capacity;
+        deque[head] = entrada;
+        size++;
+    }
+
+    public void appendRight(Obj entrada) {
+        if(isFull()){
+            resize();
+        }
+        int tail = (head + size) % capacity;
+        deque[tail] = entrada;
+        size++;
+    }
+
+    public Obj popLeft() {
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        Obj aux = deque[head];
+        head = (head +1) % capacity;
+        
+        size--;
+        return aux;
+    }
+
+    public Obj popRight() {
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        int tail = (head + size - 1) % capacity;
+        size--;
+        return deque[tail];
+    }
+
+    public Obj accessLeft() {
+        return deque[head];
+    }
+
+    public Obj accessRight() {
+        int tail = (head + size - 1) % capacity;
+        return deque[tail];
+    }
+
+    private boolean isFull(){
+        if(size == capacity){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isEmpty(){
+        if(size == 0){
+            return true;
+        }
+        return false;
+    }
+
+    private void resize(){
+        
+        Obj[] deqAux = new Obj[capacity*2];
+        for(int i = 0; i< capacity; i++){
+            deqAux[i] = deque[(head + i) % capacity];
+        }
+
+        deque = deqAux;
+        head = 0;
+        capacity = capacity*2;
+    }
 }
