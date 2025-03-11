@@ -25,9 +25,7 @@ public:
 	}
 
 	void addLast(T element) {
-		if (isFull()) {
-			throw std::overflow_error("Fila está cheia.");
-		}
+		if (isFull()) throw std::runtime_error("Fila cheia.");
 		if (isEmpty()) {
 			head = 0;
 		}
@@ -37,11 +35,29 @@ public:
 	}
 
 	void addFirst(T element) {
-		//TODO
+		if (isFull()) throw std::runtime_error("Fila cheia.");
+		addLast(element);
+		for (int i = 0; i < this->size - 1; i++) {
+			addLast(removeFirst());
+		}
 	}
 
 	void add(T element, int index) {
-		//TODO
+		if (isFull()) throw std::runtime_error("Fila cheia.");
+		if (index < 0 || index > this->size)
+            throw std::runtime_error("Índice inválido.");
+		if (index == 0) addFirst(element);
+        else if (index == this->size) addLast(element);
+        else {
+            Queue<T> aux(this->capacity);
+            for (int i = 0; i < index; i++)
+                aux.addLast(this->removeFirst());
+            aux.addLast(element);
+            while (!this->isEmpty())
+                aux.addLast(this->removeFirst());
+            while (!aux.isEmpty())
+                this->addLast(aux.removeFirst());
+        }
 	}
 
 	T removeFirst() {
@@ -60,16 +76,12 @@ public:
 	}
 
 	T getFirst() {
-		if (isEmpty()) {
-			throw std::underflow_error("Fila está vazia");
-		}
+		if (isFull()) throw std::runtime_error("Fila vazia.");
 		return queue[head];
 	}
 
 	T getLast() {
-		if (isEmpty()) {
-			throw std::underflow_error("Fila está vazia");
-		}
+		if (isFull()) throw std::runtime_error("Fila vazia.");
 		for (int i = 0; i < size - 1; i++) {
 			addLast(removeFirst());
 		}
