@@ -36,31 +36,74 @@ public:
 		size++;
 	}
 
-	void addFirst(T element) {}
+	void addFirst(T element) {
+		//TODO
+	}
 
-	void add(T element, int index) {}
+	void add(T element, int index) {
+		//TODO
+	}
 
-	T removeFirst() {return T();}
+	T removeFirst() {
+		//TODO
+		return T();
+	}
 
-	T removeLast() {return T();}
+	T removeLast() {
+		//TODO
+		return T();
+	}
 
-	T remove(int index) {return T();}
+	T remove(int index) {
+		//TODO
+		return T();
+	}
 
-	T getFirst() {return T();}
+	T getFirst() {
+		if (isEmpty()) {
+			throw std::underflow_error("Fila está vazia");
+		}
+		return queue[head];
+	}
 
-	T getLast() {return T();}
+	T getLast() {
+		if (isEmpty()) {
+			throw std::underflow_error("Fila está vazia");
+		}
+		for (int i = 0; i < size - 1; i++) {
+			addLast(removeFirst());
+		}
+		T element = getFirst();
+		addLast(removeFirst());
+		return element;
+	}
 
-	T get(int index) {return T();}
+	T get(int index) {
+		//TODO
+		return T();
+	}
 
-	int indexOf(T element_to_find) {return -1;}
+	int indexOf(T element_to_find) {
+		//TODO
+		return -1;
+	}
 
-	int lastIndexOf(T element_to_find) {return T();}
+	int lastIndexOf(T element_to_find) {
+		//TODO
+		return -1;
+	}
 
-	int getSize() {return -1;}
+	int getSize() {
+		return size;
+	}
 
-	bool isEmpty() {return false;}
+	bool isEmpty() {
+		return size == 0;
+	}
 
-	bool isFull() {return false;}
+	bool isFull() {
+		return size == capacity;
+	}
 
 };
 
