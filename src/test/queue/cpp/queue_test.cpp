@@ -17,6 +17,45 @@ void testQueue() {
     assert(q.getFirst() == 10);
     assert(q.getLast() == 30);
 
+    // addFirst
+    //TODO
+    
+    // add
+    // TODO
+    
+    // removeFirst
+    // TODO
+    //
+    // removeLast
+    // TODO
+    //
+    // remove
+    // TODO
+    //
+    // getFirst
+    // TODO
+    //
+    // getLast
+    // TODO
+    //
+    // get
+    // TODO
+    //
+    // indexOf
+    // TODO
+    //
+    // lastIndexOf
+    // TODO
+    //
+    // size
+    // TODO
+    //
+    // isEmpty
+    // TODO
+    //
+    // isFull
+    // TODO
+
 }
 
 int main() {
