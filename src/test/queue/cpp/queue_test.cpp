@@ -18,43 +18,76 @@ void testQueue() {
     assert(q.getLast() == 30);
 
     // addFirst
-    //TODO
+    q.addFirst(5);
+    assert(q.getSize() == 4);
+    assert(q.getFirst() == 5);
+    assert(q.getLast() == 30);
     
     // add
-    // TODO
+    q.add(40, 2);
+    assert(q.getSize() == 5);
+    assert(q.getFirst() == 5);
+    assert(q.getLast() == 30);
+    q.add(70, 0);
+    assert(q.getSize() == 6);
+    assert(q.getFirst() == 70);
+    assert(q.getLast() == 30);
+    q.add(90, 6);
+    assert(q.getSize() == 7);
+    assert(q.getFirst() == 70);
+    assert(q.getLast() == 90);
     
     // removeFirst
-    // TODO
-    //
+    assert(q.removeFirst() == 5);
+    assert(q.getSize() == 4);
+    assert(q.getFirst() == 10);
+    
     // removeLast
-    // TODO
-    //
+    assert(q.removeLast() == 40);
+    assert(q.getSize() == 3);
+    assert(q.getLast() == 30);
+    
     // remove
-    // TODO
-    //
+    assert(q.remove(0) == 10);
+    assert(q.getSize() == 2);
+    assert(q.getFirst() == 20);
+    assert(q.remove(1) == 30);
+    assert(q.getSize() == 1);
+    assert(q.getFirst() == 20);
+    q.addFirst(120);
+    q.addFirst(130);
+    q.addFirst(140);
+    assert(q.remove(1) == 130);
+    assert(q.getSize() == 3);
+    assert(q.getFirst() == 140);
+    
     // getFirst
-    // TODO
-    //
+    assert(q.getFirst() == 20);
+    
     // getLast
-    // TODO
-    //
+    assert(q.getLast() == 30);
+    
     // get
-    // TODO
-    //
+    assert(q.get(0) == 20);
+    assert(q.get(1) == 30);
+    
     // indexOf
-    // TODO
-    //
+    assert(q.indexOf(20) == 0);
+    assert(q.indexOf(30) == 1);
+    assert(q.indexOf(40) == -1);
+    
     // lastIndexOf
-    // TODO
-    //
+    q.addLast(20);
+    assert(q.lastIndexOf(20) == 2);
+    
     // size
-    // TODO
-    //
+    assert(q.getSize() == 3);
+    
     // isEmpty
-    // TODO
-    //
+    assert(!q.isEmpty());
+    
     // isFull
-    // TODO
+    assert(!q.isFull());
 
 }
 
