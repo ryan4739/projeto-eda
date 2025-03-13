@@ -14,7 +14,7 @@ public class ArrayList{
 	 * @param last serve para controlarmos o array baseado na última posição da lista
 	 **/ 
 	private int[] lista;
-	private static final int capacidade = 20;
+	private static int capacidade = 20;
 	private int last = -1;
 	
 
@@ -69,30 +69,23 @@ public class ArrayList{
 	public boolean addIndex(int elemento, int index){
 		if (index < 0 || index > this.capacidade)
             		throw new IndexOutOfBoundsException();
-		shiftDireita(index)
+		shiftDireita(index);
 		lista[index] = elemento;
 		return true;
 	}
 
-	public boolean addMid(int elemento){
-		meio = ((last+1)/2)-1;
-		shiftDireita(meio);
-		lista[meio] = elemento;
-		return true;
-	}
-
-	private void shiftDireita(index){
+	private void shiftDireita(int index){
 		if (isFull()){
                         resize();
                 }
 		for (int i = ++last; i >index; i--){
-			lista[i] = lista[i-1]
+			lista[i] = lista[i-1];
 		}
 	}
 
 	private void resize(){
-		int[] listaAux = new int[capacidade*2]
-		for (i = 0; i<lista.length;i++){
+		int[] listaAux = new int[capacidade*2];
+		for (int i = 0; i<lista.length;i++){
 			listaAux[i] = lista[i];
 		}
 		lista = listaAux;
@@ -103,8 +96,8 @@ public class ArrayList{
 			return false;
 		}
 		for(int i = 0; i<=last; i++){
-			if(lista(i) = elemento){
-				return true
+			if(lista[i] == elemento){
+				return true;
 			}
 		}
 		return false;
@@ -112,7 +105,7 @@ public class ArrayList{
 
 	public boolean rmvLast(){
 		if (isEmpty()){
-			throw new Exception("Lista vazia");
+			throw new NullPointerException("Lista vazia");
 		}
 		last--;
 		return true;
@@ -128,15 +121,9 @@ public class ArrayList{
 		return true;
 	}
 
-	public boolean rmvMid(){
-		meio = ((last+1)/2)-1;
-		shiftEsquerda(meio);
-		return true;
-	}
-	
-	private void shiftEsquerda(index){
+	private void shiftEsquerda(int index){
 		if (isEmpty()){
-                        throw new Exception("Lista vazia");
+                        throw new NullPointerException("Lista vazia");
                 }
 		for (int i = index; i<--last; i++){
 			lista[i] = lista[i+1];
