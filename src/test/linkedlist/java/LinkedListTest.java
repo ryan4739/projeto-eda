@@ -10,32 +10,31 @@ public class LinkedListTest {
 
     @BeforeEach
     void setup() {
-    this.ll = new LinkedList();
+        this.ll = new LinkedList();
     }
 
     @Test
-    void testAdd() {        
-        try {
-        } catch (Exception e) {
-            assertEquals(e.getMessage(), "Índice inválido");
-        }
+    void testIsEmpty() {
+        assertTrue(ll.isEmpty());
+        assertEquals(0, ll.sizeLL());
 
-        try {
-            ll.add(20, 12);
-        } catch (Exception e) {
-            assertEquals(e.getMessage(), "Índice inválido");
-        }
-        
-        ll.add(30, 0);
-        ll.add(40, 1);
-        assertEquals("30 -> 40", ll.toString());
-        
-        ll.add(50, 2);
-        assertEquals("30 -> 40 -> 50", ll.toString());
-        ll.add(60, 3);
-        assertEquals("30 -> 40 -> 50 -> 60", ll.toString());
-        ll.add(70, 2);
-        assertEquals("30 -> 40 -> 70 -> 50 -> 60", ll.toString());
+        ll.addFirst(10);
+        assertFalse(ll.isEmpty());
+        assertEquals(1, ll.sizeLL());
+
+        ll.removeFirst();
+        assertTrue(ll.isEmpty());
+
+        ll.addLast(10);
+        assertFalse(ll.isEmpty());
+
+        ll.removeLast();
+        assertTrue(ll.isEmpty());
+
+        ll.addLast(10);
+        ll.addLast(20);
+        ll.addLast(30);
+        assertFalse(ll.isEmpty());
     }
 
     @Test
@@ -62,18 +61,18 @@ public class LinkedListTest {
         ll.addFirst(15);
         assertEquals(15, ll.getFirst());
     }
-    
+
     @Test
     void testAddLast() {
         ll.addLast(10);
         assertEquals(10, ll.getLast());
         assertEquals(1, ll.sizeLL());
-        
+
         ll.addLast(20);
         assertEquals(20, ll.getLast());
         assertEquals(2, ll.sizeLL());
         assertEquals("10 -> 20", ll.toString());
-        
+
         ll.addLast(30);
         assertEquals(30, ll.getLast());
         assertEquals(3, ll.sizeLL());
@@ -90,11 +89,31 @@ public class LinkedListTest {
     }
 
     @Test
+    void testAdd() {
+        try {
+            ll.add(20, 12);
+        } catch (Exception e) {
+            assertEquals(e.getMessage(), "Índice inválido");
+        }
+
+        ll.add(30, 0);
+        ll.add(40, 1);
+        assertEquals("30 -> 40", ll.toString());
+
+        ll.add(50, 2);
+        assertEquals("30 -> 40 -> 50", ll.toString());
+        ll.add(60, 3);
+        assertEquals("30 -> 40 -> 50 -> 60", ll.toString());
+        ll.add(70, 2);
+        assertEquals("30 -> 40 -> 70 -> 50 -> 60", ll.toString());
+    }
+
+    @Test
     void testContains() {
         try {
-        	ll.contains(5);      
+            ll.contains(5);
         } catch (Exception e) {
-            assertEquals(e.getMessage(),"Lista vazia");
+            assertEquals(e.getMessage(), "Lista vazia");
         }
 
         ll.addLast(10);
@@ -104,7 +123,7 @@ public class LinkedListTest {
         assertTrue(ll.contains(20));
         assertTrue(ll.contains(30));
         assertFalse(ll.contains(50));
-        
+
     }
 
     @Test
@@ -114,7 +133,7 @@ public class LinkedListTest {
 
         ll.addLast(20);
         assertEquals(20, ll.get(1));
-        
+
         ll.addLast(30);
         ll.addLast(40);
         ll.addLast(50);
@@ -122,7 +141,6 @@ public class LinkedListTest {
         assertEquals(50, ll.get(4));
         assertEquals(40, ll.get(3));
         assertEquals(30, ll.get(2));
-
 
         try {
             ll.get(20);
@@ -132,84 +150,18 @@ public class LinkedListTest {
     }
 
     @Test
-    void testIsEmpty() {
-        assertTrue(ll.isEmpty());
-        assertEquals(0, ll.sizeLL());
-        
-        ll.addFirst(10);
-        assertFalse(ll.isEmpty());
-        assertEquals(1, ll.sizeLL());
-        
-        ll.removeFirst();
-        assertTrue(ll.isEmpty());
-
-        ll.addLast(10);
-        assertFalse(ll.isEmpty());
-
-        ll.removeLast();
-        assertTrue(ll.isEmpty());
-
-        ll.addLast(10);
-        ll.addLast(20);
-        ll.addLast(30);
-        assertFalse(ll.isEmpty());
-    }
-
-    @Test
-    void testRemoveByIndex() {
+    void testUpdateNode() {
         try {
-            ll.removeByIndex(0);
+            ll.updateNode(5, 0);
         } catch (Exception e) {
             assertEquals(e.getMessage(), "Índice inválido");
         }
 
-        ll.addLast(10);
-        ll.addLast(20);
-        ll.addLast(30);
-        ll.addLast(40);
-        ll.addLast(50);
-        assertEquals("10 -> 20 -> 30 -> 40 -> 50", ll.toString());
-        
-        ll.removeByIndex(1);
-        assertEquals("10 -> 30 -> 40 -> 50", ll.toString());
-        
-        ll.removeByIndex(0);
-        assertEquals("30 -> 40 -> 50", ll.toString());
-        
-        ll.removeByIndex(2);
-        assertEquals("30 -> 40", ll.toString());
-    }
-
-    @Test
-    void testRemoveByValue() {
-        ll.addLast(10);
-        ll.addLast(20);
-        ll.addLast(10);
-        ll.addLast(30);
-        ll.removeByValue(10);
-        assertEquals("20 -> 10 -> 30", ll.toString());
-        
-        ll.addLast(10);
-        assertEquals("20 -> 10 -> 30 -> 10", ll.toString());
-        ll.removeByValue(10);
-        assertEquals("20 -> 30 -> 10", ll.toString());
-    }
-
-    @Test
-    void testRemoveFirst() {
         ll.addFirst(10);
-        ll.addFirst(20);
-        ll.addFirst(30);
-        assertEquals("30 -> 20 -> 10", ll.toString());
-        
-        ll.removeFirst();
-        assertEquals("20 -> 10", ll.toString());
+        assertEquals(10, ll.get(0));
 
-        ll.removeFirst();
-        assertEquals("10", ll.toString());
-        
-        ll.removeFirst();
-        assertEquals("", ll.toString());
+        ll.updateNode(15, 0);
+        assertEquals(15, ll.get(0));
     }
 
     @Test
@@ -228,12 +180,69 @@ public class LinkedListTest {
     }
 
     @Test
+    void testRemoveByIndex() {
+        try {
+            ll.removeByIndex(0);
+        } catch (Exception e) {
+            assertEquals(e.getMessage(), "Índice inválido");
+        }
+
+        ll.addLast(10);
+        ll.addLast(20);
+        ll.addLast(30);
+        ll.addLast(40);
+        ll.addLast(50);
+        assertEquals("10 -> 20 -> 30 -> 40 -> 50", ll.toString());
+
+        ll.removeByIndex(1);
+        assertEquals("10 -> 30 -> 40 -> 50", ll.toString());
+
+        ll.removeByIndex(0);
+        assertEquals("30 -> 40 -> 50", ll.toString());
+
+        ll.removeByIndex(2);
+        assertEquals("30 -> 40", ll.toString());
+    }
+
+    @Test
+    void testRemoveByValue() {
+        ll.addLast(10);
+        ll.addLast(20);
+        ll.addLast(10);
+        ll.addLast(30);
+        ll.removeByValue(10);
+        assertEquals("20 -> 10 -> 30", ll.toString());
+
+        ll.addLast(10);
+        assertEquals("20 -> 10 -> 30 -> 10", ll.toString());
+        ll.removeByValue(10);
+        assertEquals("20 -> 30 -> 10", ll.toString());
+    }
+
+    @Test
+    void testRemoveFirst() {
+        ll.addFirst(10);
+        ll.addFirst(20);
+        ll.addFirst(30);
+        assertEquals("30 -> 20 -> 10", ll.toString());
+
+        ll.removeFirst();
+        assertEquals("20 -> 10", ll.toString());
+
+        ll.removeFirst();
+        assertEquals("10", ll.toString());
+
+        ll.removeFirst();
+        assertEquals("", ll.toString());
+    }
+
+    @Test
     void testSizeLL() {
         assertEquals(0, ll.sizeLL());
-        
+
         ll.addLast(10);
         assertEquals(1, ll.sizeLL());
-        
+
         ll.removeFirst();
         assertEquals(0, ll.sizeLL());
 
@@ -252,31 +261,15 @@ public class LinkedListTest {
 
         ll.addLast(20);
         assertEquals("10 -> 20", ll.toString());
-        
+
         ll.addFirst(5);
         assertEquals("5 -> 10 -> 20", ll.toString());
-        
+
         ll.add(15, 1);
         assertEquals("5 -> 15 -> 10 -> 20", ll.toString());
-        
+
         ll.updateNode(5, 1);
         assertEquals("5 -> 5 -> 10 -> 20", ll.toString());
-    }
-
-    @Test
-    void testUpdateNode() {
-        try {
-            ll.updateNode(5, 0);
-        } catch (Exception e) {
-            assertEquals(e.getMessage(), "Índice inválido");
-        }
-
-        ll.addFirst(10);
-        assertEquals(10, ll.get(0));
-        
-        ll.updateNode(15, 0);
-        assertEquals(15, ll.get(0));
-
     }
 
     @Test
@@ -289,11 +282,11 @@ public class LinkedListTest {
 
         ll.addLast(10);
         assertEquals(0, ll.indexOf(10));
-        
+
         ll.addLast(20);
         ll.addLast(10);
         assertEquals(0, ll.indexOf(10));
-        
+
         ll.removeFirst();
         assertEquals(1, ll.indexOf(10));
     }
