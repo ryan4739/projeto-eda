@@ -63,11 +63,12 @@ public class ArrayList{
 	public boolean addFirst(int elemento){
 		shiftDireita(0);
 		lista[0] = elemento;
+		last++;
 		return true;
 	}
 
 	public boolean addIndex(int elemento, int index){
-		if (index < 0 || index > this.capacidade)
+		if (index < 0 || index > this.last)
             		throw new IndexOutOfBoundsException();
 		shiftDireita(index);
 		lista[index] = elemento;
