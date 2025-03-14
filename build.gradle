@@ -36,19 +36,23 @@ test {
     useJUnitPlatform()
 }
 
-task testArrayList(type: Test) {
+task arrayListJava (type: Test) {
     useJUnitPlatform {
         include '**/arraylist/**'
     }
 }
 
-task testDeque(type: Test) {
+task dequeJava (type: Test) {
     useJUnitPlatform {
         include '**/deque/**'
     }
 }
 
-task testQueueInCpp (type: Exec) {
+task queueJava {
+    
+}
+
+task queueCpp (type: Exec) {
     workingDir 'src/test/queue/cpp'
     commandLine 'g++', 'queue_test.cpp', '-o', 'queue_test'
     doLast {
@@ -59,7 +63,7 @@ task testQueueInCpp (type: Exec) {
     }
 }
 
-task testQueueInPython (type: Exec) {
+task queuePython (type: Exec) {
     workingDir project.rootDir
     commandLine 'python3', '-m', 'src.test.queue.python.queue_test'
 }
