@@ -6,7 +6,22 @@
 #include <string>
 #include <sstream>
 
+/**
+ * Representação de um nó na lista
+ */
+struct Node;
+
+/**
+ * Representação de uma lista encadeada
+ */
 class LinkedList {
+private:
+    Node* head;
+    Node* tail;
+    int size;
+
+    Node* getNodeByIndex(int index);
+
 public:
     LinkedList();
 
@@ -17,7 +32,7 @@ public:
     int getFirst();
     int getLast();
     int get(int index);
-    void updateNode(int index, int value);
+    void updateNode(int value, int index);
     void removeFirst();
     void removeLast();
     void removeByIndex(int index);

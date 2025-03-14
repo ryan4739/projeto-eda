@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cassert>
-#include <src/main/linkedlist/cpp/LinkedList.h>
+#include "../../../main/linkedlist/cpp/LinkedList.h"
 
 void testIsEmpty() {
     LinkedList ll;
