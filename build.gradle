@@ -50,8 +50,13 @@ task testDeque(type: Test) {
 
 task testQueueInCpp (type: Exec) {
     workingDir 'src/test/queue/cpp'
-    commandLine 'g++', 'queue_test.cpp'
-    commandLine './a.out'
+    commandLine 'g++', 'queue_test.cpp', '-o', 'queue_test'
+    doLast {
+        exec {
+            workingDir 'src/test/queue/cpp'
+            commandLine './queue_test'
+        }  
+    }
 }
 
 task testQueueInPython (type: Exec) {
