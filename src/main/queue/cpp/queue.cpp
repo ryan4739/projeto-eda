@@ -61,27 +61,50 @@ public:
 	}
 
 	T removeFirst() {
-		//TODO
-		return T();
+		if (isEmpty()) throw std::runtime_error("Fila vazia.");
+        T element = this->queue[this->head];
+        this->size--;
+        if (this->head == this->tail) {
+            this->head = -1;
+            this->tail = -1;
+        } else {
+            this->head = (this->head + 1) % this->capacity;
+        }
+        return element;
 	}
 
 	T removeLast() {
-		//TODO
-		return T();
+		if (isEmpty()) throw std::runtime_error("Fila vazia.");
+        for (int i = 0; i < this->size - 1; i++)
+            this->addLast(removeFirst());
+        return removeFirst();
 	}
 
 	T remove(int index) {
-		//TODO
-		return T();
+		if (isEmpty()) throw std::runtime_error("Fila vazia.");
+        if (index < 0 || index >= this->size)
+            throw std::runtime_error("Índice inválido.");
+        if (index == 0) return removeFirst();
+        if (index == this->size - 1) return removeLast();
+
+        Queue<T> aux(this->capacity);
+        for (int i = 0; i < index; i++)
+            aux.addLast(this->removeFirst());
+        T element = this->removeFirst();
+        while (!this->isEmpty())
+            aux.addLast(this->removeFirst());
+        while (!aux.isEmpty())
+            this->addLast(aux.removeFirst());
+        return element;
 	}
 
 	T getFirst() {
-		if (isFull()) throw std::runtime_error("Fila vazia.");
+		if (isEmpty()) throw std::runtime_error("Fila vazia.");
 		return queue[head];
 	}
 
 	T getLast() {
-		if (isFull()) throw std::runtime_error("Fila vazia.");
+		if (isEmpty()) throw std::runtime_error("Fila vazia.");
 		for (int i = 0; i < size - 1; i++) {
 			addLast(removeFirst());
 		}
@@ -91,18 +114,41 @@ public:
 	}
 
 	T get(int index) {
-		//TODO
-		return T();
+		if (isEmpty()) throw std::runtime_error("Fila vazia.");
+        if (index < 0 || index >= this->size)
+            throw std::runtime_error("Índice inválido.");
+
+        Queue<T> aux(this->capacity);
+        for (int i = 0; i < index; i++)
+            aux.addLast(this->removeFirst());
+        T element = this->queue[this->head];
+        while (!this->isEmpty())
+            aux.addLast(this->removeFirst());
+        while (!aux.isEmpty())
+            this->addLast(aux.removeFirst());
+        return element;
 	}
 
 	int indexOf(T element_to_find) {
-		//TODO
-		return -1;
+		int index = -1;
+        for (int i = 0; i < this->size; i++) {
+            T element = this->removeFirst();
+            if (index == -1 && element == element_to_find)
+                index = i;
+            this->addLast(element);
+        }
+        return index;
 	}
 
 	int lastIndexOf(T element_to_find) {
-		//TODO
-		return -1;
+		int index = -1;
+        for (int i = 0; i < this->size; i++) {
+            T element = this->removeFirst();
+            if (element == element_to_find)
+                index = i;
+            this->addLast(element);
+        }
+        return index;
 	}
 
 	int getSize() {
