@@ -1,5 +1,3 @@
-package main.deque.Java;
-
 import java.util.NoSuchElementException;
 
 
@@ -59,7 +57,7 @@ public class Deque {
         if (isFull()) {
             resize();
         }
-        tail = (head + size) % capacity;
+        tail = (tail + 1) % capacity;  
         deque[tail] = entrada;
         if (size == 0) {
             head = tail;
@@ -73,7 +71,7 @@ public class Deque {
      */
     public int popLeft() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("O Deque está vazio");
         }
         int aux = deque[head];
         head = (head + 1) % capacity;
@@ -91,7 +89,7 @@ public class Deque {
      */
     public int popRight() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("O Deque está vazio");
         }
         int aux = deque[tail];
         tail = (tail - 1 + capacity) % capacity;
@@ -109,7 +107,7 @@ public class Deque {
      */
     public int peekLeft() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("O Deque está vazio");
         }
         return deque[head];
     }
@@ -120,7 +118,7 @@ public class Deque {
      */
     public int peekRight() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("O Deque está vazio");
         }
         return deque[tail];
     }
