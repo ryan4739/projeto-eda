@@ -67,3 +67,18 @@ task queuePython (type: Exec) {
     workingDir project.rootDir
     commandLine 'python3', '-m', 'src.test.queue.python.queue_test'
 }
+task StackCpp (type: Exec) {
+    workingDir 'src/test/stack/cpp'
+    commandLine 'g++', 'stackC++.cpp', '-o', 'stackC++'
+    doLast {
+        exec {
+            workingDir 'src/test/stack/cpp'
+            commandLine './stackC++'
+        }  
+    }
+}
+
+task StackPython (type: Exec) {
+    workingDir project.rootDir
+    commandLine 'python3', '-m', 'src.test.stack.python.testPython'
+}
