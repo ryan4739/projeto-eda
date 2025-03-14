@@ -3,3 +3,5 @@ build
 *.class
 __pycache__
 *.out
+.vscode
+projeto
