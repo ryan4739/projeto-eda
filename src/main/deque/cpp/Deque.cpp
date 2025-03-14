@@ -141,6 +141,13 @@ class Deque {
     }
 
     /**
+     * Retorna o número máximo de elementos no deque antes do resize.
+     */
+    int getCapacity() {
+        return capacity;
+    }
+
+    /**
      * Verifica se um valor está presente no deque.
      * @param valor Valor a ser procurado.
      * @return true se o valor estiver presente, false caso contrário.
