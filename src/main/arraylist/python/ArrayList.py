@@ -21,7 +21,7 @@ def addFirst(tupla, elemento):
 
 def addIndex(tupla, elemento, index): 
     outOfBounds(tupla,index)
-    nova_tupla = tupla[:index] + elemento + tupla[index:] 
+    nova_tupla = tupla[:index] + (elemento,) + tupla[index:] 
     return nova_tupla
 
 def rmvLast(tupla):
@@ -31,7 +31,7 @@ def rmvLast(tupla):
 
 def rmvFirst(tupla):
     isEmpty(tupla)
-    nova_tupla = tupla[0:]
+    nova_tupla = tupla[1:]
     return nova_tupla
 
 def rmvIndex(tupla, index):
@@ -44,8 +44,8 @@ def contains(tupla, elemento):
     isEmpty(tupla)
     for valor in tupla:
         if valor == elemento:
-            return true
-    return false
+            return True
+    return False
 
 
 def size(tupla):

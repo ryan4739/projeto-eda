@@ -113,11 +113,11 @@ public class ArrayList{
     }
 
   public int getFirst(){
-    return lista[0];
+    return lista(0);
   }
 
   public int getLast(){
-    return lista[last];
+    return last;
   }
 
   public int size() {
