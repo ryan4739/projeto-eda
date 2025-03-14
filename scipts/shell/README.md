@@ -1,6 +1,6 @@
 ## O que fazem?
 
-> createSample*.sh 
+> sampleGenerator.sh 
 São scripts que geram 100 linhas com quantidade de valores aleatórios separados por um espaço (" ") que podem ir de 1 até $10^n$, n ∈ {$10^4$, $10^5$, $10^6$}
 
 ---
