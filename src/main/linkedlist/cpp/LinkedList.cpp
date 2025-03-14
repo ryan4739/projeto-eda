@@ -1,9 +1,14 @@
 #include <iostream>
 #include <stdexcept>
 #include <string> 
+#include <sstream>
+#include "LinkedList.h"
 
 using namespace std;
 
+/**
+     * Representação de um Nó da lista
+     */
 struct Node {
     int data; /**< O valor sendo armazenado na lista */
     Node* next; /**< O próximo elemento da lista */
@@ -12,7 +17,7 @@ struct Node {
 };
 
 /**
-     * Representação de um Nó da lista
+     * Representação de uma lista encadeada
      */
 class LinkedList {
     Node* head; /**< Ponteiro para o primeiro nó da lista */
@@ -39,14 +44,14 @@ class LinkedList {
 
 public:
 
-    LinkedList() : head(nullptr), tail(nullptr), size(0) {}
+    LinkedList::LinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
     /**
      * Verifica se a lista está vazia
      * 
      * @return true caso esteja vazia, false caso não
      */
-    bool isEmpty() {
+    bool LinkedList::LinkedList::isEmpty() {
         return size == 0;
     }
     
@@ -55,7 +60,7 @@ public:
      * 
      * @param value o valor a ser adicionado
      */
-    void addFirst(int value) {
+    void LinkedList::addFirst(int value) {
         Node* newNode = new Node(value);
         
         if (isEmpty()) {
@@ -73,7 +78,7 @@ public:
      * 
      * @param value o valor a ser adicionado
      */
-    void addLast(int value) {
+    void LinkedList::addLast(int value) {
         Node* newNode = new Node(value);
         
         if (isEmpty()) {
@@ -92,7 +97,7 @@ public:
      * @param value o valor a ser adicionado
      * @param index a posição na qual ele será adicionado
      */
-    void add(int value, int index) {
+    void LinkedList::add(int value, int index) {
         if (index < 0 || index > size) {
             throw std::out_of_range("Índice inválido");
         }
@@ -118,7 +123,7 @@ public:
      * 
      * @return o valor do primeiro elemento da lista
      */
-    int getFirst() {
+    int LinkedList::getFirst() {
         return head->data;
     }
 
@@ -127,7 +132,7 @@ public:
      * 
      * @return o último elemento da lista
      */
-    int getLast() {
+    int LinkedList::getLast() {
         return tail->data;
     }
 
@@ -137,7 +142,7 @@ public:
      * @param index o índice do node
      * @return o valor contido no node
      */
-    int get(int index) {
+    int LinkedList::get(int index) {
         if (index < 0 || index >= size) {
             throw std::out_of_range("índice inválido");
         }
@@ -152,7 +157,7 @@ public:
      * @param value o valor a ser alterado
      * @param index o índice do valor a ser alterado
      */
-    void updateNode(int index, int value) {
+    void LinkedList::updateNode(int value, int index) {
         if (index < 0 || index >= size) {
             throw std::out_of_range("índice inválido");
         }
@@ -164,7 +169,7 @@ public:
     /**
      * Remove o primeiro elemento da lista
      */
-    void removeFirst() {
+    void LinkedList::removeFirst() {
         if (isEmpty()) {
             throw std::out_of_range("Lista vazia");
         }
@@ -183,7 +188,7 @@ public:
     /**
      * Remove o último elemento da lista
      */
-    void removeLast() {
+    void LinkedList::removeLast() {
         if (isEmpty()) {
             throw std::out_of_range("Lista vazia");
         }
@@ -205,7 +210,7 @@ public:
      * 
      * @param index o índice do elemento a ser removido
      */
-    void removeByIndex(int index) {
+    void LinkedList::removeByIndex(int index) {
         if (index < 0 || index >= size) {
             throw std::out_of_range("Índice inválido");
         }
@@ -230,7 +235,7 @@ public:
      * 
      * @param value o valor a ser removido
      */
-    void removeByValue(int value) {
+    void LinkedList::removeByValue(int value) {
         int index = indexOf(value);
         if (index != -1) {
             removeByIndex(index);
@@ -243,9 +248,9 @@ public:
      * @param value o valor a ser encontrado
      * @return o índice da primeira ocorrência do valor, caso esteja na lista, -1 caso não
      */
-    int indexOf(int value) {
+    int LinkedList::indexOf(int value) {
         if (isEmpty()) {
-            throw std::exception("Lista vazia");
+            throw std::runtime_error("Lista vazia");
         }
 
         Node* node = head;
@@ -253,6 +258,7 @@ public:
             if (node->data == value) {
                 return i;
             }
+            node = node->next;
         }
         return -1;
     }
@@ -263,9 +269,9 @@ public:
      * @param value o valor buscado
      * @return o índice da última ocorrência do valor, caso esteja na lista, -1 caso não
      */
-    int lastIndexOf(int value) {
+    int LinkedList::lastIndexOf(int value) {
         if (isEmpty()) {
-            throw std::exception("Lista vazia");
+            throw std::runtime_error("Lista vazia");
         }
 
         int index = -1;
@@ -284,7 +290,7 @@ public:
      * 
      * @return o tamanho da lista
      */
-    int sizeLL() {
+    int LinkedList::sizeLL() {
         return size;
     }
 
@@ -294,24 +300,23 @@ public:
      * @param value o valor a ser buscado
      * @return true caso o valor esteja contido, false caso não
      */
-    bool contains(int value) {
+    bool LinkedList::contains(int value) {
         return indexOf(value) != -1;
     }
 
     /**
      * Representação textual da lista no formato "a -> b -> c [...]"
      */
-    string toString() {
-        string llString = "";
-
+    string LinkedList::toString() {
+        stringstream ss;
         Node* node = head;
         while (node != nullptr) {
-            llString += to_string(node->data);
+            ss << node->data;
             if (node->next != nullptr) {
-                llString += " -> ";
+                ss << " -> ";
             }
             node = node->next;
         }
-        return llString;
+        return ss.str();
     } 
 };
