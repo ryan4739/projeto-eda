@@ -63,7 +63,23 @@ task queueCpp (type: Exec) {
     }
 }
 
+task linkedListCpp (type: Exec) {
+    workingDir 'src/test/linkedlist/cpp'
+    commandLine 'g++', 'LinkedListTest.cpp', '-o', 'LinkedListTest'
+    doLast {
+        exec {
+            workingDir 'src/test/linkedlist/cpp'
+            commandLine './LinkedListTest'
+        }  
+    }
+}
+
 task queuePython (type: Exec) {
     workingDir project.rootDir
     commandLine 'python3', '-m', 'src.test.queue.python.queue_test'
+}
+
+task linkedListPython (type: Exec) {
+    workingDir project.rootDir
+    commandLine 'python3', '-m', 'src.test.linkedlist.python.linked_list_test'
 }
