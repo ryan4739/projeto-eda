@@ -6,12 +6,12 @@
 class ArrayList {
 private:
     int* data;
-    size_t capacity;
-    size_t size;
+    int capacity;
+    int size;
 
     void resize();
-    void shiftDireita(size_t index);
-    void shiftEsquerda(size_t index);
+    void shiftDireita(int index);
+    void shiftEsquerda(int index);
     void testeTamanho();
     void testeRmv();
 
@@ -21,11 +21,11 @@ public:
     ~ArrayList();
     bool addLast(int value);
     bool addFirst(int value);
-    bool addIndex(int value, size_t index);
+    bool addIndex(int value, int index);
     bool contains(int value);
     bool rmvLast();
     bool rmvFirst();
-    bool rmvIndex(size_t index);
+    bool rmvIndex(int index);
     bool isEmpty();
     bool isFull();
     int getSize() const;
