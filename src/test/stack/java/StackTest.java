@@ -1,7 +1,7 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class Stacktest {
+public class StackTest {
     
     public void test_isEmpty_isFull() {
         Stack stack = new Stack(3);
