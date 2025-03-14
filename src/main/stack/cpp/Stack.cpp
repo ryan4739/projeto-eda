@@ -13,12 +13,24 @@ class Stack {       // The class
             array = new int[capacidade];
             this-> count = capacidade;
         }
+        bool isFull(){
+            if(this->tail+1 >= count){
+                return true;
+            }
+            return false;
+        }
+        bool isEmpty(){
+            if(tail<0){
+                return true;
+            }
+            return false;
+        }
         void direita(int valor, int index){
             this-> tail+=1;
             if(isFull()){
                 throw std::runtime_error("Não deu");
             }
-            if(index>=count){
+            if(index>count){
                 throw std::runtime_error("Não deu");
             }
             for(int i=index; i<tail; i++){
@@ -27,19 +39,20 @@ class Stack {       // The class
             array[index]= valor;
         }
         void esquerda(int valor){
-            if(isFull()){
+            if(isEmpty()){
                 throw std::runtime_error("Não deu");
             }
-            if(valor>=count){
+            if(valor>count){
                 throw std::runtime_error("Não deu");
             }
             
             for(int i =valor; i<tail; i++){
               array[i+1] = array[i];
             }
+            this-> tail+=-1;
         }
         int pop(){
-            if(tail<0){
+            if(isEmpty()){
                 throw std::runtime_error("Não deu");
             }
             int V = array[tail];
@@ -47,7 +60,7 @@ class Stack {       // The class
             return tail;
         }
         int indexOf(int valor){
-            if(tail<0){
+            if(isEmpty()){
                 throw std::runtime_error("Não deu");
             }
             for(int i=0;i<size(); i++){
@@ -98,11 +111,23 @@ class Stack {       // The class
             }
             return numero;
         }
-        int peek(int valor){
-            if(tail<valor){
+        int peekIndex(int valor){
+            if(tail<valor|| isEmpty() || valor<0){
                 throw std::runtime_error("Não deu");
             }
             return array[valor];
+        }
+        int peekLast(){
+            if(tail<valor || isEmpty()){
+                throw std::runtime_error("Não deu");
+            }
+            return array[0];
+        }
+        int peek(){
+            if(tail<valor || isEmpty()){
+                throw std::runtime_error("Não deu");
+            }
+            return array[tail];
         }
         void push(int valor){
             if(isFull()){
@@ -111,6 +136,9 @@ class Stack {       // The class
             this ->  tail+=1;
             array[tail]= valor;
         }
+        void pushLast(int valor){
+            direita(valor, 0);
+		}
         void PushIndex(int valor, int index){
             direita(valor, index);
         }
@@ -130,23 +158,11 @@ class Stack {       // The class
         int size(){
             return tail+1;
         }
-        bool isFull(){
-            if(this->tail+1 >= count){
-                return true;
-            }
-            return false;
-        }
         void gettail(){
             std::cout <<tail;
             std::cout <<sizeof(array);
             std::cout <<sizeof(array[0]);
             std::cout << count;
-        }
-        bool isEmpty(){
-            if(tail<0){
-                return true;
-            }
-            return false;
         }
 };
 

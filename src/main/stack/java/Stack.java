@@ -14,46 +14,93 @@ public class Stack{
         }
         return false;
     }
+    // Deve mandar verdadeiro se está cheio, falso no contrário
+    // @Param 
     public boolean isFull() {
         if(this.tail+1>=array.length){
             return true;
         }
         return false;
     }
-
+    public void direita(int index){
+        for(int i = index; i<tail; i++){
+            array[i+1] = array[i];
+        }
+    }
     // deve lançar exceção caso a pilha esteja cheia.
     public void push(int valor) {
         if(isFull()){
-            throw new NoSuchElementException("Se ferrou cara");
+            throw new NoSuchElementException("Carga máxima atingida");
         }
         array[++this.tail]=valor;
     }
-
+    public void pushLast(int valor){
+        if(isFull()){
+            throw new IndexOutOfBoundries("Carga máxima atingida");
+        }
+        direita(0);
+        array[0] = valor;
+        this.tail++;
+    }
+    public void pushIndex(int valor, int index){
+        if(isFull() || index<0 || index >tail+1){
+            throw new IndexOutOfBoundries("Carga máxima atingida ou index invalido");
+        }
+        direita(index);
+        array[index] = valor;
+        this.tail++;
+    }
+    public void esquerda(int index){
+        for(int i=index; i>0;i--){
+            array[i-1] = array[i];
+        }
+    }
     // deve lançar exceção caso a pilha esteja vazia.
     public int pop() {
         if(isEmpty()){
-            throw new NoSuchElementException("sE FERRROU CARA");
+            throw new NoSuchElementException("ELemento inexistente");
         }
         int V = array[this.tail--];
         return V;
     }
 
+    public void popLast(){
+        if(isEmpty()){
+            throw new IndexOutOfBoundries("ELemento inexistente");
+        }
+        esquerda(0)
+        this.tail--;
+    }
+    public void popIndex(int index){
+        if(isEmpty() || index<0 || index >tail){
+            throw new IndexOutOfBoundries("ELemento inexistente ou index fora de range");
+        }
+        esquerda(index);
+        this.tail--;
+    }
     // deve lançar exceção caso a pilha esteja vazia.
     public int peek() {
         if(isEmpty()){
-            throw new NoSuchElementException("RUaaaaaaaaaaannnnnnn");
+            throw new NoSuchElementException("Não existe elementos na Stack");
         }
         return this.array[this.tail];
     }
-
-
-    // deve retornar uma string representando a pilha. Veja os testes para a especificação
-    // detalhada. Não é permitido iterar diretamente sobre o array ou criar arrays. Crie outra pilha, se preciso. Use as operações push, pop,
-    // isEmpty etc. 
-    public String toString() {
-        if(isEmpty()){
-            throw new NoSuchElementException("RICARRRRRRDO");
+    public int peekIndex(int index){
+        if(isEmpty() || index>tail+1 || index<0s){
+            throw new IndexOutOfBoundries("Não existe elementos na Stack);
         }
+        return this.array[index];
+    }
+    public int peekLast(){
+       if(isEmpty()){
+            throw new IndexOutOfBoundries("Não existe elementos na Stack");
+        }
+        return this.array[0]; 
+    }
+
+
+    // Retorna a versão da String 
+    public String toString() {
         String pilha = "";
         int contador = 0;
         while(!isEmpty()){
@@ -82,7 +129,7 @@ public class Stack{
         }
         return numero;
     }
-
+    // retorna o tamanho do Stack
     public int size() {
         return this.tail+1;
     }
