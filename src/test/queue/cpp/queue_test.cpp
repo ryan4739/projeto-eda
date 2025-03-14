@@ -2,97 +2,139 @@
 #include <cassert>
 #include "../../../main/queue/cpp/queue.cpp"
 
-void testQueue() {
-   
-    // Queue
-    Queue<int> q(5);
+// Função para testar a criação da fila e métodos básicos
+void testQueueCreation() {
+    Queue<int> q(10);
     assert(q.isEmpty());
     assert(q.getSize() == 0);
+    std::cout << "Testes de criação da fila passaram!\n";
+}
 
-    // addLast
+// Função para testar adição de elementos no final da fila
+void testAddLast() {
+    Queue<int> q(10);
     q.addLast(10);
     q.addLast(20);
     q.addLast(30);
     assert(q.getSize() == 3);
     assert(q.getFirst() == 10);
     assert(q.getLast() == 30);
+    std::cout << "Testes de addLast passaram!\n";
+}
 
-    // addFirst
+// Função para testar adição de elementos no início da fila
+void testAddFirst() {
+    Queue<int> q(10);
+    q.addLast(10);
+    q.addLast(20);
     q.addFirst(5);
-    assert(q.getSize() == 4);
+    assert(q.getSize() == 3);
     assert(q.getFirst() == 5);
-    assert(q.getLast() == 30);
-    
-    // add
+    assert(q.getLast() == 20);
+    std::cout << "Testes de addFirst passaram!\n";
+}
+
+// Função para testar adição de elementos em posições específicas
+void testAddAtPosition() {
+    Queue<int> q(10);
+    q.addLast(10);
+    q.addLast(20);
+    q.addLast(30);
     q.add(40, 2);
-    assert(q.getSize() == 5);
-    assert(q.getFirst() == 5);
-    assert(q.getLast() == 30);
-    q.add(70, 0);
-    assert(q.getSize() == 6);
-    assert(q.getFirst() == 70);
-    assert(q.getLast() == 30);
-    q.add(90, 6);
-    assert(q.getSize() == 7);
-    assert(q.getFirst() == 70);
-    assert(q.getLast() == 90);
-    
-    // removeFirst
-    assert(q.removeFirst() == 5);
     assert(q.getSize() == 4);
     assert(q.getFirst() == 10);
-    
-    // removeLast
-    assert(q.removeLast() == 40);
-    assert(q.getSize() == 3);
     assert(q.getLast() == 30);
-    
-    // remove
-    assert(q.remove(0) == 10);
+    q.add(70, 0);
+    assert(q.getSize() == 5);
+    assert(q.getFirst() == 70);
+    assert(q.getLast() == 30);
+    q.add(90, 5);
+    assert(q.getSize() == 6);
+    assert(q.getFirst() == 70);
+    assert(q.getLast() == 90);
+    std::cout << "Testes de add em posições específicas passaram!\n";
+}
+
+// Função para testar remoção de elementos no início da fila
+void testRemoveFirst() {
+    Queue<int> q(10);
+    q.addLast(10);
+    q.addLast(20);
+    q.addLast(30);
+    assert(q.removeFirst() == 10);
     assert(q.getSize() == 2);
     assert(q.getFirst() == 20);
-    assert(q.remove(1) == 30);
-    assert(q.getSize() == 1);
-    assert(q.getFirst() == 20);
-    q.addFirst(120);
-    q.addFirst(130);
-    q.addFirst(140);
-    assert(q.remove(1) == 130);
-    assert(q.getSize() == 3);
-    assert(q.getFirst() == 140);
-    
-    // getFirst
-    assert(q.getFirst() == 20);
-    
-    // getLast
-    assert(q.getLast() == 30);
-    
-    // get
-    assert(q.get(0) == 20);
-    assert(q.get(1) == 30);
-    
-    // indexOf
-    assert(q.indexOf(20) == 0);
-    assert(q.indexOf(30) == 1);
-    assert(q.indexOf(40) == -1);
-    
-    // lastIndexOf
-    q.addLast(20);
-    assert(q.lastIndexOf(20) == 2);
-    
-    // size
-    assert(q.getSize() == 3);
-    
-    // isEmpty
-    assert(!q.isEmpty());
-    
-    // isFull
-    assert(!q.isFull());
+    std::cout << "Testes de removeFirst passaram!\n";
+}
 
+// Função para testar remoção de elementos no final da fila
+void testRemoveLast() {
+    Queue<int> q(10);
+    q.addLast(10);
+    q.addLast(20);
+    q.addLast(30);
+    assert(q.removeLast() == 30);
+    assert(q.getSize() == 2);
+    assert(q.getLast() == 20);
+    std::cout << "Testes de removeLast passaram!\n";
+}
+
+// Função para testar remoção de elementos em posições específicas
+void testRemoveAtPosition() {
+    Queue<int> q(10);
+    q.addLast(10);
+    q.addLast(20);
+    q.addLast(30);
+    assert(q.remove(1) == 20);
+    assert(q.getSize() == 2);
+    assert(q.getFirst() == 10);
+    assert(q.getLast() == 30);
+    std::cout << "Testes de remove em posições específicas passaram!\n";
+}
+
+// Função para testar métodos de consulta (getFirst, getLast, get, indexOf, lastIndexOf)
+void testQueryMethods() {
+    Queue<int> q(10);
+    q.addLast(10);
+    q.addLast(20);
+    q.addLast(30);
+    assert(q.getFirst() == 10);
+    assert(q.getLast() == 30);
+    assert(q.get(1) == 20);
+    assert(q.indexOf(20) == 1);
+    assert(q.indexOf(40) == -1);
+    q.addLast(20);
+    assert(q.lastIndexOf(20) == 3);
+    std::cout << "Testes de métodos de consulta passaram!\n";
+}
+
+// Função para testar métodos de estado (size, isEmpty, isFull)
+void testStateMethods() {
+    Queue<int> q(3);
+    assert(q.isEmpty());
+    q.addLast(10);
+    q.addLast(20);
+    q.addLast(30);
+    assert(q.isFull());
+    assert(q.getSize() == 3);
+    std::cout << "Testes de métodos de estado passaram!\n";
+}
+
+// Função principal que executa todos os testes
+void testQueue() {
+    testQueueCreation();
+    testAddLast();
+    testAddFirst();
+    testAddAtPosition();
+    testRemoveFirst();
+    testRemoveLast();
+    testRemoveAtPosition();
+    testQueryMethods();
+    testStateMethods();
+    std::cout << "Todos os testes passaram!\n";
 }
 
 int main() {
     testQueue();
-    std::cout << "Todos os testes passaram!\n";
     return 0;
 }
