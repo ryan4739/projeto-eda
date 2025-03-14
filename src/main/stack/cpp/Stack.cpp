@@ -18,10 +18,6 @@ public:
         this->top = -1;
     }
 
-    ~Stack() {
-        delete[] array;
-    }
-
     bool isFull() const {
         return top + 1 >= capacity;
     }
@@ -67,7 +63,7 @@ public:
         return -1;
     }
 
-    void insertAt(int valor, int index) {
+    void PushIndex(int valor, int index) {
         if (isFull()) {
             throw std::runtime_error("A pilha está cheia");
         }
@@ -81,7 +77,7 @@ public:
         top++;
     }
 
-    void removeAt(int index) {
+    void popIndex(int index) {
         if (isEmpty()) {
             throw std::runtime_error("A pilha está vazia");
         }
@@ -102,5 +98,16 @@ public:
         for (int i = 0; i <= top; i++) {
             std::cout << array[i] << (i < top ? ", " : "\n");
         }
+    }
+    void pushLast(int valor) {
+        PushIndex(valor, 0);
+    }
+    int popLast() {
+        if (isEmpty()) {
+            throw std::runtime_error("Pilha vazia");
+        }
+        int firstValue = array[0];
+        popIndex(0);
+        return firstValue;
     }
 };
