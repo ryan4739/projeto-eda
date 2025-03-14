@@ -48,21 +48,13 @@ task testDeque(type: Test) {
     }
 }
 
-task testLinkedList(type: Test) {
-    useJUnitPlatform {
-        include '**/linkedlist/**'
-    }
+task testQueueInCpp (type: Exec) {
+    workingDir 'src/test/queue/cpp'
+    commandLine 'g++', 'queue_test.cpp'
+    commandLine './a.out'
 }
 
-task testQueue(type: Test) {
-    useJUnitPlatform {
-        include '**/queue/**'
-    }
+task testQueueInPython (type: Exec) {
+    workingDir project.rootDir
+    commandLine 'python3', '-m', 'src.test.queue.python.queue_test'
 }
-
-task testStack(type: Test) {
-    useJUnitPlatform {
-        include '**/stack/**'
-    }
-}
-
