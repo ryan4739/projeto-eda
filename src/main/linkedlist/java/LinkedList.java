@@ -5,12 +5,12 @@ import java.util.NoSuchElementException;
  */
 public class LinkedList {
     /**
-     * O primeiro nó da lista
+     * Ponteiro para o primeiro nó da lista
      */
     private Node head;
 
     /**
-     * O último nó da lista
+     * Ponteiro para o último nó da lista
      */
     private Node tail;
 
@@ -27,6 +27,7 @@ public class LinkedList {
     
     /**
      * Verifica se a lista está vazia
+     * 
      * @return true caso esteja vazia, false caso não
      */
     public boolean isEmpty() {
@@ -76,12 +77,13 @@ public class LinkedList {
      * @param index a posição na qual ele será adicionado
      */
     public void add(int value, int index) {        
-        if (index == 0)
+        if (index < 0 || index > this.size) throw new IndexOutOfBoundsException("Índice inválido");
+        
+        if (index == 0 || isEmpty())
             addFirst(value);
         else if (index == this.size)
             addLast(value);
         else {
-            if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
             
             Node newNode = new Node(value);
             Node prevNode = getNodeByIndex(index-1);
@@ -117,7 +119,7 @@ public class LinkedList {
      * @return o valor contido no node
      */
     public int get(int index) {
-        if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Índice inválido");
         
         if (index == 0)
             return getFirst();
@@ -134,7 +136,7 @@ public class LinkedList {
      * @param index o índice do valor a ser alterado
      */
     public void updateNode(int value, int index) {
-        if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Índice inválido");
 
         Node node = getNodeByIndex(index);
         node.value = value;
@@ -144,7 +146,7 @@ public class LinkedList {
      * Remove o primeiro elemento da lista
      */
     public void removeFirst() {
-        if (isEmpty()) throw new NoSuchElementException("Node não existe");
+        if (isEmpty()) throw new NoSuchElementException("Lista vazia");
 
         if (this.size == 1) {
             this.head = null;
@@ -159,7 +161,7 @@ public class LinkedList {
      * Remove o último elemento da lista
      */
     public void removeLast() {
-        if (isEmpty()) throw new NoSuchElementException("Node não existe");
+        if (isEmpty()) throw new NoSuchElementException("Lista vazia");
 
         if (this.size == 1) {
             this.head = null;
@@ -178,7 +180,7 @@ public class LinkedList {
      * @param index o índice do elemento a ser removido
      */
     public void removeByIndex(int index) {
-        if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Índice inválido");
         
         if (index == 0)
             removeFirst();
@@ -211,7 +213,7 @@ public class LinkedList {
      * @return o índice da primeira ocorrência do valor, caso esteja na lista, -1 caso não
      */
     public int indexOf(int value) {
-        if (isEmpty()) throw new NoSuchElementException("Elemento não existe");
+        if (isEmpty()) throw new NoSuchElementException("Lista vazia");
 
         Node node = this.head;
         for (int i = 0; i < this.size; i++) {
@@ -230,7 +232,7 @@ public class LinkedList {
      * @return o índice da última ocorrência do valor, caso esteja na lista, -1 caso não
      */
     public int lastIndexOf(int value) {
-        if (isEmpty()) throw new NoSuchElementException("Elemento não existe");
+        if (isEmpty()) throw new NoSuchElementException("Lista vazia");
 
         int index = -1;
         
@@ -251,7 +253,7 @@ public class LinkedList {
      * @return o node
      */
     private Node getNodeByIndex(int index) {
-        if (index < 0 || index > this.size-1) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Índice inválido");
 
         Node node = this.head;
         for (int i = 0; i < index; i++)
@@ -298,7 +300,14 @@ public class LinkedList {
      * Representação de um Nó da lista
      */
     public static class Node {
+        /**
+         * O valor sendo armazenado na lista
+         */
         int value;
+
+        /**
+         * O próximo elemento da lista
+         */
         Node next;
         
         public Node(int value) {
