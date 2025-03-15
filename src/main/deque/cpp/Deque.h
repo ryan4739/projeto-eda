@@ -15,6 +15,7 @@ class Deque {
     int tail;
 
   public:
+    Deque();
     Deque(int capacidade);
     ~Deque();
     void appendLeft(int entrada);
