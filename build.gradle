@@ -150,3 +150,15 @@ task stackCpp (type: Exec) {
     }
 }
 
+build {
+    dependsOn arraylistJava, arraylistPython, arraylistCpp,
+              dequeJava, dequePython, dequeCpp,
+              linkedJava, linkedlistPython, linkedlistCpp,
+              queueJava, queuePython, queueCpp,
+              stackJava, stackPython, stackCpp
+}
+
+test {
+    dependsOn arraylistJava, dequeJava, linkedJava, queueJava, stackJava
+}
+
