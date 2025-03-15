@@ -1,12 +1,20 @@
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+package arraylist;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class ArrayListTest {
 
     private ArrayList list;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         list = new ArrayList();
     }
@@ -37,9 +45,9 @@ public class ArrayListTest {
         assertEquals(30, list.get(2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testAddIndexOutOfBounds() {
-        list.addIndex(10, 1);
+        assertThrows(IndexOutOfBoundsException.class, () -> list.addIndex(10, 1));
     }
 
     @Test
@@ -61,9 +69,9 @@ public class ArrayListTest {
         assertTrue(list.isEmpty());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRmvLastEmptyList() {
-        list.rmvLast();
+        assertThrows(NullPointerException.class, () -> list.rmvLast());
     }
 
     @Test
@@ -85,9 +93,9 @@ public class ArrayListTest {
         assertEquals(30, list.get(1));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testRmvIndexEmptyList() {
-        list.rmvIndex(0);
+        assertThrows(NullPointerException.class, () -> list.rmvIndex(0));
     }
 
     @Test
@@ -141,9 +149,9 @@ public class ArrayListTest {
         assertEquals(10, list.getFirst());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetFirstEmptyList() {
-        list.getFirst();
+        assertThrows(NullPointerException.class, () -> list.getFirst());
     }
 
     @Test
@@ -153,9 +161,9 @@ public class ArrayListTest {
         assertEquals(20, list.getLast());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testGetLastEmptyList() {
-        list.getLast();
+        assertThrows(NullPointerException.class, () -> list.getLast());
     }
 
     @Test
@@ -177,8 +185,9 @@ public class ArrayListTest {
         assertEquals(30, list.get(2));
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void testGetOutOfBounds() {
-        list.get(0);
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(0));
     }
+
 }
