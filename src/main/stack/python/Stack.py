@@ -1,88 +1,102 @@
-class Stack:
+class Stack: 
+    tail = -1 
+    array = [0]
     def __init__(self, capacidade):
-        if capacidade <= 0:
-            raise ValueError("Capacidade deve ser maior que zero")
-        self.array = [0] * capacidade
-        self.tail = -1
-        self.capacidade = capacidade
-
-    def isEmpty(self):
-        return self.tail < 0
-
-    def isFull(self):
-        return self.tail + 1 == self.capacidade
-
-    def push(self, valor):
-        if self.isFull():
-            raise OverflowError("A pilha está cheia")
-        self.tail += 1
-        self.array[self.tail] = valor
+        self.array = [0 for x in range (capacidade)]
 
     def pop(self):
-        if self.isEmpty():
-            raise IndexError("A pilha está vazia")
-        valor = self.array[self.tail]
-        self.tail -= 1
-        return valor
+        if(self.isEmpty()):
+            raise TypeError("Only integers are allowed")
+        V= self.array[self.tail]
+        self.tail+=-1
+        return V
 
-    def peek(self):
-        if self.isEmpty():
-            raise IndexError("A pilha está vazia")
-        return self.array[self.tail]
-
-    def peekFirst(self):
-        if self.isEmpty():
-            raise IndexError("A pilha está vazia")
-        return self.array[0]
-
-    def peekIndex(self, index):
-        if index < 0 or index > self.tail:
-            raise IndexError("Índice inválido")
-        return self.array[index]
-
-    def indexOf(self, valor):
-        for i in range(self.tail + 1):
-            if self.array[i] == valor:
-                return i
-        return -1
-
-    def direita(self, index):
-        """Move elementos para a direita para abrir espaço em `index`."""
-        if self.isFull():
-            raise OverflowError("A pilha está cheia")
-        for i in range(self.tail, index - 1, -1):
-            self.array[i + 1] = self.array[i]
-        self.tail += 1
-
-    def esquerda(self, index):
-        """Move elementos para a esquerda para remover item em `index`."""
-        for i in range(index, self.tail):
-            self.array[i] = self.array[i + 1]
-        self.tail -= 1
-
-    def pushIndex(self, valor, index):
-        if index < 0 or index > self.tail + 1:
-            raise IndexError("Índice inválido")
-        self.direita(index)
-        self.array[index] = valor
-
-    def removeIndex(self, index):
-        if self.isEmpty() or index < 0 or index > self.tail:
-            raise IndexError("Índice inválido")
-        self.esquerda(index)
-
-    def pushLast(self, valor):
-        self.pushIndex(valor, 0)
-
-    def popLast(self):
-        if self.isEmpty():
-            raise IndexError("A pilha está vazia")
-        valor = self.array[0]
-        self.esquerda(0)
-        return valor
-
-    def size(self):
-        return self.tail + 1
+    def isEmpty(self):
+       if(self.tail<0):
+           return True
+       return False
 
     def toString(self):
-        return ", ".join(str(self.array[i]) for i in range(self.tail + 1)) if not self.isEmpty() else "Pilha vazia"
+        stregyro= ""
+        valor = self.tail+1
+        for i in range (valor):
+            stregyro+= str(self.array[i])
+            self.tail+=-1
+            if(not (self.isEmpty())):
+                stregyro+= ", "
+        self.tail += valor
+        return stregyro
+
+    def isFull(self):
+        if((self.tail+1)==len(self.array)):
+            return True
+        return False
+
+    def push(self,valor):
+        if(self.isFull()):
+            raise TypeError("Only integers are allowed")
+        self.tail+=1
+        self.array[self.tail] = valor
+
+    def esquerda(self, valor):
+        for i in range(valor,len(self.array)):
+            self.array[i-1] = self.array[i]
+
+    def direita(self, valor):
+        for i in range((len(self.array))-1,valor):
+            self.array[i+1] = self.array[i]
+
+    def removeLast(self):
+        if(isEmpty()):
+            raise TypeError("Não tem o que remover")
+        self.esquerda(1)
+        self.tail+=-1
+
+    def removeIndex(index):
+        if(isEmpty() or index>tail or index < 0):
+            raise TypeError("Não tem nada a remover")
+        self.esquerda (index)
+        self.tail+=-1
+
+    def pushIndex(self, valor, index):
+        if(index > self.tail+1 or index < 0 ):
+            raise TypeError("Num deu")
+        self.direita(index)
+        self.array[index] = valor
+        self.tail+=1;
+
+    def peekIndex(self,index):
+        if(index>self.tail):
+            raise TypeError("Num deu")
+        return self.array[index]
+    def peek(self):
+        if(isEmpty()):
+            raise TypeError("Nãp deu")
+        return self.array[self.tail]
+
+    def peekLast(self):
+        if(isEmpty()):
+            raise TypeError("Nãp deu")
+        return self.array[0]
+        
+    def size(self):
+        return self.tail+1
+
+    def indexOf(self,valor):
+        primeiro = -1
+        for i in range(self.tail+1):
+            if(not(primeiro==-1)):
+                break
+            if(self.array[i]==valor):
+                primeiro=i
+        return primeiro
+class main:
+   stack1 = Stack(9)
+   stack1.push(1)
+   stack1.pushIndex(6,1)
+   stack1.pop()
+   stack1.push(4)
+   print(stack1.size())
+   print(stack1.indexOf(4))
+   print(stack1.peekIndex(0))
+   print(stack1.toString())

@@ -2,7 +2,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class StackTest {
+<<<<<<< HEAD:src/test/stack/java/StackTest.java
+=======
 
+>>>>>>> df5c3496bc161d667e71f4019927f336c48fa3a8:src/test/stack/java/testJava.java
     
     public void test_isEmpty_isFull() {
         Stack stack = new Stack(3);
