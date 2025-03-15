@@ -1,11 +1,10 @@
-
 import java.util.*;
 
 public class Stack{
     protected int[] array;
     protected int tail;
     public Stack(int capacidade){
-        this.array = new int[capacidade];
+        this.array = new int[capacidade]; 
         this.tail = -1;
     }
     public boolean isEmpty(){
@@ -36,7 +35,7 @@ public class Stack{
     }
     public void pushLast(int valor){
         if(isFull()){
-            throw new IndexOutOfBoundries("Carga máxima atingida");
+            throw new IndexOutOfBoundsException("Carga máxima atingida");
         }
         direita(0);
         array[0] = valor;
@@ -44,7 +43,7 @@ public class Stack{
     }
     public void pushIndex(int valor, int index){
         if(isFull() || index<0 || index >tail+1){
-            throw new IndexOutOfBoundries("Carga máxima atingida ou index invalido");
+            throw new IndexOutOfBoundsException("Carga máxima atingida ou index invalido");
         }
         direita(index);
         array[index] = valor;
@@ -66,14 +65,14 @@ public class Stack{
 
     public void popLast(){
         if(isEmpty()){
-            throw new IndexOutOfBoundries("ELemento inexistente");
+            throw new IndexOutOfBoundsException("ELemento inexistente");
         }
-        esquerda(0)
+        esquerda(0);
         this.tail--;
     }
     public void popIndex(int index){
         if(isEmpty() || index<0 || index >tail){
-            throw new IndexOutOfBoundries("ELemento inexistente ou index fora de range");
+            throw new IndexOutOfBoundsException("ELemento inexistente ou index fora de range");
         }
         esquerda(index);
         this.tail--;
@@ -86,14 +85,14 @@ public class Stack{
         return this.array[this.tail];
     }
     public int peekIndex(int index){
-        if(isEmpty() || index>tail+1 || index<0s){
-            throw new IndexOutOfBoundries("Não existe elementos na Stack);
+        if(isEmpty() || index>tail+1 || index<0){
+            throw new IndexOutOfBoundsException("Não existe elementos na Stack");
         }
         return this.array[index];
     }
     public int peekLast(){
        if(isEmpty()){
-            throw new IndexOutOfBoundries("Não existe elementos na Stack");
+            throw new IndexOutOfBoundsException("Não existe elementos na Stack");
         }
         return this.array[0]; 
     }
@@ -101,17 +100,14 @@ public class Stack{
 
     // Retorna a versão da String 
     public String toString() {
-        String pilha = "";
-        int contador = 0;
-        while(!isEmpty()){
-            pilha += pop();
-            if(!isEmpty()){
-                pilha += " ,";
+        StringBuilder pilha = new StringBuilder();
+        for (int i = 0; i <= tail; i++) {
+            pilha.append(array[i]);
+            if (i < tail) {
+                pilha.append(" ,");
             }
-            contador++;
         }
-        tail=+contador;
-        return pilha;
+        return pilha.toString();
     }
     
     // Deve retornar a posição da primeira ocorrência do elemento passado como parâmetro. Note que
@@ -120,14 +116,24 @@ public class Stack{
     // Não é permitido iterar diretamente sobre o array. Use as operações push, pop,
     // isEmpty etc.
     public int indexOf(int valor) {
+        Stack tempStack = new Stack(size());
+        int posicao = -1;
         int contador = 0;
-        int numero= 0;
-        while(!isFull()){
-            if(array[contador++]==valor){
-                 numero=contador;
+
+        while (!isEmpty()) {
+            int elemento = pop();
+            if (elemento == valor && posicao == -1) {
+                posicao = contador;
             }
+            tempStack.push(elemento);
+            contador++;
         }
-        return numero;
+
+        while (!tempStack.isEmpty()) {
+            push(tempStack.pop());
+        }
+
+        return posicao;
     }
     // retorna o tamanho do Stack
     public int size() {
