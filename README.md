@@ -2,15 +2,15 @@
 
 ## Equipe responsável pelo projeto
 
-- Ryan Vinnícius Tielles Almeida da Silva, matrícula 123210289 e Githubs @ryanvinnicius e @ryan4739;
-- Matheus Leite Barbosa, matrícula 123210878 e Github @matheusleitebarbosasouza;
-- Arthur Rodrigues Marinho da Silva, matrícula 123210353 e Github @Arthyp;
-- Diogo Medeiros, matrícula 123110779 e Github @diogo-med;
-- Arthur Correia Leite, matrícula 123210547 e Github @ArthurCorreiaa.
+- **Ryan Vinnícius Tielles Almeida da Silva**, matrícula **123210289** e Githubs **@ryanvinnicius** e **@ryan4739**;
+- **Matheus Leite Barbosa**, matrícula **123210878** e Github **@matheusleitebarbosasouza**;
+- **Arthur Rodrigues Marinho da Silva**, matrícula **123210353** e Github **@Arthyp**;
+- **Diogo Medeiros**, matrícula **123110779** e Github **@diogo-med**;
+- **Arthur Correia Leite**, matrícula **123210547** e Github **@ArthurCorreiaa**.
 
 ## Resumo da proposta
 
-Comparar a eficiência das estruturas de dados lineares ArrayList, LinkedList, Stack, Queue e Deque. Cada estrutura será implementada nas linguagens de programação Python, Java e C++. A comparação será de eficiência de tempo, eficiência de memória e limites de tamanhos de entrada. Os métodos executados serão de inserção, remoção e busca. Ao final, será gerado um relatório com os gráficos obtidos e explicações teóricas dos resultados.
+Comparar a eficiência das estruturas de dados lineares **ArrayList, LinkedList, Stack, Queue e Deque**. Cada estrutura será implementada nas linguagens de programação **Python, Java e C++**. A comparação será de **eficiência de tempo, eficiência de memória e limites de tamanhos de entrada**. Os métodos executados serão de **inserção, remoção e busca**. Ao final, será gerado um relatório com os gráficos obtidos e explicações teóricas dos resultados.
 
 ## Desenvolvimento da proposta
 
@@ -27,6 +27,10 @@ c) Executar os métodos de inserção, remoção e busca, no começo, meio e fim
 d) A partir dos dados de saída gerados por cada um dos métodos, nas linguagens e estruturadas de dados implementados, gerar gráficos comparativos utilizando a linguagem R;
 
 e) Com os gráficos e com a teoria a respeito das estruturas de dados, gerar um relatório, em linguagem de marcação Markdown, com os resultados obtidos e explicações relevantes.
+
+### Divisão das tarefas
+
+Após discussão, optamos por cada membro da equipe ficar responsável por: a) implementação e testagem de uma estrutura de dados nas três linguagens; b) testagem de tempo, memória e carga para cada combinação de método, estrutura e linguagem implementados e geração dos dados de saída; c) geração dos gráficos dos dados obtidos. As demais tarefas ficaram sem definição, para serem feitas em conjunto. No mais, também tentamos corrigir os algoritmos uns dos outros.
 
 ### Motivação
 
