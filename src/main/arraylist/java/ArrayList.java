@@ -36,14 +36,14 @@ public class ArrayList{
 	/**
 	 * 
 	 **/
-	private boolean isEmpty(){
+	public boolean isEmpty(){
 		return last == -1;
 	}
 	
 	/**
 	 *
 	 **/
-	private boolean isFull(){
+	public boolean isFull(){
 		return last == capacidade-1;
 	}
 	
@@ -76,7 +76,7 @@ public class ArrayList{
 		return true;
 	}
 
-	private void shiftDireita(int index){
+	public void shiftDireita(int index){
 		if (isFull()){
                         resize();
                 }
@@ -85,7 +85,7 @@ public class ArrayList{
 		}
 	}
 
-	private void resize(){
+	public void resize(){
 		int[] listaAux = new int[capacidade*2];
 		for (int i = 0; i<lista.length;i++){
 			listaAux[i] = lista[i];
@@ -142,7 +142,7 @@ public class ArrayList{
 		return true;
 	}
 
-	private void shiftEsquerda(int index){
+	public void shiftEsquerda(int index){
 		if (isEmpty()){
                         throw new NullPointerException("Lista vazia");
                 }
