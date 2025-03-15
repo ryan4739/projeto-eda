@@ -11,7 +11,7 @@
 n=$((10 ** $1))
 
 output_dir="../../data"
-output_file="$output_dir/random_numbers-size-$n.data"
+output_file="$output_dir/random_numbers-size-10^$1.data"
 
 mkdir -p "$output_dir"
 
@@ -21,5 +21,5 @@ for ((i=0; i<n; i++)); do
 done
 
 echo >> "$output_file"
-echo "Sequência de $n números aleatórios gerada e salva em: $output_file"
+echo "Sequência de 10^$1 números aleatórios gerada e salva em: $output_file"
 
