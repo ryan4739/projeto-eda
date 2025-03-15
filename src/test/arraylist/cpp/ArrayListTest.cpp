@@ -47,10 +47,44 @@ void testArrayList() {
     // Testando isEmpty
     std::cout << "\nTestando isEmpty...\n";
     std::cout << "A lista está vazia? " << (list.isEmpty() ? "Sim" : "Não") << " (esperado: Não)\n";
+    std::cout << "Eliminando o resto dos elementos para testar com ela vazia...\n";
+    list.rmvLast();
+    list.rmvLast();
+    std::cout << "A lista está vazia? " << (list.isEmpty() ? "Sim" : "Não") << " (esperado: Sim)\n";
 
-    // Testando isFull (assumindo que a capacidade inicial é 20)
+    // Testando isFull
     std::cout << "\nTestando isFull...\n";
     std::cout << "A lista está cheia? " << (list.isFull() ? "Sim" : "Não") << " (esperado: Não)\n";
+    std::cout << "Adicionando até estar cheia...\n";
+    list.addLast(1);
+    list.addLast(2);
+    list.addLast(3);
+    list.addLast(4);
+    list.addLast(5);
+    list.addLast(6);
+    list.addLast(7);
+    list.addLast(8);
+    list.addLast(9);
+    list.addLast(10);
+    list.addLast(11);
+    list.addLast(12);
+    list.addLast(13);
+    list.addLast(14);
+    list.addLast(15);
+    list.addLast(16);
+    list.addLast(17);
+    list.addLast(18);
+    list.addLast(19);
+    list.addLast(20);
+    std::cout << "Tamanho? " << list.getSize() << " (esperado: 19)\n";
+    std::cout << "A lista está cheia? " << (list.isFull() ? "Sim" : "Não") << " (esperado: Sim)\n";
+
+
+    // Testando reSize
+    std::cout << "Testando reSize...\n";
+    list.addLast(21);
+    std::cout << "Tamanho? " << list.getSize() << " (esperado: 20)\n";
+    std::cout << "A lista está cheia? " << (list.isFull() ? "Sim" : "Não") << " (esoerado: Não)\n";
 
     // Testando o destrutor (não há muito o que testar aqui, mas podemos verificar se o programa não crasha)
     std::cout << "\nTestando destrutor...\n";

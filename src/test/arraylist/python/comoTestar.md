@@ -1,2 +1,2 @@
 use o comando no terminal:
-python -m unittest ArrayListTest.py
+python3 -m unittest ArrayListTest.py

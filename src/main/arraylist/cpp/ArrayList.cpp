@@ -21,8 +21,13 @@ void ArrayList::shiftDireita(int index) {
 
 void ArrayList::shiftEsquerda(int index) {
     testeRmv();
-    for (int i = index; i < --size; i++) {
-        data[i] = data[i + 1];
+    if(index == 0){
+	rmvLast();
+    }
+    else{
+    	for (int i = index; i < --size; i++) {
+        	data[i] = data[i + 1];
+	}
     }
 }
 
@@ -86,7 +91,7 @@ bool ArrayList::contains(int value) {
 
 bool ArrayList::rmvLast() {
     testeRmv();
-    size--;
+    --size;
     return true;
 }
 
