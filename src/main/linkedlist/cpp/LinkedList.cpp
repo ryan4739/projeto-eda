@@ -1,8 +1,7 @@
 #include <iostream>
 #include <stdexcept>
-#include <string> 
+#include <string>
 #include <sstream>
-#include "LinkedList.h"
 
 using namespace std;
 
