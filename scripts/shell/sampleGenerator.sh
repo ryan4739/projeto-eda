@@ -13,6 +13,8 @@ n=$((10 ** $1))
 output_dir="../../data"
 output_file="$output_dir/random_numbers-size-$n.data"
 
+mkdir -p "$output_dir"
+
 for ((i=0; i<n; i++)); do
     R=$((RANDOM % n))
     echo -n "$R " >> "$output_file"
