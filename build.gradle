@@ -36,9 +36,27 @@ test {
     useJUnitPlatform()
 }
 
-task arrayListJava (type: Test) {
+task arraylistJava (type: Test) {
     useJUnitPlatform {
-        include '**/arraylist/**'
+        filter {
+            includeTestsMatching '**/arraylist/**'
+        }
+    }
+}
+
+task arraylistPython (type: Exec) {
+    workingDir project.rootDir
+    commandLine 'python3', '-m', 'src.arraylist.python.arraylist_test.py'
+}
+
+task arraylistCpp (type: Exec) {
+    workingDir 'src/test/arraylist/cpp'
+    commandLine 'g++', 'arraylist_test.cpp'
+    doLast {
+        exec {
+            workingDir 'src/test/arraylist/cpp'
+            commandLine './a.out'
+        }  
     }
 }
 
@@ -48,21 +66,23 @@ task dequeJava (type: Test) {
     }
 }
 
-task queueJava {
-    
+task dequePython (type: Exec) {
+    workingDir project.rootDir
+    commandLine 'python3', '-m', 'src.test.deque.python.deque_test.py'
 }
 
-task queueCpp (type: Exec) {
-    workingDir 'src/test/queue/cpp'
-    commandLine 'g++', 'queue_test.cpp', '-o', 'queue_test'
+task dequeCpp (type: Exec) {
+    workingDir 'src/test/deque/cpp'
+    commandLine 'g++', 'deque_test.cpp'
     doLast {
         exec {
-            workingDir 'src/test/queue/cpp'
-            commandLine './queue_test'
+            workingDir 'src/test/deque/cpp'
+            commandLine './a.out'
         }  
     }
 }
 
+<<<<<<< HEAD
 task linkedListCpp (type: Exec) {
     workingDir 'src/test/linkedlist/cpp'
     commandLine 'g++', 'LinkedListTest.cpp', '-o', 'LinkedListTest'
@@ -70,10 +90,55 @@ task linkedListCpp (type: Exec) {
         exec {
             workingDir 'src/test/linkedlist/cpp'
             commandLine './LinkedListTest'
+=======
+task linkedJava (type: Test) {
+    useJUnitPlatform {
+        include '**/linkedlist/**'
+    }
+}
+
+task linkedlistPython (type: Exec) {
+    workingDir project.rootDir
+    commandLine 'python3', '-m', 'src.test.linkedlist.python.linkedlist_test.py'
+}
+
+task linkedlistCpp (type: Exec) {
+    workingDir 'src/test/linkedlist/cpp'
+    commandLine 'g++', 'linkedlist_test.cpp'
+    doLast {
+        exec {
+            workingDir 'src/test/linkedlist/cpp'
+            commandLine './a.out'
         }  
     }
 }
 
+task queueJava (type: Test) {
+    useJUnitPlatform {
+        filter {
+            includeTestsMatching '**/queue/**'
+        }
+    }
+}
+
+task queuePython (type: Exec) {
+    workingDir project.rootDir
+    commandLine 'python3', '-m', 'src.test.queue.python.queue_test'
+}
+
+task queueCpp (type: Exec) {
+    workingDir 'src/test/queue/cpp'
+    commandLine 'g++', 'queue_test.cpp'
+    doLast {
+        exec {
+            workingDir 'src/test/queue/cpp'
+            commandLine './a.out'
+>>>>>>> 2a43e15cabfc3666f7655a435f224ec224dde99b
+        }  
+    }
+}
+
+<<<<<<< HEAD
 task queuePython (type: Exec) {
     workingDir project.rootDir
     commandLine 'python3', '-m', 'src.test.queue.python.queue_test'
@@ -83,3 +148,27 @@ task linkedListPython (type: Exec) {
     workingDir project.rootDir
     commandLine 'python3', '-m', 'src.test.linkedlist.python.linked_list_test'
 }
+=======
+task stackJava (type: Test) {
+    useJUnitPlatform {
+        include '**/stack/**'
+    }
+}
+
+task stackPython (type: Exec) {
+    workingDir project.rootDir
+    commandLine 'python3', '-m', 'src.test.stack.python.stack_test'
+}
+
+task stackCpp (type: Exec) {
+    workingDir 'src/test/stack/cpp'
+    commandLine 'g++', 'stack_test.cpp'
+    doLast {
+        exec {
+            workingDir 'src/test/stack/cpp'
+            commandLine './a.out'
+        }  
+    }
+}
+
+>>>>>>> 2a43e15cabfc3666f7655a435f224ec224dde99b
