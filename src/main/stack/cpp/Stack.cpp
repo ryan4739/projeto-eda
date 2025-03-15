@@ -118,13 +118,13 @@ class Stack {       // The class
             return array[valor];
         }
         int peekLast(){
-            if(tail<valor || isEmpty()){
+            if(isEmpty()){
                 throw std::runtime_error("Não deu");
             }
             return array[0];
         }
         int peek(){
-            if(tail<valor || isEmpty()){
+            if(isEmpty()){
                 throw std::runtime_error("Não deu");
             }
             return array[tail];
