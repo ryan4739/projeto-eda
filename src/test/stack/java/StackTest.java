@@ -2,7 +2,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class StackTest {
-    
+    @Test
     public void test_isEmpty_isFull() {
         Stack stack = new Stack(3);
         
@@ -114,5 +114,5 @@ public class StackTest {
             System.out.println(e);
         }
     }
-    @Test
+    
 }
