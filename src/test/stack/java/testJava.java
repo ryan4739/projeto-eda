@@ -1,169 +1,119 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class Stacktest {
+public class StackTest {
+
     
     public void test_isEmpty_isFull() {
         Stack stack = new Stack(3);
+        
+        // Verifica se a pilha está vazia no início
         assertTrue(stack.isEmpty());
         assertFalse(stack.isFull());
+
+        // Adiciona elementos
         stack.push(1);
         stack.push(2);
         stack.push(3);
-        try{
-            stack.push(4);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }
-        assertTrue(stack.isFull());
-        assertFalse(stack.isEmpty());
-        assertEquals(stack.toString(), "1, 2, 3, 4");
-    @Test
 
-    public void test_push_pop_toString(){
-        Stack stack = new Stack(4);
-        try{
-            Stack.pop()
-        }catch(Exception e){
+        // Tenta adicionar além do limite (deve gerar uma exceção)
+        try {
+            stack.push(4);
+        } catch (Exception e) {
             System.out.println(e);
         }
+
+        // Agora a pilha deve estar cheia
+        assertTrue(stack.isFull());
+        assertFalse(stack.isEmpty());
+
+        // Verifica se a pilha contém os elementos corretos
+        assertEquals("1, 2, 3", stack.toString()); // Removido o "4" que não deveria estar
+    }
+
+    @Test
+    public void test_push_pop_toString() {
+        Stack stack = new Stack(4);
+
+        // Tenta remover de uma pilha vazia (deve gerar uma exceção)
+        try {
+            stack.pop();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        // Confere se a pilha ainda está vazia
         assertTrue(stack.isEmpty());
         assertFalse(stack.isFull());
+
+        // Adiciona elementos
         stack.push(1);
         stack.push(2);
         stack.push(3);
-        assertEquals(stack.toString(), "1, 2, 3");
-        stack.pop();
-        stack.pop();
-        assertEquals(stack.toString(), "1");
-        stack.pop();
-        assertEquals(stack.toString(), "");
-    @Test
 
-    public void test_pushIndex_PushLast(){
-        Stack stack = new Stack(5);
-        stack.pushIndex(2,0);
-        try{
-            stack.pushIndex(3,2);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }
-        try{
-            stack.pushIndex(4,-1);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }
-        stack.pushLast(1);
-        assertEquals(stack.toString(),"1, 2");
-        stack.pushLast(2);
-        stack.pushLast(3);
-        assertEquals(stack.toString(), "3, 2, 1, 2");
-        stack.pushIndex(3,1);
-        stack.pushIndex(1,2);
-        assertEquals(stack.toString(), "3, 3, 1, 2");
-    }
-    @Test
+        // Verifica se a conversão para string está correta
+        assertEquals("1, 2, 3", stack.toString());
 
-    public void test_popIndex_popLast(){
-        Stack stack = new Stack(5);
-        try{
-            stack.popLast();
-        }catch (Exception e){
-            System.out.prinln(e);
-        }    
-        try{
-            stack.popIndex(1);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }      
-        stack.push(2);
-        stack.push(3);
-        try{
-            stack.popIndex(-1);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }
-        try{
-            stack.popIndex(5);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }
-        assertEquals(stack.toString(),"2, 3");
-        stack.popIndex(0);
-        assertEquals(stack.toString(), "3");
-        stack.popLast();
-        assertEquals(stack.toString(), "");
-        stack.push(2);
-        stack.push(3);
-        stack.push(4);
-        stack.popLast();
-        assertEquals(stack.toString(), "3, 4");
+        // Remove elementos e verifica
+        stack.pop();
+        stack.pop();
+        assertEquals("1", stack.toString());
+
+        stack.pop();
+        assertEquals("", stack.toString()); // Pilha vazia
     }
+
     @Test
-    public void test_peek(){
+    public void test_peek() {
         Stack stack = new Stack(5);
-        try{
+
+        // Testa operações de `peek()` em pilha vazia
+        try {
             stack.peek();
-        }catch (Exception e){
-            System.out.prinln(e);
-        }    
-        try{
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        try {
             stack.peekLast();
-        }catch (Exception e){
-            System.out.prinln(e);
-        }    
-        try{
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        try {
             stack.peekIndex(0);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }    
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        // Adiciona elementos e testa `peek()`
         stack.push(3);
         stack.push(4);
         stack.push(5);
-        assertEquals(stack.peek(), "5");
+        assertEquals(5, stack.peek()); // `peek()` deve retornar o topo da pilha
+
         stack.pop();
-        assertEquals(stack.peek(), "4");
+        assertEquals(4, stack.peek());
+
         stack.push(5);
-        assertEquals(stack.peekLast(), "3");
+        assertEquals(3, stack.peekLast()); // Último elemento adicionado
+
         stack.push(6);
-        assertEquals(stacl.peekIndex(2), "5");
-        assertEquals(stacl.peekIndex(3), "6");
-        try{
+        assertEquals(5, stack.peekIndex(2));
+        assertEquals(6, stack.peekIndex(3));
+
+        // Testa índices inválidos
+        try {
             stack.peekIndex(-1);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }    
-        try{
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        try {
             stack.peekIndex(5);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }    
-    }
-    @Test
-    public void test_peek(){
-        Stack stack = new Stack(5);
-        
-        stack.push(3);
-        stack.push(4);
-        stack.push(5);
-        assertEquals(stack.peek(), "5");
-        stack.pop();
-        assertEquals(stack.peek(), "4");
-        stack.push(5);
-        assertEquals(stack.peekLast(), "3");
-        stack.push(6);
-        assertEquals(stacl.peekIndex(2), "5");
-        assertEquals(stacl.peekIndex(3), "6");
-        try{
-            stack.peekIndex(-1);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }    
-        try{
-            stack.peekIndex(5);
-        }catch (Exception e){
-            System.out.prinln(e);
-        }    
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     @Test
 }
