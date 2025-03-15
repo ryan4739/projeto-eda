@@ -32,6 +32,14 @@ e) Com os gráficos e com a teoria a respeito das estruturas de dados, gerar um 
 
 Após discussão, optamos por cada membro da equipe ficar responsável por: a) implementação e testagem de uma estrutura de dados nas três linguagens; b) testagem de tempo, memória e carga para cada combinação de método, estrutura e linguagem implementados e geração dos dados de saída; c) geração dos gráficos dos dados obtidos. As demais tarefas ficaram sem definição, para serem feitas em conjunto. No mais, também tentamos corrigir os algoritmos uns dos outros.
 
+A divisão ficou a seguinte:
+
+- Ryan: Queue;
+- Arthur Rodrigues: Arraylist;
+- Matheus: Stack;
+- Arthur Correia: Linkedlist;
+- Diogo: Deque.
+
 ### Motivação
 
 As motivações do projeto são:
