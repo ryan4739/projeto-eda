@@ -10,10 +10,12 @@
 
 n=$((10 ** $1))
 
-output_dir="../../data"
-output_file="$output_dir/random_numbers-size-10^$1.data"
+output_dir="data/inputs"
+output_file="$output_dir/random_numbers-size-10-$1.data"
 
 mkdir -p "$output_dir"
+
+> "$output_file"
 
 for ((i=0; i<n; i++)); do
     R=$((RANDOM % n))
