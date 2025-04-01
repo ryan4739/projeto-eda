@@ -1,27 +1,25 @@
 #!/bin/bash
 
-# Script shell que gera  um conjunto de números inteiros aleatórios separados
-# por espaço. O tamanho do conjunto é definido por 10^n. O conjunto é
-# armazenado em um arquivo de texto simples.
+# Script shell que gera 100 linhas quantidade variada de números inteiros separados por espaço.
 #
 # Para utilizar o script:
 #
-# sh {caminho}/samplesGenerator.sh {n}
+# sh {caminho}/samplesGenerator.sh {valor mínimo} {valor máximo}
 
-n=$((10 ** $1))
+if [ "$#" -ne 2 ]; then
+    echo "Uso: $0 <tamanho_min> <tamanho_max>"
+    exit 1
+fi
 
-output_dir="data/inputs"
-output_file="$output_dir/random_numbers-size-10-$1.data"
+MIN_SIZE=$1
+MAX_SIZE=$2
+OUTPUT_FILE="samples.data"
 
-mkdir -p "$output_dir"
-
-> "$output_file"
-
-for ((i=0; i<n; i++)); do
-    R=$((RANDOM % n))
-    echo -n "$R " >> "$output_file"
+# Gera 100 linhas de tamanhos variados entre MIN_SIZE e MAX_SIZE
+for i in {1..100}; do
+    LINE_LENGTH=$(( (RANDOM * 32768 + RANDOM) % (MAX_SIZE - MIN_SIZE + 1) + MIN_SIZE ))  # Gera tamanho entre MIN_SIZE e MAX_SIZE
+    seq 1 "$LINE_LENGTH" | tr '\n' ' ' >> "$OUTPUT_FILE"
+    echo -e "\n" >> "$OUTPUT_FILE"
 done
 
-echo >> "$output_file"
-echo "Sequência de 10^$1 números aleatórios gerada e salva em: $output_file"
-
+echo "Arquivo gerado: $OUTPUT_FILE"
