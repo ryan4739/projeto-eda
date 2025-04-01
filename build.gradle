@@ -106,9 +106,7 @@ task linkedlistCpp (type: Exec) {
 
 task queueJava (type: Test) {
     useJUnitPlatform {
-        filter {
-            includeTestsMatching '**/queue/**'
-        }
+        include '**/queue/**'
     }
 }
 
