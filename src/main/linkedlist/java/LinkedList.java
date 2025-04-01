@@ -77,7 +77,7 @@ public class LinkedList {
      * @param index a posição na qual ele será adicionado
      */
     public void add(int value, int index) {        
-        if (index < 0 || index > this.size) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index > this.size) throw new IndexOutOfBoundsException("Invalid index");
         
         if (index == 0 || isEmpty())
             addFirst(value);
@@ -119,7 +119,7 @@ public class LinkedList {
      * @return o valor contido no node
      */
     public int get(int index) {
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Invalid index");
         
         if (index == 0)
             return getFirst();
@@ -136,7 +136,7 @@ public class LinkedList {
      * @param index o índice do valor a ser alterado
      */
     public void updateNode(int value, int index) {
-        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Invalid index");
 
         Node node = getNodeByIndex(index);
         node.value = value;
@@ -180,7 +180,7 @@ public class LinkedList {
      * @param index o índice do elemento a ser removido
      */
     public void removeByIndex(int index) {
-        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Invalid index");
         
         if (index == 0)
             removeFirst();
@@ -253,7 +253,7 @@ public class LinkedList {
      * @return o node
      */
     private Node getNodeByIndex(int index) {
-        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Índice inválido");
+        if (index < 0 || index >= this.size) throw new IndexOutOfBoundsException("Invalid index");
 
         Node node = this.head;
         for (int i = 0; i < index; i++)
