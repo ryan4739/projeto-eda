@@ -20,12 +20,12 @@ public class ExecQueue {
     public static void main(String[] args) {
 
         String inputFile = args[0];
-        String outputDir = "data/results/";
+        String outputDir = "data/results/time/";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             PrintWriter[] writers = new PrintWriter[METHOD_NAMES.length];
             for (int i = 0; i < METHOD_NAMES.length; i++) {
-                writers[i] = new PrintWriter(new FileWriter(outputDir + METHOD_NAMES[i] + ".data"));
+                writers[i] = new PrintWriter(new FileWriter(outputDir + METHOD_NAMES[i] + ".data", true));
             }
 
             String line;
