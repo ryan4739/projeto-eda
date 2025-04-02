@@ -45,6 +45,15 @@ public:
 
     LinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
+    ~LinkedList() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* nextNode = current->next;
+            delete current;
+            current = nextNode;
+        }
+    }
+
     /**
      * Verifica se a lista está vazia
      * 
