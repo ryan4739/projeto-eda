@@ -10,7 +10,7 @@ fi
 
 MIN_SIZE=10**$1
 MAX_SIZE=10**$2
-OUTPUT_FILE="data/samples/samples-10-$1-to-10-$2.data"
+OUTPUT_FILE="data/samples/samples-10-$1-to-10-$2.txt"
 
 rm -f "$OUTPUT_FILE"
 
