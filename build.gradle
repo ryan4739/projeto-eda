@@ -157,6 +157,10 @@ build {
 }
 
 test {
-    dependsOn arraylistJava, dequeJava, linkedJava, queueJava, stackJava
+    dependsOn arraylistJava, arraylistPython, arraylistCpp,
+              dequeJava, dequePython, dequeCpp,
+              linkedJava, linkedlistPython, linkedlistCpp,
+              queueJava, queuePython, queueCpp,
+              stackJava, stackPython, stackCpp
 }
 
