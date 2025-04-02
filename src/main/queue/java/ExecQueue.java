@@ -1,3 +1,5 @@
+package src.main.queue.java;
+
 import java.io.*;
 import java.util.*;
 
@@ -18,7 +20,7 @@ public class ExecQueue {
     public static void main(String[] args) {
 
         String inputFile = args[0];
-        String outputDir = args[1];
+        String outputDir = "data/results/";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             PrintWriter[] writers = new PrintWriter[METHOD_NAMES.length];
