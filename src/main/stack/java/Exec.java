@@ -5,9 +5,9 @@ public class Exec {
     public static void main(String[] args) {
         try {
             // Definir os métodos a serem testados
-            String[] methods = { "addFirst", "add", "addLast",
-                                  "getFirst", "get", "getLast",
-                                  "removeFirst", "remove", "removeLast" };
+            String[] methods = { "pushIndex", "push", "pushLast",
+                                  "popIndex", "pop", "popLast",
+                                  "peekIndex", "peek", "peekLast" };
 
             // Lendo o arquivo de entrada
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -22,65 +22,65 @@ public class Exec {
                     long[] results = new long[30];
 
                     for (int i = 0; i < 30; i++) {    
-                        LinkedList ll = new LinkedList();
+                        Stack ck = new Stack();
 
                         // Adicionando os valores na LinkedList
                         for (String num: line.split(" "))
-                            ll.addLast(Integer.parseInt(num));
+                            ck.push(Integer.parseInt(num));
 
                         long start = 0;
                         long end = 0;
 
                         switch (method) {
-                            case "addFirst":
+                            case "pushIndex":
                                 start = System.nanoTime();
-                                ll.addFirst(10);
+                                ck.pushLast(10);
                                 end = System.nanoTime();
                                 break;
 
-                            case "add":
+                            case "push":
                                 start = System.nanoTime();
                                 ll.add(10, input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
-                            case "addLast":
+                            case "pushLast":
                                 start = System.nanoTime();
-                                ll.addLast(10);
+                                ll.a(10);
                                 end = System.nanoTime();
                                 break;
 
-                            case "getFirst":
+                            case "popIndex":
                                 start = System.nanoTime();
                                 ll.getFirst();
                                 end = System.nanoTime();
                                 break;
 
-                            case "get":
+                            case "pop":
                                 start = System.nanoTime();
                                 ll.get(input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
-                            case "getLast":
+                            case "popLast":
                                 start = System.nanoTime();
                                 ll.getLast();
                                 end = System.nanoTime();
                                 break;
 
-                            case "removeFirst":
+                            case "peekIndex":
                                 start = System.nanoTime();
                                 ll.removeFirst();
                                 end = System.nanoTime();
                                 break;
 
-                            case "remove":
+                            case "peek":
                                 start = System.nanoTime();
                                 ll.removeByIndex(input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
-                            case "removeLast":
+                            case "peekLast":
                                 start = System.nanoTime();
                                 ll.removeLast();
                                 end = System.nanoTime();
@@ -91,7 +91,7 @@ public class Exec {
                     }
 
                     Arrays.sort(results); // Ordena para buscar a mediana
-                    String outputLine = "linkedlist-java " + results[14] + " " + input.length;
+                    String outputLine = "stack-java " + results[14] + " " + input.length;
 
                     // Define o arquivo de saída baseado no método
                     File file = new File(method + ".data");
