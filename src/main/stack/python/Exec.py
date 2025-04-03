@@ -19,9 +19,9 @@ for line in sys.stdin:
         results = []
         
         for _ in range(30):
-            ll = Stack()
+            ll = Stack(60)
             for num in input_list:
-                ll.PushLast(num)
+                ll.push(num)
             
             start = 0
             end = 0
@@ -38,18 +38,6 @@ for line in sys.stdin:
                 start = time.perf_counter_ns()
                 ll.PushLast(10)
                 end = time.perf_counter_ns()
-            elif method == "popIndex":
-                start = time.perf_counter_ns()
-                ll.popIndex()
-                end = time.perf_counter_ns()
-            elif method == "pop":
-                start = time.perf_counter_ns()
-                ll.pop(n // 2)
-                end = time.perf_counter_ns()
-            elif method == "popLast":
-                start = time.perf_counter_ns()
-                ll.popLast()
-                end = time.perf_counter_ns()
             elif method == "peekIndex":
                 start = time.perf_counter_ns()
                 ll.peekIndex()
@@ -62,7 +50,18 @@ for line in sys.stdin:
                 start = time.perf_counter_ns()
                 ll.peekLast()
                 end = time.perf_counter_ns()
-
+            elif method == "removeIndex":
+                start = time.perf_counter_ns()
+                ll.removeIndex()
+                end = time.perf_counter_ns()
+            elif method == "pop":
+                start = time.perf_counter_ns()
+                ll.pop(n // 2)
+                end = time.perf_counter_ns()
+            elif method == "removeLast":
+                start = time.perf_counter_ns()
+                ll.removeLast()
+                end = time.perf_counter_ns()
             results.append(end - start)
         
         results = sorted(results)
