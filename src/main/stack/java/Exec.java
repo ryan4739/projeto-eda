@@ -40,49 +40,49 @@ public class Exec {
 
                             case "push":
                                 start = System.nanoTime();
-                                ll.add(10, input.length / 2);
+                                ck.add(10, input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
                             case "pushLast":
                                 start = System.nanoTime();
-                                ll.a(10);
+                                ck.pushLast(10);
                                 end = System.nanoTime();
                                 break;
 
                             case "popIndex":
                                 start = System.nanoTime();
-                                ll.getFirst();
+                                ck.popIndex(10);
                                 end = System.nanoTime();
                                 break;
 
                             case "pop":
                                 start = System.nanoTime();
-                                ll.get(input.length / 2);
+                                ck.pop();
                                 end = System.nanoTime();
                                 break;
 
                             case "popLast":
                                 start = System.nanoTime();
-                                ll.getLast();
+                                ck.popLast();
                                 end = System.nanoTime();
                                 break;
 
                             case "peekIndex":
                                 start = System.nanoTime();
-                                ll.removeFirst();
+                                ck.peekIndex(10);
                                 end = System.nanoTime();
                                 break;
 
                             case "peek":
                                 start = System.nanoTime();
-                                ll.removeByIndex(input.length / 2);
+                                ck.peek();
                                 end = System.nanoTime();
                                 break;
 
                             case "peekLast":
                                 start = System.nanoTime();
-                                ll.removeLast();
+                                ck.peekLast();
                                 end = System.nanoTime();
                                 break;
                         }
