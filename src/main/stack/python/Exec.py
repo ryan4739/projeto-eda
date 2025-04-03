@@ -3,9 +3,9 @@ import time
 import os
 from linked_list import LinkedList
 
-methods = ["addFirst", "add", "addLast", 
-           "getFirst", "get", "getLast", 
-           "removeFirst", "remove", "removeLast"]
+methods = ["pushIndex", "push", "PushLast", 
+           "popIndex", "pop", "popLast", 
+           "peekIndex", "peek", "peekLast"]
 
 for line in sys.stdin:
     line = line.strip()
@@ -19,48 +19,48 @@ for line in sys.stdin:
         results = []
         
         for _ in range(30):
-            ll = LinkedList()
+            ll = Stack()
             for num in input_list:
-                ll.add_last(num)
+                ll.PushLast(num)
             
             start = 0
             end = 0
             
-            if method == "addFirst":
+            if method == "pushIndex":
                 start = time.perf_counter_ns()
-                ll.add_first(10)
+                ll.pushIndex(10)
                 end = time.perf_counter_ns()
-            elif method == "add":
+            elif method == "push":
                 start = time.perf_counter_ns()
-                ll.add(10, n // 2)
+                ll.push(10, n // 2)
                 end = time.perf_counter_ns()
-            elif method == "addLast":
+            elif method == "PushLast":
                 start = time.perf_counter_ns()
-                ll.add_last(10)
+                ll.PushLast(10)
                 end = time.perf_counter_ns()
-            elif method == "getFirst":
+            elif method == "popIndex":
                 start = time.perf_counter_ns()
-                ll.get_first()
+                ll.popIndex()
                 end = time.perf_counter_ns()
-            elif method == "get":
+            elif method == "pop":
                 start = time.perf_counter_ns()
-                ll.get(n // 2)
+                ll.pop(n // 2)
                 end = time.perf_counter_ns()
-            elif method == "getLast":
+            elif method == "popLast":
                 start = time.perf_counter_ns()
-                ll.get_last()
+                ll.popLast()
                 end = time.perf_counter_ns()
-            elif method == "removeFirst":
+            elif method == "peekIndex":
                 start = time.perf_counter_ns()
-                ll.remove_first()
+                ll.peekIndex()
                 end = time.perf_counter_ns()
-            elif method == "remove":
+            elif method == "peek":
                 start = time.perf_counter_ns()
-                ll.remove_by_index(n // 2)
+                ll.peek(n // 2)
                 end = time.perf_counter_ns()
-            elif method == "removeLast":
+            elif method == "peekLast":
                 start = time.perf_counter_ns()
-                ll.remove_last()
+                ll.peekLast()
                 end = time.perf_counter_ns()
 
             results.append(end - start)
