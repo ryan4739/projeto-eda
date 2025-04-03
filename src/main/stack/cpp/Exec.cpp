@@ -4,7 +4,7 @@
 #include <sstream>
 #include <chrono>
 #include <algorithm>
-#include "LinkedList.cpp"
+#include "Stack.cpp"
 
 using namespace std;
 using namespace chrono;
@@ -24,9 +24,9 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<string> methods = {"addFirst", "add", "addLast",
-                              "getFirst", "get", "getLast",
-                              "removeFirst", "remove", "removeLast"};
+    vector<string> methods = {"PushIndex", "push", "pushLast",
+                              "peekIndex", "peek", "peekLast",
+                              "RemoveFirst", "pop", "RemoveIndex"};
 
     string line;
     while (getline(cin, line)) {
@@ -43,31 +43,31 @@ int main() {
             vector<long> results(30);
 
             for (int i = 0; i < 30; i++) {
-                LinkedList ll;
+                Stack ll;
                 for (int val : input) {
-                    ll.addLast(val);
+                    ll.push(val);
                 }
 
                 auto start = high_resolution_clock::now();
 
-                if (method == "addFirst") {
-                    ll.addFirst(10);
-                } else if (method == "add") {
-                    ll.add(10, input.size() / 2);
-                } else if (method == "addLast") {
-                    ll.addLast(10);
-                } else if (method == "getFirst") {
-                    ll.getFirst();
-                } else if (method == "get") {
-                    ll.get(input.size() / 2);
-                } else if (method == "getLast") {
-                    ll.getLast();
-                } else if (method == "removeFirst") {
+                if (method == "push") {
+                    ll.push(10);
+                } else if (method == "pushIndex") {
+                    ll.pushIndex(10, input.size() / 2);
+                } else if (method == "pushLast") {
+                    ll.pushLast(10);
+                } else if (method == "push") {
+                    ll.push();
+                } else if (method == "peek") {
+                    ll.peek(input.size() / 2);
+                } else if (method == "peekLast") {
+                    ll.peekLast();
+                } else if (method == "RemoveFirst") {
                     ll.removeFirst();
-                } else if (method == "remove") {
-                    ll.removeByIndex(input.size() / 2);
-                } else if (method == "removeLast") {
-                    ll.removeLast();
+                } else if (method == "RemoveIndex") {
+                    ll.RemoveIndex(input.size() / 2);
+                } else if (method == "pop") {
+                    ll.pop();
                 }
 
                 auto end = high_resolution_clock::now();
@@ -81,7 +81,7 @@ int main() {
             ensureHeaderExists(filename);  // Garante que o cabeçalho só seja escrito uma vez
 
             ofstream file(filename, ios::app);
-            file << "linkedlist-cpp " << medianTime << " " << input.size() << endl;
+            file << "Stack-cpp " << medianTime << " " << input.size() << endl;
         }
     }
     return 0;
