@@ -50,6 +50,24 @@ public class Exec {
                                 end = System.nanoTime();
                                 break;
 
+                            case "peekIndex":
+                                start = System.nanoTime();
+                                ck.peekIndex(10);
+                                end = System.nanoTime();
+                                break;
+
+                            case "peek":
+                                start = System.nanoTime();
+                                ck.peek();
+                                end = System.nanoTime();
+                                break;
+
+                            case "peekLast":
+                                start = System.nanoTime();
+                                ck.peekLast();
+                                end = System.nanoTime();
+                                break;
+
                             case "popIndex":
                                 start = System.nanoTime();
                                 ck.popIndex(10);
@@ -68,23 +86,6 @@ public class Exec {
                                 end = System.nanoTime();
                                 break;
 
-                            case "peekIndex":
-                                start = System.nanoTime();
-                                ck.peekIndex(10);
-                                end = System.nanoTime();
-                                break;
-
-                            case "peek":
-                                start = System.nanoTime();
-                                ck.peek();
-                                end = System.nanoTime();
-                                break;
-
-                            case "peekLast":
-                                start = System.nanoTime();
-                                ck.peekLast();
-                                end = System.nanoTime();
-                                break;
                         }
 
                         results[i] = (end - start);
