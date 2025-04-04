@@ -69,8 +69,8 @@ class Queue:
         """
         if self.is_full(): raise Exception("Fila está cheia.")
         if (index < 0 or index >= self.size): raise Exception("Índice inválido.")
-        if index == 0: add_first(element)
-        elif index == self.size: add_last(element)
+        if index == 0: self.add_first(element)
+        elif index == self.size: self.add_last(element)
         else:
             aux = Queue(self.capacity)
             for _ in range(index):
