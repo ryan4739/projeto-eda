@@ -8,7 +8,7 @@ data = read.table(input_file, header = TRUE)
 
 p <- ggplot(data, aes(x = tamanho, y = tempo, colour = estrutura_linguagem)) +
   geom_line() +
-  labs(title = "Tempo de Execução por tamanho",
+  labs(title = paste0("Tempo de execução por tamanho para método ", args[1]),
        x = "Tamanho",
        y = "Tempo",
 		   colour = "Estrutura/linguagem") +
