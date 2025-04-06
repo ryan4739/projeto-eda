@@ -7,7 +7,7 @@ from deque import Deque
 def measure_time(func_name, input_list):
     n = len(input_list)
     results = []
-    dq = Deque(1000)
+    dq = Deque(n)
     for num in input_list:
         dq.add_last(num)
     for _ in range(30):

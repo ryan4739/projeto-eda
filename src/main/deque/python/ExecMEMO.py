@@ -5,7 +5,8 @@ from deque import Deque
 
 
 def measure_memory(func_name, input_list):
-    dq = Deque(1000)
+    n = len(input_list)
+    dq = Deque(n)
     for num in input_list:
         dq.add_last(num)
 
@@ -15,14 +16,17 @@ def measure_memory(func_name, input_list):
         raise ValueError(f"'{func_name}' não é uma função válida do objeto.")
     else:
         tracemalloc.start()
-        if func_name.startswith("add"):
-            func(10)
+        if func_name.endswith("last") or func_name.endswith("first"):
+            if func_name.startswith("add"):
+                func(10)
+            else:
+                func()
         else:
-            func()
+            func(10,n//2)
         current, peak_memory = tracemalloc.get_traced_memory()
         tracemalloc.stop()
 
-    output_line = f"deque-python {peak_memory}(bytes) {len(input_list)}"
+    output_line = f"deque-python {peak_memory}(bytes) {n}"
 
     file_name = f"{func_name}MEMO.data"
     is_new_file = not os.path.exists(file_name) or os.stat(file_name).st_size == 0
