@@ -18,6 +18,7 @@ public class Exec {
 
                 int[] input = Arrays.stream(line.split(" ")).mapToInt(Integer::parseInt).toArray();
 
+                //começa aqui a processar os dados
                 for (String method : methods) {
                     long[] results = new long[30];
 
