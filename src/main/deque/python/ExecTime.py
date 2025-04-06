@@ -5,6 +5,7 @@ from deque import Deque
 
 
 def measure_time(func_name, input_list):
+    n = len(input_list)
     results = []
     dq = Deque(1000)
     for num in input_list:
@@ -14,19 +15,24 @@ def measure_time(func_name, input_list):
             if not callable(func):
                 raise ValueError(f"'{func_name}' não é uma função válida do objeto.")
             else:
-                if func_name.startswith("add"):
-                    start = time.perf_counter_ns()
-                    func(10)
-                    end = time.perf_counter_ns()
-                    
+                if func_name.endswith("last") or func_name.endswith("first"):
+                    if func_name.startswith("add"):
+                        start = time.perf_counter_ns()
+                        func(10)
+                        end = time.perf_counter_ns()
+
+                    else:
+                        start = time.perf_counter_ns()
+                        func()
+                        end = time.perf_counter_ns()
                 else:
                     start = time.perf_counter_ns()
-                    func()
+                    func(10, n//2)
                     end = time.perf_counter_ns()
-                
+
                 results.append(end - start)
     results = sorted(results)
-    output_line = f"deque-python {results[14]} {len(input_list)}"
+    output_line = f"deque-python {results[14]} {n}"
     
     file_name = f"{func_name}.data"
     is_new_file = not os.path.exists(file_name) or os.stat(file_name).st_size == 0
