@@ -3,7 +3,7 @@ package src.main.queue.java;
 import java.io.*;
 import java.util.*;
 
-public class ExecQueue {
+public class ExecTime {
 
     private static final String[] METHOD_NAMES = {
         "addLast",
@@ -20,17 +20,29 @@ public class ExecQueue {
     public static void main(String[] args) {
 
         String inputFile = args[0];
-        String outputDir = "data/results/time/";
+        String outputDir = "data/results/memory/";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            int totalLines = 0;
+            while (reader.readLine() != null) totalLines++;
+            reader.close();
+
             PrintWriter[] writers = new PrintWriter[METHOD_NAMES.length];
             for (int i = 0; i < METHOD_NAMES.length; i++) {
                 writers[i] = new PrintWriter(new FileWriter(outputDir + METHOD_NAMES[i] + ".data", true));
             }
 
+            BufferedReader processingReader = new BufferedReader(new FileReader(inputFile));
             String line;
-            while ((line = reader.readLine()) != null) {
+            int currentLine = 0;
+            
+            while ((line = processingReader.readLine()) != null) {
+                currentLine++;
                 if (line.isBlank()) continue;
+                
+                System.out.printf("\rProcessando linha %d/%d", currentLine, totalLines);
+                System.out.flush();
+                
                 int[] elements = Arrays.stream(line.split(" ")).mapToInt(Integer::parseInt).toArray();
                 testQueueOperations(writers, elements);
             }
@@ -39,8 +51,11 @@ public class ExecQueue {
                 writer.close();
             }
 
+            System.out.printf("\rConcluído! Processadas " + totalLines + " linhas.\n");
+            
+            processingReader.close();
         } catch (IOException e) {
-            System.err.println("Error processing files: " + e.getMessage());
+            System.err.println("Erro processando arquivo: " + e.getMessage());
             e.printStackTrace();
         }
     }
