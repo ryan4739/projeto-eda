@@ -1,4 +1,3 @@
-package deque;
 
 import java.util.NoSuchElementException;
 
@@ -39,7 +38,7 @@ public class Deque {
      * Adiciona um elemento no início do deque.
      * @param entrada elemento a ser adicionado.
      */
-    public void appendLeft(int entrada) {
+    public void addFirst(int entrada) {
         if (isFull()) {
             resize();
         }
@@ -55,7 +54,7 @@ public class Deque {
      * Adiciona um elemento no final do deque.
      * @param entrada elemento a ser adicionado.
      */
-    public void appendRight(int entrada) {
+    public void addLast(int entrada) {
         if (isFull()) {
             resize();
         }
@@ -67,11 +66,57 @@ public class Deque {
         size++;
     }
 
+     /**
+     * Adiciona um elemento em uma posição arbitrária do deque.
+     * @param valor Valor a ser adicionado.
+     * @param index Índice onde o valor deve ser inserido (0 até size).
+     * @throws IndexOutOfBoundsException se o índice for inválido.
+     */
+    public void add(int valor, int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Índice fora do intervalo");
+        }
+        if (isFull()) {
+            resize();
+        }
+
+        int insertPos = (head + index) % capacity;
+
+        if (index < size / 2) {
+            // Move os elementos à esquerda
+            head = (head - 1 + capacity) % capacity;
+            for (int i = 0; i < index; i++) {
+                int from = (head + i + 1) % capacity;
+                int to = (head + i) % capacity;
+                deque[to] = deque[from];
+            }
+            deque[insertPos] = valor;
+        } else {
+            // Move os elementos à direita
+            for (int i = size; i > index; i--) {
+                int from = (head + i - 1) % capacity;
+                int to = (head + i) % capacity;
+                deque[to] = deque[from];
+            }
+            deque[insertPos] = valor;
+            tail = (tail + 1) % capacity;
+        }
+
+        size++;
+    }
+
+    /**
+     * Retorna o elemento em uma posição específica sem removê-lo.
+     * @param index Índice do elemento a ser retornado.
+     * @return O valor na posição especificada.
+     * @throws IndexOutOfBoundsException se o índice for inválido.
+     */
+
     /**
      * Remove e retorna o elemento do início do deque.
      * @throws NoSuchElementException se o deque estiver vazio.
      */
-    public int popLeft() {
+    public int removeFirst() {
         if (isEmpty()) {
             throw new NoSuchElementException("O Deque está vazio");
         }
@@ -89,7 +134,7 @@ public class Deque {
      * Remove e retorna o elemento do final do deque.
      * @throws NoSuchElementException se o deque estiver vazio.
      */
-    public int popRight() {
+    public int removeLast() {
         if (isEmpty()) {
             throw new NoSuchElementException("O Deque está vazio");
         }
@@ -104,10 +149,51 @@ public class Deque {
     }
 
     /**
+     * Remove e retorna o elemento em uma posição específica.
+     * @param index Índice do elemento a ser removido.
+     * @return O valor removido.
+     * @throws IndexOutOfBoundsException se o índice for inválido.
+     */
+    public int remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice fora do intervalo");
+        }
+
+        int removePos = (head + index) % capacity;
+        int value = deque[removePos];
+
+        if (index < size / 2) {
+            // Move elementos da esquerda para a direita
+            for (int i = index; i > 0; i--) {
+                int from = (head + i - 1) % capacity;
+                int to = (head + i) % capacity;
+                deque[to] = deque[from];
+            }
+            head = (head + 1) % capacity;
+        } else {
+            // Move elementos da direita para a esquerda
+            for (int i = index; i < size - 1; i++) {
+                int from = (head + i + 1) % capacity;
+                int to = (head + i) % capacity;
+                deque[to] = deque[from];
+            }
+            tail = (tail - 1 + capacity) % capacity;
+        }
+
+        size--;
+        if (size == 0) {
+            head = -1;
+            tail = -1;
+        }
+
+        return value;
+    }
+
+    /**
      * Retorna o primeiro elemento do deque sem removê-lo.
      * @throws NoSuchElementException se o deque estiver vazio.
      */
-    public int peekLeft() {
+    public int getFirst() {
         if (isEmpty()) {
             throw new NoSuchElementException("O Deque está vazio");
         }
@@ -118,11 +204,24 @@ public class Deque {
      * Retorna o último elemento do deque sem removê-lo.
      * @throws NoSuchElementException se o deque estiver vazio.
      */
-    public int peekRight() {
+    public int getLast() {
         if (isEmpty()) {
             throw new NoSuchElementException("O Deque está vazio");
         }
         return deque[tail];
+    }
+
+    /**
+     * Retorna o elemento em uma posição específica sem removê-lo.
+     * @param index Índice do elemento a ser retornado.
+     * @return O valor na posição especificada.
+     * @throws IndexOutOfBoundsException se o índice for inválido.
+     */
+    public int get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice fora do intervalo");
+        }
+        return deque[(head + index) % capacity];
     }
 
     /**

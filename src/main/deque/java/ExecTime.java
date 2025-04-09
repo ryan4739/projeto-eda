@@ -1,9 +1,19 @@
-import java.io.*;
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
-public class Exec {
+public class ExecTime {
     public static void main(String[] args) {
         try {
+            // Criar a pasta de saída, se não existir
+            new File("data/results/time").mkdirs();
+
             // Definir os métodos a serem testados
             String[] methods = { "addFirst", "add", "addLast",
                                   "getFirst", "get", "getLast",
@@ -77,7 +87,7 @@ public class Exec {
 
                             case "remove":
                                 start = System.nanoTime();
-                                dq.removeByIndex(input.length / 2);
+                                dq.remove(input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
@@ -95,7 +105,7 @@ public class Exec {
                     String outputLine = "Deque-java " + results[14] + " " + input.length;
 
                     // Define o arquivo de saída baseado no método
-                    File file = new File(method + ".data");
+                    File file = new File("data/results/time/" + method + ".data");
                     boolean isNewFile = !file.exists() || file.length() == 0;
 
                     try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))) {

@@ -15,7 +15,7 @@ class Deque:
         self.head = 0  # Índice do primeiro elemento
         self.tail = -1  # Índice do último elemento
 
-    def add_first(self, value):
+    def addFirst(self, value):
         """
         Insere um elemento no início do deque.
 
@@ -29,7 +29,7 @@ class Deque:
         if self.size == 1:
             self.tail = self.head
 
-    def add_last(self, value):
+    def addLast(self, value):
         """
         Insere um elemento no final do deque.
 
@@ -43,7 +43,43 @@ class Deque:
             self.head = self.tail
         self.size += 1
 
-    def remove_first(self):
+    def add(self, value, index):
+        """
+        Insere um valor em uma posição arbitrária do deque      
+        :param value: Valor a ser inserido.
+        :param index: Índice (relativo ao início lógico) onde inserir.
+        :raises IndexError: Se o índice for inválido.
+        """
+        if index < 0 or index > self.size:
+            raise IndexError("Index fora do intervalo válido")
+
+        if self.is_full():
+            self.resize()
+
+        insert_pos = (self.head + index) % self.cap
+
+        # Decide se é melhor mover os elementos da esquerda ou da direita
+        if index < self.size // 2:
+            # Move elementos da esquerda (para a esquerda)
+            self.head = (self.head - 1 + self.cap) % self.cap
+            for i in range(index):
+                from_idx = (self.head + i + 1) % self.cap
+                to_idx = (self.head + i) % self.cap
+                self.dq[to_idx] = self.dq[from_idx]
+            self.dq[insert_pos] = value
+        else:
+            # Move elementos da direita (para a direita)
+            for i in range(self.size, index, -1):
+                from_idx = (self.head + i - 1) % self.cap
+                to_idx = (self.head + i) % self.cap
+                self.dq[to_idx] = self.dq[from_idx]
+            self.dq[insert_pos] = value
+            self.tail = (self.tail + 1) % self.cap
+
+        self.size += 1
+
+        
+    def removeFirst(self):
         """
         Remove e retorna o elemento do início do deque.
 
@@ -60,7 +96,7 @@ class Deque:
             self.tail = -1
         return value
 
-    def remove_last(self):
+    def removeLast(self):
         """
         Remove e retorna o elemento do final do deque.
 
@@ -77,7 +113,48 @@ class Deque:
             self.tail = -1
         return value
 
-    def get_first(self):
+    def remove(self, index):
+        """
+        Remove e retorna o elemento em uma posição arbitrária do deque.
+
+        :param index: Índice (relativo ao início lógico) do elemento a ser removido.
+        :raises IndexError: Se o índice for inválido.
+        """
+        if self.is_empty():
+            raise IndexError("Deque está vazio")
+        if index < 0 or index >= self.size:
+            raise IndexError("Índice fora do intervalo válido")
+
+        remove_pos = (self.head + index) % self.cap
+        value = self.dq[remove_pos]
+
+        # Decide se é melhor mover os elementos da esquerda ou da direita
+        if index < self.size // 2:
+            # Move elementos da esquerda (para a direita)
+            for i in range(index, 0, -1):
+                from_idx = (self.head + i - 1) % self.cap
+                to_idx = (self.head + i) % self.cap
+                self.dq[to_idx] = self.dq[from_idx]
+            self.dq[self.head] = None
+            self.head = (self.head + 1) % self.cap
+        else:
+            # Move elementos da direita (para a esquerda)
+            for i in range(index, self.size - 1):
+                from_idx = (self.head + i + 1) % self.cap
+                to_idx = (self.head + i) % self.cap
+                self.dq[to_idx] = self.dq[from_idx]
+            self.dq[self.tail] = None
+            self.tail = (self.tail - 1 + self.cap) % self.cap
+
+        self.size -= 1
+        if self.size == 0:
+            self.head = 0
+            self.tail = -1
+
+        return value
+        
+
+    def getFirst(self):
         """
         Retorna o elemento do início do deque sem removê-lo.
 
@@ -88,7 +165,7 @@ class Deque:
             raise IndexError("Deque está vazio")
         return self.dq[self.head]
 
-    def get_last(self):
+    def getLast(self):
         """
         Retorna o elemento do final do deque sem removê-lo.
 
@@ -99,6 +176,21 @@ class Deque:
             raise IndexError("Deque está vazio")
         return self.dq[self.tail]
 
+    def get(self, index):
+        """
+        Retorna o elemento na posição especificada do deque sem removê-lo.
+    
+        :param index: Índice (relativo ao início lógico) do elemento.
+        :return: Valor encontrado.
+        :raises IndexError: Se o índice for inválido.
+        """
+        if self.is_empty():
+            raise IndexError("Deque está vazio")
+        if index < 0 or index >= self.size:
+            raise IndexError("Índice fora do intervalo válido")
+    
+        return self.dq[(self.head + index) % self.cap]
+    
     def is_full(self):
         """
         Verifica se o deque está cheio.

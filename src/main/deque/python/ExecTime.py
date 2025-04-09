@@ -3,47 +3,52 @@ import time
 import os
 from deque import Deque
 
-
+output_dir = "data/results/time"
+os.makedirs(output_dir, exist_ok=True)
 def measure_time(func_name, input_list):
     n = len(input_list)
     results = []
-    dq = Deque(n)
+    dq = Deque(n+1)
     
     for _ in range(30):
         for num in input_list:
-            dq.add_last(num)
-        func = getattr(dq, func_name) 
+            dq.addLast(num)
+
+        func = getattr(dq, func_name)
         if not callable(func):
             raise ValueError(f"'{func_name}' não é uma função válida do objeto.")
+        
+        start = time.perf_counter_ns()
+
+        if func_name in ["addFirst", "addLast"]:
+            func(10)
+        elif func_name == "add":
+            func(10, n//2)
+        elif func_name in ["getFirst", "getLast", "removeFirst", "removeLast"]:
+            func()
+        elif func_name in ["get", "remove"]:
+            func(n//2)
         else:
-            if func_name.endswith("last") or func_name.endswith("first"):
-                if func_name.startswith("add"):
-                    start = time.perf_counter_ns()
-                    func(10)
-                    end = time.perf_counter_ns()
-                else:
-                    start = time.perf_counter_ns()
-                    func()
-                    end = time.perf_counter_ns()
-            else:
-                start = time.perf_counter_ns()
-                func(10, n//2)
-                end = time.perf_counter_ns()
-            results.append(end - start)
+            raise ValueError(f"Função '{func_name}' não reconhecida.")
+
+        end = time.perf_counter_ns()
+        results.append(end - start)
+
     results = sorted(results)
     output_line = f"deque-python {results[14]} {n}"
-    
-    file_name = f"{func_name}.data"
-    is_new_file = not os.path.exists(file_name) or os.stat(file_name).st_size == 0
-    
-    with open(file_name, "a") as file:
+
+    file_path = os.path.join(output_dir, f"{func_name}.data")
+    is_new_file = not os.path.exists(file_path) or os.stat(file_path).st_size == 0    
+
+    with open(file_path, "a") as file:
         if is_new_file:
             file.write("estrutura-linguagem tempo tamanho_da_entrada\n")
         file.write(output_line + "\n")
 
-methods = ["add_first", "add_last", 
-           "get_first", "get_last",
-           "remove_first", "remove_last"]
+
+methods = ["addFirst", "add", "addLast",
+    "getFirst", "get", "getLast",
+    "removeFirst", "remove", "removeLast"]
 
 
 
