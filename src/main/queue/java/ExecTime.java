@@ -67,7 +67,7 @@ public class ExecTime {
         long[][] allTimes = new long[METHOD_NAMES.length][RUNS];
 
         for (int run = 0; run < RUNS; run++) {
-            Queue<Integer> queue = new Queue<>(length + 3);
+            Queue<Integer> queue = new Queue<>(length + 1);
             for (int num : elements) {
                 queue.addLast(num);
             }
@@ -77,36 +77,42 @@ public class ExecTime {
             queue.addLast(999);
             long endTime = System.nanoTime();
             allTimes[0][run] = endTime - startTime;
+            queue.removeFirst();
 
             // Test addFirst
             startTime = System.nanoTime();
             queue.addFirst(999);
             endTime = System.nanoTime();
             allTimes[1][run] = endTime - startTime;
+            queue.removeFirst();
 
             // Test addMiddle
             startTime = System.nanoTime();
             queue.add(999, middle);
             endTime = System.nanoTime();
             allTimes[2][run] = endTime - startTime;
+            queue.removeFirst();
             
             // Test removeLast
             startTime = System.nanoTime();
             queue.removeLast();
             endTime = System.nanoTime();
             allTimes[3][run] = endTime - startTime;
+            queue.addLast(999);
             
             // Test removeFirst
             startTime = System.nanoTime();
             queue.removeFirst();
             endTime = System.nanoTime();
             allTimes[4][run] = endTime - startTime;
+            queue.addLast(999);
             
             // Test removeMiddle
             startTime = System.nanoTime();
             queue.remove(middle);
             endTime = System.nanoTime();
             allTimes[5][run] = endTime - startTime;
+            queue.addLast(999);
             
             // Test getFirst
             startTime = System.nanoTime();
