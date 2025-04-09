@@ -1,16 +1,16 @@
 library('ggplot2')
 
 args <- commandArgs(trailingOnly = TRUE)
-input_file <- paste0("data/results/time/", args[1], ".data")
-output_file <- paste0("data/results/time/", args[1], ".png")
+input_file <- paste0("data/results/memory/", args[1], ".data")
+output_file <- paste0("data/results/memory/", args[1], ".png")
 
 data = read.table(input_file, header = TRUE)
 
-p <- ggplot(data, aes(x = tamanho, y = tempo, colour = estrutura_linguagem)) +
+p <- ggplot(data, aes(x = tamanho, y = memoria, colour = estrutura_linguagem)) +
   geom_line() +
-  labs(title = paste0("Tempo de execução por tamanho para método ", args[1]),
+  labs(title = paste0("Tempo de execução por memória para método ", args[1]),
        x = "Tamanho",
-       y = "Tempo (ns)",
+       y = "Memória",
 		   colour = "Estrutura/linguagem") +
   theme_bw() +
   theme(legend.position = "bottom")
