@@ -3,16 +3,15 @@ import java.util.*;
 
 public class Exec {
     public static void main(String[] args) {
-        try {
-            // Métodos que serão testados
-            String[] methods = {
+            
+        private static final String[] methods = {
                 "pushIndex", "push", "pushLast",
                 "popIndex", "pop", "popLast",
                 "peekIndex", "peek", "peekLast"
             };
-
+    
             // Leitura do input
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
             String line;
 
             while ((line = reader.readLine()) != null) {
