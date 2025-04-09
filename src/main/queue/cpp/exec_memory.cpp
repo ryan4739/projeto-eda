@@ -44,7 +44,7 @@ long getMemoryUsage() {
 void testQueueOperations(const vector<int>& elements, ofstream writers[], int currentLine, int totalLines) {
     int length = elements.size();
     int middle = length / 2;
-    const int RUNS = 30;
+    const int RUNS = 5;
     vector<vector<long>> allMemoryUsage(METHOD_NAMES.size(), vector<long>(RUNS));
 
     for (int run = 0; run < RUNS; run++) {

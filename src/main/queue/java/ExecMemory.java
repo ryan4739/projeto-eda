@@ -63,7 +63,7 @@ public class ExecMemory {
     private static void testQueueOperations(PrintWriter[] writers, int[] elements) {
         int length = elements.length;
         int middle = length/2;
-        int RUNS = 30;
+        int RUNS = 5;
         long[][] allMemory = new long[METHOD_NAMES.length][RUNS];
 
         for (int run = 0; run < RUNS; run++) {

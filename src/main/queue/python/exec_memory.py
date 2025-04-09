@@ -66,7 +66,7 @@ class ExecMemory:
     def test_queue_operations(writers, elements):
         length = len(elements)
         middle = length // 2
-        RUNS = 30
+        RUNS = 5
         all_memory = [[] for _ in range(len(ExecMemory.METHOD_NAMES))]
 
         for run in range(RUNS):
