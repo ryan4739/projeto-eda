@@ -1,100 +1,109 @@
 import java.io.*;
-import java.util.Arrays;
+import java.util.*;
 
 public class Exec {
     public static void main(String[] args) {
         try {
-            // Definir os métodos a serem testados
-            String[] methods = { "pushIndex", "push", "pushLast",
-                                  "popIndex", "pop", "popLast",
-                                  "peekIndex", "peek", "peekLast" };
+            // Métodos que serão testados
+            String[] methods = {
+                "pushIndex", "push", "pushLast",
+                "popIndex", "pop", "popLast",
+                "peekIndex", "peek", "peekLast"
+            };
 
-            // Lendo o arquivo de entrada
+            // Leitura do input
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String line;
 
             while ((line = reader.readLine()) != null) {
                 if (line.isBlank()) continue;
 
-                int[] input = Arrays.stream(line.split(" ")).mapToInt(Integer::parseInt).toArray();
+                int[] input = Arrays.stream(line.trim().split("\\s+"))
+                                    .mapToInt(Integer::parseInt)
+                                    .toArray();
 
                 for (String method : methods) {
                     long[] results = new long[30];
 
-                    for (int i = 0; i < 30; i++) {    
-                        Stack ck = new Stack();
+                    for (int i = 0; i < 30; i++) {
+                        Stack stack = new Stack(100); // capacidade grande o suficiente
 
-                        // Adicionando os valores na LinkedList
-                        for (String num: line.split(" "))
-                            ck.push(Integer.parseInt(num));
+                        // Preenche a pilha com os elementos de entrada
+                        for (int value : input) {
+                            stack.push(value);
+                        }
 
                         long start = 0;
                         long end = 0;
 
-                        switch (method) {
-                            case "pushIndex":
-                                start = System.nanoTime();
-                                ck.pushLast(10);
-                                end = System.nanoTime();
-                                break;
+                        try {
+                            switch (method) {
+                                case "push":
+                                    start = System.nanoTime();
+                                    stack.push(10);
+                                    end = System.nanoTime();
+                                    break;
 
-                            case "push":
-                                start = System.nanoTime();
-                                ck.add(10, input.length / 2);
-                                end = System.nanoTime();
-                                break;
+                                case "pushLast":
+                                    start = System.nanoTime();
+                                    stack.pushLast(10);
+                                    end = System.nanoTime();
+                                    break;
 
-                            case "pushLast":
-                                start = System.nanoTime();
-                                ck.pushLast(10);
-                                end = System.nanoTime();
-                                break;
+                                case "pushIndex":
+                                    start = System.nanoTime();
+                                    stack.pushIndex(10, input.length / 2);
+                                    end = System.nanoTime();
+                                    break;
 
-                            case "peekIndex":
-                                start = System.nanoTime();
-                                ck.peekIndex(10);
-                                end = System.nanoTime();
-                                break;
+                                case "pop":
+                                    start = System.nanoTime();
+                                    stack.pop();
+                                    end = System.nanoTime();
+                                    break;
 
-                            case "peek":
-                                start = System.nanoTime();
-                                ck.peek();
-                                end = System.nanoTime();
-                                break;
+                                case "popLast":
+                                    start = System.nanoTime();
+                                    stack.popLast();
+                                    end = System.nanoTime();
+                                    break;
 
-                            case "peekLast":
-                                start = System.nanoTime();
-                                ck.peekLast();
-                                end = System.nanoTime();
-                                break;
+                                case "popIndex":
+                                    start = System.nanoTime();
+                                    stack.popIndex(input.length / 2);
+                                    end = System.nanoTime();
+                                    break;
 
-                            case "popIndex":
-                                start = System.nanoTime();
-                                ck.popIndex(10);
-                                end = System.nanoTime();
-                                break;
+                                case "peek":
+                                    start = System.nanoTime();
+                                    stack.peek();
+                                    end = System.nanoTime();
+                                    break;
 
-                            case "pop":
-                                start = System.nanoTime();
-                                ck.pop();
-                                end = System.nanoTime();
-                                break;
+                                case "peekLast":
+                                    start = System.nanoTime();
+                                    stack.peekLast();
+                                    end = System.nanoTime();
+                                    break;
 
-                            case "popLast":
-                                start = System.nanoTime();
-                                ck.popLast();
-                                end = System.nanoTime();
-                                break;
-
+                                case "peekIndex":
+                                    start = System.nanoTime();
+                                    stack.peekIndex(input.length / 2);
+                                    end = System.nanoTime();
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            end = start; // Se deu exceção, ignora tempo
                         }
 
-                        results[i] = (end - start);
+                        results[i] = end - start;
                     }
 
-                    Arrays.sort(results); // Ordena para buscar a mediana
-                    String outputLine = "stack-java " + results[14] + " " + input.length;
+                    Arrays.sort(results);
+                    long median = results[14]; // valor mediano
+                    String outputLine = "stack-java " + median + " " + input.length;
 
-                    // Define o arquivo de saída baseado no método
+                    // Define arquivo de saída
                     File file = new File(method + ".data");
                     boolean isNewFile = !file.exists() || file.length() == 0;
 
@@ -111,3 +120,4 @@ public class Exec {
         }
     }
 }
+

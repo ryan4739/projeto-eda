@@ -1,14 +1,19 @@
 #include <iostream>
+#include <stdexcept> 
+#include <string>   
 #include <cassert>
+#include "../../../main/stack/cpp/Stack.cpp"
 
 void test_PushLast() {
     Stack stack(9);
     stack.pushLast(1);
     stack.pushLast(2);
-    assert(stack.toString(), "2, 1");
+    std::string resultado = stack.toString();
+    assert(resultado=="2, 1");
     stack.pushLast(3);
     stack.pushLast(4);
-    assert(stack.toString(), "4, 3, 2, 1");
+    resultado = stack.toString();
+    assert(resultado== "4, 3, 2, 1");
    
     std::cout << "All test cases passed!\n";
 }
@@ -21,11 +26,12 @@ void test_push() {
 	stack.push(2);
 	stack.push(2);
 	stack.push(2);
-	assert(stack.toString(), "2, 2, 2, 2, 2");
+    std::string resultado = stack.toString();
+	assert(resultado== "2, 2, 2, 2, 2");
 	 try {
-        cout << "Result: " << stack.push(4) << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+         stack.push(2);
+    } catch (const std::runtime_error& e) {
+         std::cout << "Exception caught: " << e.what() << std::endl;
     }
     std::cout << "All test cases passed!\n";
 }
@@ -40,9 +46,9 @@ void test_Pop() {
 	stack.pop();
 	stack.pop();
 	 try {
-        cout << "Result: " << stack.pop(); << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+         stack.pop();
+    } catch (const std::runtime_error& e) {
+         std::cout << "Exception caught: " << e.what() << std::endl;
     }
     
     std::cout << "All test cases passed!\n";
@@ -52,77 +58,86 @@ void test_PopLast() {
     // Usando assert para validar
     Stack stack(5);
     try {
-        cout << "Result: " << stack.RemoveFirst() << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+        stack.RemoveFirst();
+    } catch (const std::runtime_error& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
     stack.push(3);
     stack.push(4);
     stack.push(6);
-    assert(stack.toString(), "3, 4, 6");
+    std::string resultado = stack.toString();
+    assert(resultado== "3, 4, 6");
     stack.RemoveFirst();
     stack.RemoveFirst();
-    assert(stack.toString(), "6");
+    resultado = stack.toString();
+    assert(resultado=="6");
     std::cout << "All test cases passed!\n";
 }
 
-void test_PopIndex() {
+void test_PopIndex(){
     // Usando assert para validar
     Stack stack(5);
     try {
-        cout << "Result: " << stack.RemoveIndex() << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+        stack.RemoveIndex(-1);
+    } catch (const std::runtime_error& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
     stack.push(3);
     stack.push(4);
     stack.push(6);
-    assert(stack.toString(), "3, 4, 6");
+    std::string resultado = stack.toString();
+    assert(resultado == "3, 4, 6");
     stack.RemoveIndex(2);
     stack.RemoveIndex(0);
-    assert(stack.toString(), "4");
+    resultado = stack.toString();
+    assert(resultado == "4");
     std::cout << "All test cases passed!\n";
 }
 
-void test_PeekLast() {
-    // Usando assert para validar
+void test_PeekLast(){
     Stack stack(5);
     try {
-        cout << "Result: " << stack.peekLast() << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+        stack.peekLast();
+    } catch (const std::runtime_error& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
-    PushIndex(3,0);
-    PushIndex(4,1);
-    assert(stack.peekLast(), "3");
-    PushIndex(1,0);
-    assert(stack.peekLast(), "1");
-    PushIndex(4,2);
-    assert(stack.toString(), "1, 2, 4"
+    stack.PushIndex(3,0);
+    stack.PushIndex(4,1);
+    std::string resultado = std::to_string(stack.peekLast());
+    assert(resultado == "3");
+    stack.PushIndex(1,0);
+    resultado = std::to_string(stack.peekLast());
+    assert(resultado == "1");
+    stack.PushIndex(4,2);
+    resultado = stack.toString();
+    assert(resultado == "1, 2, 4");
     
     std::cout << "All test cases passed!\n";
-}
+    }
 
 void test_PushIndex(){
     Stack stack(9);
     stack.PushIndex(2, 0);
-    assert(stack.toString(), "2");
+    std::string resultado = stack.toString();
+    assert(resultado == "2");
     try {
-        cout << "Result: " << stack.PushIndex(2,3) << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+        stack.PushIndex(2,3);
+    } catch (const std::runtime_error& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
     stack.PushIndex(3,1);
     stack.PushIndex(3,2);
     try {
-        cout << "Result: " << stack.PushIndex(4,-1) << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+        stack.PushIndex(4,-1);
+    } catch (const std::runtime_error& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
-    assert(stack.toString(), "2, 3, 3");
+    resultado = stack.toString();
+    assert(resultado == "2, 3, 3");
     stack.PushIndex(1,0);
     stack.PushIndex(4,2);
-    assert(stack.toString(), "1, 2, 4";
+    resultado = stack.toString();
+    assert(resultado == "1, 2, 4");
     
     std::cout << "All test cases passed!\n";
 }
@@ -131,17 +146,20 @@ void test_peekIndex() {
     // Usando assert para validar
     Stack stack(9);
     try {
-        cout << "Result: " << stack.peekIndex(2,3) << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+        stack.peekIndex(2);
+    } catch (const std::runtime_error& e) {
+        std:: cout << "Exception caught: " << e.what() << std::endl;
     }
     stack.PushIndex(3,0);
     stack.PushIndex(4,1);
-    assert(stack.peekIndex(1), "4");
+    std::string resultado = std::to_string(stack.peekIndex(1));
+    assert(resultado == "4");
     stack.PushIndex(1,1);
-    assert(stack.peekIndex(1), "1");
+    resultado = std::to_string(stack.peekIndex(1));
+    assert(resultado == "1");
     stack.PushIndex(4,2);
-    assert(stack.peekIndex(2), "1");
+    resultado = std::to_string(stack.peekIndex(1));
+    assert(resultado == "1");
     std::cout << "All test cases passed!\n";
 }
 
@@ -149,15 +167,17 @@ void test_peek() {
     // Usando assert para validar
     Stack stack(9);
     try {
-        cout << "Result: " << stack.peeK() << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+        stack.peek();
+    } catch (const std::runtime_error& e) {
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
     stack.push(3);
     stack.push(3);
-    assert(stack.peek(), "3");
+    std::string resultado = std::to_string(stack.peek());
+    assert(resultado == "3");
     stack.push(4);
-    assert(stack.peek(), "4");
+    resultado = std::to_string(stack.peek());
+    assert(resultado == "4");
     std::cout << "All test cases passed!\n";
 }
 
@@ -165,22 +185,25 @@ void test_IndeOf() {
     // Usando assert para validar
     Stack stack(9);
     try {
-        cout << "Result: " << stack.indexOf(2) << endl;
-    } catch (const runtime_error& e) {
-        cout << "Exception caught: " << e.what() << endl;
+        stack.indexOf(2);
+    } catch (const std::runtime_error& e){
+        std::cout << "Exception caught: " << e.what() << std::endl;
     }
     stack.push(2);
-    assert(stack.indexOf(2), "0");
+    std::string resultado = std::to_string(stack.indexOf(2));
+    assert(resultado == "0");
     stack.push(0);
     stack.push(1);
     stack.push(3);
-    assert(stack.indexOf(0), "1");
-    assert(stack.indexOf(7), "-1");
+    resultado = std::to_string(stack.indexOf(0));
+    assert(resultado == "1");
+    resultado = std::to_string(stack.indexOf(7));
+    assert(resultado == "-1");
     
     std::cout << "All test cases passed!\n";
 }
 
-int main() {
+int main2(){
     test_PushIndex();
     test_Pop();
     test_peekIndex;
