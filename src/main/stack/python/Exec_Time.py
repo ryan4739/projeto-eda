@@ -19,9 +19,9 @@ for line in sys.stdin:
         results = []
         
         for _ in range(30):
-            stack = Stack(60)  # Initialize stack with capacity 60
+            stack = Stack(60)  #inicializar com 60
             for num in input_list:
-                stack.push(num)  # Pre-fill the stack
+                stack.push(num)  # encher a stack
             
             start = 0
             end = 0
