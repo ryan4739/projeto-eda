@@ -100,7 +100,7 @@ public class Exec_memory {
 
                     Arrays.sort(results);
                     long median = results[14]; // valor mediano
-                    String outputLine = "stack-java " + median + " " + input.length;
+                    String outputLine = "stack-java-memory " + median + " " + input.length;
 
                     // Define arquivo de saída
                     File file = new File(method + ".data");
