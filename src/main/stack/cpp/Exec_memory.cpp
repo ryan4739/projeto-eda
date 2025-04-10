@@ -81,7 +81,7 @@ int main() {
             ensureHeaderExists(filename);  // Garante que o cabeçalho só seja escrito uma vez
 
             ofstream file(filename, ios::app);
-            file << "Stack-cpp " << medianTime << " " << input.size() << endl;
+            file << "Stack-cpp-memory " << medianTime << " " << input.size() << endl;
         }
     }
     return 0;
