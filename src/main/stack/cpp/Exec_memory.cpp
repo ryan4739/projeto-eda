@@ -20,7 +20,7 @@ void ensureHeaderExists(const string& filename) {
     }
 }
 
-int main() {
+int main2() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
@@ -43,7 +43,7 @@ int main() {
             vector<long> results(30);
 
             for (int i = 0; i < 30; i++) {
-                Stack ll;
+                Stack ll(60);
                 for (int val : input) {
                     ll.push(val);
                 }
@@ -52,18 +52,18 @@ int main() {
 
                 if (method == "push") {
                     ll.push(10);
-                } else if (method == "pushIndex") {
-                    ll.pushIndex(10, input.size() / 2);
+                } else if (method == "PushIndex") {
+                    ll.PushIndex(10, input.size() / 2);
                 } else if (method == "pushLast") {
                     ll.pushLast(10);
-                } else if (method == "push") {
-                    ll.push();
                 } else if (method == "peek") {
-                    ll.peek(input.size() / 2);
+                    ll.peek();
                 } else if (method == "peekLast") {
                     ll.peekLast();
+                } else if (method == "peekIndex"){
+                    ll.peekIndex(input.size() / 2);
                 } else if (method == "RemoveFirst") {
-                    ll.removeFirst();
+                    ll.RemoveFirst();
                 } else if (method == "RemoveIndex") {
                     ll.RemoveIndex(input.size() / 2);
                 } else if (method == "pop") {
