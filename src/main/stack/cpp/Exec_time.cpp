@@ -24,9 +24,9 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<string> methods = {"PushIndex", "push", "pushLast",
+    vector<string> methods = {"pushIndex", "push", "pushLast",
                               "peekIndex", "peek", "peekLast",
-                              "RemoveFirst", "pop", "RemoveIndex"};
+                              "removeFirst", "pop", "removeIndex"};
 
     string line;
     while (getline(cin, line)) {
@@ -56,16 +56,16 @@ int main() {
                     ll.pushIndex(10, input.size() / 2);
                 } else if (method == "pushLast") {
                     ll.pushLast(10);
-                } else if (method == "push") {
-                    ll.push();
                 } else if (method == "peek") {
                     ll.peek(input.size() / 2);
+                } else if (method == "peekIndex") {
+                    ll.peekIndex(input.size() / 2);
                 } else if (method == "peekLast") {
                     ll.peekLast();
-                } else if (method == "RemoveFirst") {
+                } else if (method == "removeFirst") {
                     ll.removeFirst();
-                } else if (method == "RemoveIndex") {
-                    ll.RemoveIndex(input.size() / 2);
+                } else if (method == "removeIndex") {
+                    ll.removeIndex(input.size() / 2);
                 } else if (method == "pop") {
                     ll.pop();
                 }
@@ -78,7 +78,7 @@ int main() {
             long medianTime = results[14];
 
             string filename = method + ".data";
-            ensureHeaderExists(filename);  // Garante que o cabeçalho só seja escrito uma vez
+            ensureHeaderExists(filename);
 
             ofstream file(filename, ios::app);
             file << "Stack-cpp " << medianTime << " " << input.size() << endl;
