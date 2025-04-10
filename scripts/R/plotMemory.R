@@ -43,7 +43,7 @@ p <- ggplot(data, aes(x = tamanho,
                       y = memoria,
                       colour = estrutura_linguagem,
                       # Personaliza os tooltips
-                      text = paste("Tamanho:", tamanho, "<br>Memória:", tempo))) +
+                      text = paste("Tamanho:", tamanho, "<br>Memória:", memoria))) +
   geom_line(linewidth = 0.8) +
   geom_point(size = 2.5, alpha = 0.8) +
   labs(title = paste0("Memória de execução por tamanho para método ", args[1]),
