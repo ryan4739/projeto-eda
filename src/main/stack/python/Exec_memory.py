@@ -19,7 +19,7 @@ for line in sys.stdin:
         results = []
         
         for _ in range(30):
-            stack = Stack(60)  # Initialize stack with capacity 60
+            stack = Stack(60)  # Capacidade de 60 englobada
             for num in input_list:
                 stack.push(num)  # Pre-fill the stack
             
