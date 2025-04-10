@@ -100,7 +100,7 @@ public class Exec {
 
                     Arrays.sort(results);
                     long median = results[14]; // valor mediano
-                    String outputLine = "stack-java " + median + " " + input.length;
+                    String outputLine = "stack-java-time " + median + " " + input.length;
 
                     // Define arquivo de saída
                     File file = new File(method + ".data");
