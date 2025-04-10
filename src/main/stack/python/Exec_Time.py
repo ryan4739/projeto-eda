@@ -67,7 +67,7 @@ for line in sys.stdin:
         
         results = sorted(results)
         median_time = results[14]  # Median of 30 runs (index 14)
-        output_line = f"stack-python {median_time} {n}"
+        output_line = f"stack-python-time {median_time} {n}"
         
         file_name = f"{method}.data"
         is_new_file = not os.path.exists(file_name) or os.stat(file_name).st_size == 0
