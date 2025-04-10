@@ -81,7 +81,7 @@ int main() {
             ensureHeaderExists(filename);
 
             ofstream file(filename, ios::app);
-            file << "Stack-cpp " << medianTime << " " << input.size() << endl;
+            file << "Stack-cpp-time " << medianTime << " " << input.size() << endl;
         }
     }
     return 0;
