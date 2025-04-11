@@ -42,6 +42,7 @@ data <- read.table(input_file, header = TRUE)
 p <- ggplot(data, aes(x = tamanho,
                       y = tempo,
                       colour = estrutura_linguagem,
+                      group = estrutura_linguagem,
                       # Personaliza os tooltips
                       text = paste("Tamanho:", tamanho, "<br>Tempo:", tempo))) +
   geom_line(linewidth = 0.8) +
