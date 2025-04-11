@@ -20,7 +20,13 @@ public class ExecTime {
     public static void main(String[] args) {
 
         String inputFile = args[0];
-        String outputDir = "data/results/memory/";
+        String outputDir = "data/results/time/";
+
+        // Cria o diretório de saída se ele não existir
+        File outputDirFile = new File(outputDir);
+        if (!outputDirFile.exists()) {
+            outputDirFile.mkdirs();
+        }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             int totalLines = 0;

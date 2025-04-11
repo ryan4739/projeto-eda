@@ -22,6 +22,12 @@ public class ExecMemory {
         String inputFile = args[0];
         String outputDir = "data/results/memory/";
 
+        // Cria o diretório de saída se ele não existir
+        File outputDirFile = new File(outputDir);
+        if (!outputDirFile.exists()) {
+            outputDirFile.mkdirs();
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             int totalLines = 0;
             while (reader.readLine() != null) totalLines++;
