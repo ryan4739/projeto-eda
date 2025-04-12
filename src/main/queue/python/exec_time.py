@@ -1,45 +1,64 @@
 import time
 import sys
+import os
 from statistics import median
 
 from queue import Queue
 
 class ExecTime:
+    """
+    Classe responsável por medir e registrar os tempos de execução de operações em uma fila.
+    Os resultados são salvos em arquivos separados para cada tipo de operação.
+    """
+
+    # Nomes dos métodos que serão testados e correspondem aos nomes dos arquivos de saída
     METHOD_NAMES = [
-        "addLast",
-        "addFirst",
-        "add",
-        "removeFirst",
-        "removeLast",
-        "remove",
-        "getFirst",
-        "getLast",
-        "get"
+        "remove_last",
+        "add_last",
+        "get_last",
+        "remove_first",
+        "add_first",
+        "get_first",
+        "remove_middle",
+        "add_middle",
+        "get_middle"
     ]
 
     @staticmethod
     def main():
+        """
+        Método principal que coordena a execução do programa.
+        Lê o arquivo de entrada, prepara os arquivos de saída e processa cada linha.
+        """
+
+        # Verifica se o número de argumentos é válido
         if len(sys.argv) < 2:
-            print("Uso: python exec_time.py <arquivo_entrada>")
+            print("ERRO: número de argumentos inválido!")
             return
 
-        input_file = sys.argv[1]
-        output_dir = "data/results/time/"
+        input_file = sys.argv[1] # Arquivo de entrada contendo os tamanhos das filas
+        output_dir = "data/results/time/" # Diretório onde serão salvos os resultados
 
         try:
             # Cria o diretório de saída se não existir
-            import os
             os.makedirs(output_dir, exist_ok=True)
 
             # Abre os arquivos de saída para escrita
             writers = []
             for method in ExecTime.METHOD_NAMES:
-                writers.append(open(f"{output_dir}{method}.data", "a"))
+                file_path = f"{output_dir}{method}.data"
+                # Cria o arquivo com cabeçalho se não existir
+                if not os.path.exists(file_path):
+                    with open(file_path, 'w') as f:
+                        f.write("estrutura_linguagem tempo tamanho\n")
+                # Abre o arquivo em modo append para adicionar novos resultados
+                writers.append(open(file_path, 'a'))
 
-            # Conta o número total de linhas no arquivo
+            # Conta o número total de linhas no arquivo para mostrar progresso
             with open(input_file, 'r') as reader:
                 total_lines = sum(1 for line in reader if line.strip())
 
+            # Processa cada linha do arquivo de entrada
             with open(input_file, 'r') as reader:
                 current_line = 0
                 for line in reader:
@@ -50,83 +69,86 @@ class ExecTime:
                     current_line += 1
                     print(f"Processando linha {current_line}/{total_lines}", end='\r')
 
+                    # Converte a linha em uma lista de inteiros
                     elements = list(map(int, line.split()))
+                    # Testa as operações com os elementos da linha atual
                     ExecTime.test_queue_operations(writers, elements)
 
-            print(f"Concluído! Processadas {total_lines} linhas.")
+            print(f"\rConcluído! Processadas {total_lines} linhas.")
 
         except IOError as e:
             print(f"Erro ao processar arquivos: {e}")
         finally:
-            # Fecha todos os arquivos de saída
+            # Garante que todos os arquivos serão fechados
             for writer in writers:
                 writer.close()
 
     @staticmethod
     def test_queue_operations(writers, elements):
-        length = len(elements)
-        middle = length // 2
-        RUNS = 30
-        all_times = [[] for _ in range(len(ExecTime.METHOD_NAMES))]
+        """
+        Testa as operações da fila com os elementos fornecidos e registra os tempos.
 
+        Args:
+            writers: Lista de arquivos abertos para escrita dos resultados
+            elements: Lista de elementos para preencher a fila inicialmente
+        """
+        length = len(elements) # Tamanho atual da fila
+        middle = length // 2 # Índice do elemento do meio
+        RUNS = 30# Número de execuções para cada operação
+        all_times = [[] for _ in range(len(ExecTime.METHOD_NAMES))] # Armazena tempos de cada operação
+
+        # Preenche a fila com os elementos iniciais
+        queue = Queue(length)
+        for num in elements:
+            queue.add_last(num)
+
+        # Executa os testes determinada quantia de vezes para extrair a mediana
         for run in range(RUNS):
-            queue = Queue(length + 1)
-
-            # Preenche a fila com os elementos iniciais
-            for num in elements:
-                queue.add_last(num)
+            # Testa removeLast
+            start_time = time.perf_counter_ns()
+            queue.remove_last()
+            end_time = time.perf_counter_ns()
+            all_times[0].append(end_time - start_time)
 
             # Testa addLast
             start_time = time.perf_counter_ns()
             queue.add_last(999)
             end_time = time.perf_counter_ns()
-            all_times[0].append(end_time - start_time)
-            queue.remove_last()
-
-            # Testa addFirst
-            start_time = time.perf_counter_ns()
-            queue.add_first(999)
-            end_time = time.perf_counter_ns()
             all_times[1].append(end_time - start_time)
-            queue.remove_first()
 
-            # Testa add (middle)
+            # Testa getLast
             start_time = time.perf_counter_ns()
-            queue.add(999, middle)
+            queue.get_last()
             end_time = time.perf_counter_ns()
             all_times[2].append(end_time - start_time)
-            queue.remove(middle)
 
             # Testa removeFirst
             start_time = time.perf_counter_ns()
             queue.remove_first()
             end_time = time.perf_counter_ns()
             all_times[3].append(end_time - start_time)
-            queue.add_first(elements[0])
 
-            # Testa removeLast
+            # Testa addFirst
             start_time = time.perf_counter_ns()
-            queue.remove_last()
+            queue.add_first(999)
             end_time = time.perf_counter_ns()
             all_times[4].append(end_time - start_time)
-            queue.add_last(elements[-1])
-
-            # Testa remove (middle)
-            start_time = time.perf_counter_ns()
-            queue.remove(middle)
-            end_time = time.perf_counter_ns()
-            all_times[5].append(end_time - start_time)
-            queue.add_last(999)
 
             # Testa getFirst
             start_time = time.perf_counter_ns()
             queue.get_first()
             end_time = time.perf_counter_ns()
+            all_times[5].append(end_time - start_time)
+
+            # Testa remove (middle)
+            start_time = time.perf_counter_ns()
+            queue.remove(middle)
+            end_time = time.perf_counter_ns()
             all_times[6].append(end_time - start_time)
 
-            # Testa getLast
+            # Testa add (middle)
             start_time = time.perf_counter_ns()
-            queue.get_last()
+            queue.add(999, middle)
             end_time = time.perf_counter_ns()
             all_times[7].append(end_time - start_time)
 
@@ -140,8 +162,9 @@ class ExecTime:
         for i, method in enumerate(ExecTime.METHOD_NAMES):
             if all_times[i]:
                 median_time = int(median(all_times[i]))
-                writers[i].write(f"queue-python {median_time} {length}\n")
+                writers[i].write(f"queue_python {median_time} {length}\n")
                 writers[i].flush()
 
 if __name__ == "__main__":
     ExecTime.main()
+
