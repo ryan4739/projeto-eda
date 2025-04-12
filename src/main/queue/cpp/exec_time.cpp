@@ -47,66 +47,60 @@ void testQueueOperations(const vector<int>& elements, ofstream writers[], int cu
 
     // Executa cada operação RUNS vezes para obter dados estatísticos
     for (int run = 0; run < RUNS; run++) {
-        Queue<int> queue(length + 1);
+        Queue<int> queue(length);
         
         // Preenche a fila com os elementos iniciais
         for (int num : elements) {
             queue.addLast(num);
         }
 
-        // Testa addLast
+        // Testa removeLast
         auto startTime = high_resolution_clock::now();
-        queue.addLast(999);
+        queue.removeLast();
         auto endTime = high_resolution_clock::now();
+        allTimes[4][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa addLast
+        startTime = high_resolution_clock::now();
+        queue.addLast(999);
+        endTime = high_resolution_clock::now();
         allTimes[0][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa getLast
+        startTime = high_resolution_clock::now();
+        queue.getLast();
+        endTime = high_resolution_clock::now();
+        allTimes[7][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa removeFirst
+        startTime = high_resolution_clock::now();
         queue.removeFirst();
+        endTime = high_resolution_clock::now();
+        allTimes[3][run] = duration_cast<nanoseconds>(endTime - startTime).count();
 
         // Testa addFirst
         startTime = high_resolution_clock::now();
         queue.addFirst(999);
         endTime = high_resolution_clock::now();
         allTimes[1][run] = duration_cast<nanoseconds>(endTime - startTime).count();
-        queue.removeFirst();
+
+        // Testa getFirst
+        startTime = high_resolution_clock::now();
+        queue.getFirst();
+        endTime = high_resolution_clock::now();
+        allTimes[6][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa remove (middle)
+        startTime = high_resolution_clock::now();
+        queue.remove(middle);
+        endTime = high_resolution_clock::now();
+        allTimes[5][run] = duration_cast<nanoseconds>(endTime - startTime).count();
 
         // Testa add (middle)
         startTime = high_resolution_clock::now();
         queue.add(999, middle);
         endTime = high_resolution_clock::now();
         allTimes[2][run] = duration_cast<nanoseconds>(endTime - startTime).count();
-        queue.removeFirst();
-        
-        // Testa removeFirst
-        startTime = high_resolution_clock::now();
-        queue.removeFirst();
-        endTime = high_resolution_clock::now();
-        allTimes[3][run] = duration_cast<nanoseconds>(endTime - startTime).count();
-        queue.addLast(999);
-        
-        // Testa removeLast
-        startTime = high_resolution_clock::now();
-        queue.removeLast();
-        endTime = high_resolution_clock::now();
-        allTimes[4][run] = duration_cast<nanoseconds>(endTime - startTime).count();
-        queue.addLast(999);
-        
-        // Testa remove (middle)
-        startTime = high_resolution_clock::now();
-        queue.remove(middle);
-        endTime = high_resolution_clock::now();
-        allTimes[5][run] = duration_cast<nanoseconds>(endTime - startTime).count();
-        queue.addLast(999);
-        
-        // Testa getFirst
-        startTime = high_resolution_clock::now();
-        queue.getFirst();
-        endTime = high_resolution_clock::now();
-        allTimes[6][run] = duration_cast<nanoseconds>(endTime - startTime).count();
-        
-        // Testa getLast
-        startTime = high_resolution_clock::now();
-        queue.getLast();
-        endTime = high_resolution_clock::now();
-        allTimes[7][run] = duration_cast<nanoseconds>(endTime - startTime).count();
         
         // Testa get (middle)
         startTime = high_resolution_clock::now();
