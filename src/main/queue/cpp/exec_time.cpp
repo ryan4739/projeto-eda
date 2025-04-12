@@ -162,10 +162,21 @@ int main(int argc, char* argv[]) {
     ofstream writers[METHOD_NAMES.size()];
     for (size_t i = 0; i < METHOD_NAMES.size(); i++) {
         string outputFile = outputDir + METHOD_NAMES[i] + ".data";
+
+        bool fileExists = fs::exists(outputFile);
+        bool fileIsEmpty = fileExists ? fs::file_size(outputFile) == 0 : true;
+
         writers[i].open(outputFile, ios::app); // Modo append para não sobrescrever
+        
+        // Tratamento de erros para abertura do arquivo de saída
         if (!writers[i]) {
             cerr << "\nErro ao abrir arquivo de saída: " << outputFile << endl;
             return 1;
+        }
+
+        // Escrita do cabeçalho, caso necessário
+        if (!fileExists || fileIsEmpty) {
+            writers[i] << "estrutura_linguagem tempo tamanho" << endl;
         }
     }
 
