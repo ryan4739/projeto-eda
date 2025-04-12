@@ -18,15 +18,15 @@ import java.util.concurrent.TimeUnit;
 public class ExecTime {
     // Nomes das operações que serão medidas
     private static final String[] METHOD_NAMES = {
-        "addLast",
-        "addFirst",
-        "add",
-        "removeLast",
-        "removeFirst",
-        "remove",
-        "getLast",
-        "getFirst",
-        "get"
+        "remove_last",
+        "add_last",
+        "get_last",
+        "remove_first",
+        "add_first",
+        "get_first",
+        "remove_middle",
+        "add_middle",
+        "get_middle"
     };
 
     // Número de execuções para medição
@@ -196,14 +196,14 @@ public class ExecTime {
      * @param currentRun Número da execução atual
      */
     private static void performOperations(Queue<Integer> queue, int middle, long[][] allTimes, int currentRun) {
-        allTimes[3][currentRun] = measureOperation(queue::removeLast);
-        allTimes[0][currentRun] = measureOperation(() -> queue.addLast(999));
-        allTimes[6][currentRun] = measureOperation(queue::getLast);
-        allTimes[4][currentRun] = measureOperation(queue::removeFirst);
-        allTimes[1][currentRun] = measureOperation(() -> queue.addFirst(999));
-        allTimes[7][currentRun] = measureOperation(queue::getFirst);
-        allTimes[5][currentRun] = measureOperation(() -> queue.remove(middle));
-        allTimes[2][currentRun] = measureOperation(() -> queue.add(999, middle));
+        allTimes[0][currentRun] = measureOperation(queue::removeLast);
+        allTimes[1][currentRun] = measureOperation(() -> queue.addLast(999));
+        allTimes[2][currentRun] = measureOperation(queue::getLast);
+        allTimes[3][currentRun] = measureOperation(queue::removeFirst);
+        allTimes[4][currentRun] = measureOperation(() -> queue.addFirst(999));
+        allTimes[5][currentRun] = measureOperation(queue::getFirst);
+        allTimes[6][currentRun] = measureOperation(() -> queue.remove(middle));
+        allTimes[7][currentRun] = measureOperation(() -> queue.add(999, middle));
         allTimes[8][currentRun] = measureOperation(() -> queue.get(middle));
     }
 
