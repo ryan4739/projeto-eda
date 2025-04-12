@@ -2,13 +2,13 @@
 # Uso: Rscript {caminho}/plotTime.R <nome_do_metodo>
 # 
 # Exemplo:
-#   Rscript scripts/R/plotTime.R addFirst
+#   Rscript scripts/R/plotTime.R add_first
 #
 # O script espera encontrar um arquivo de dados em:
-#   data/results/time/addFirst.data
+#   data/results/time/add_first.data
 #
 # O gráfico interativo será salvo em:
-#   data/results/time/addFirst.html
+#   data/results/time/add_first.html
 #
 # Para instalar uma biblioteca utilize, dentro de um ambiente R:
 # install.packages("<nome_da_biblioteca>")
