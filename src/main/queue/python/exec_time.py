@@ -45,14 +45,19 @@ class ExecTime:
 
             # Abre os arquivos de saída para escrita
             writers = []
-            for method in ExecTime.METHOD_NAMES:
-                file_path = f"{output_dir}{method}.data"
-                # Cria o arquivo com cabeçalho se não existir
-                if not os.path.exists(file_path):
-                    with open(file_path, 'w') as f:
+            try:
+                for method in ExecTime.METHOD_NAMES:
+                    file_path = f"{output_dir}{method}.data"
+                    # Abre o arquivo em modo de leitura e append
+                    f = open(file_path, 'a+')
+                    # Verifica se o arquivo está vazio e adiciona cabeçalho, se necessário
+                    if os.fstat(f.fileno()).st_size == 0:
                         f.write("estrutura_linguagem tempo tamanho\n")
-                # Abre o arquivo em modo append para adicionar novos resultados
-                writers.append(open(file_path, 'a'))
+                    writers.append(f)
+            except IOError as e:
+                for f in writers:
+                    f.close()
+                raise
 
             # Conta o número total de linhas no arquivo para mostrar progresso
             with open(input_file, 'r') as reader:
