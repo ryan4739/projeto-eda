@@ -29,12 +29,8 @@ public class ExecTime {
         "get"
     };
 
-    // Número de execuções de aquecimento
-    private static final int WARMUP_RUNS = 5;
     // Número de execuções para medição
     private static final int MEASUREMENT_RUNS = 30;
-    // Tempo de pausa entre operações (ms)
-    private static final int SLEEP_TIME_MS = 10;
     // Diretório de saída
     private static final String OUTPUT_DIR = "data/results/time/";
     
@@ -163,19 +159,6 @@ public class ExecTime {
     }
     
     /**
-     * Pausa a execução por um tempo pré-definido.
-     * Usado para evitar interferência entre medições.
-     */
-    private static void sleep() {
-        try {
-            TimeUnit.MILLISECONDS.sleep(SLEEP_TIME_MS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.err.println("Pausa interrompida: " + e.getMessage());
-        }
-    }
-
-    /**
      * Testa todas as operações da fila com um conjunto de elementos.
      * @param writers Escritores para gravar resultados
      * @param elements Elementos a serem usados nos testes
@@ -185,14 +168,14 @@ public class ExecTime {
         int middle = length / 2;
         long[][] allTimes = new long[METHOD_NAMES.length][MEASUREMENT_RUNS];
 
-        // Fase de aquecimento (warmup) - prepara o JIT compiler
-        for (int run = 0; run < WARMUP_RUNS; run++) {
-            performOperations(new Queue<>(length + 1), elements, middle);
+        // Inicializa a fila com os elementos fornecidos
+        Queue<Integer> queue = new Queue<>(length);
+        for (int num : elements) {
+            queue.addLast(num);
         }
-
         // Fase de medição - registra os tempos
         for (int run = 0; run < MEASUREMENT_RUNS; run++) {
-            performOperations(new Queue<>(length + 1), elements, middle, allTimes, run);
+            performOperations(queue, middle, allTimes, run);
         }
 
         // Calcula a mediana dos tempos e escreve nos arquivos
@@ -204,80 +187,35 @@ public class ExecTime {
             writers[method].flush();
         }
     }
-    
-    /**
-     * Executa operações na fila (versão para warmup - sem medição).
-     * @param queue Fila a ser testada
-     * @param elements Elementos para inicialização
-     * @param middle Posição média para operações
-     */
-    private static void performOperations(Queue<Integer> queue, int[] elements, int middle) {
-        performOperations(queue, elements, middle, null, -1); // -1 indica warmup
-    }
 
     /**
-     * Executa operações na fila (versão com medição de tempos).
+     * Executa operações na fila.
      * @param queue Fila a ser testada
-     * @param elements Elementos para inicialização
      * @param middle Posição média para operações
      * @param allTimes Array para armazenar tempos medidos
      * @param currentRun Número da execução atual
      */
-    private static void performOperations(Queue<Integer> queue, int[] elements,
-            int middle, long[][] allTimes, int currentRun) {
-        // Inicializa a fila com os elementos fornecidos
-        for (int num : elements) {
-            queue.addLast(num);
-        }
-
-        // Se estiver medindo (não for warmup), registra os tempos
-        if (allTimes != null && currentRun >= 0) {
-            allTimes[0][currentRun] = measureOperation(() -> queue.addLast(999), () -> queue.removeFirst());
-            allTimes[1][currentRun] = measureOperation(() -> queue.addFirst(999), () -> queue.removeFirst());
-            allTimes[2][currentRun] = measureOperation(() -> queue.add(999, middle), () -> queue.removeFirst());
-            allTimes[3][currentRun] = measureOperation(queue::removeLast, () -> queue.addLast(999));
-            allTimes[4][currentRun] = measureOperation(queue::removeFirst, () -> queue.addLast(999));
-            allTimes[5][currentRun] = measureOperation(() -> queue.remove(middle), () -> queue.addLast(999));
-            allTimes[6][currentRun] = measureOperation(queue::getLast);
-            allTimes[7][currentRun] = measureOperation(queue::getFirst);
-            allTimes[8][currentRun] = measureOperation(() -> queue.get(middle));
-        } else {
-            // Warmup - executa operações sem medir
-            queue.addLast(999); queue.removeFirst();
-            queue.addFirst(999); queue.removeFirst();
-            queue.add(999, middle); queue.removeFirst();
-            queue.removeLast(); queue.addLast(999);
-            queue.removeFirst(); queue.addLast(999);
-            queue.remove(middle); queue.addLast(999);
-            queue.getFirst();
-            queue.getLast();
-            queue.get(middle);
-        }
-    }
-
-    /**
-     * Mede o tempo de execução de uma operação (versão sem cleanup).
-     * @param operation Operação a ser medida
-     * @return Tempo de execução em nanossegundos
-     */
-    private static long measureOperation(Runnable operation) {
-        return measureOperation(operation, () -> {});
+    private static void performOperations(Queue<Integer> queue, int middle, long[][] allTimes, int currentRun) {
+        allTimes[3][currentRun] = measureOperation(queue::removeLast);
+        allTimes[0][currentRun] = measureOperation(() -> queue.addLast(999));
+        allTimes[6][currentRun] = measureOperation(queue::getLast);
+        allTimes[4][currentRun] = measureOperation(queue::removeFirst);
+        allTimes[1][currentRun] = measureOperation(() -> queue.addFirst(999));
+        allTimes[7][currentRun] = measureOperation(queue::getFirst);
+        allTimes[5][currentRun] = measureOperation(() -> queue.remove(middle));
+        allTimes[2][currentRun] = measureOperation(() -> queue.add(999, middle));
+        allTimes[8][currentRun] = measureOperation(() -> queue.get(middle));
     }
 
     /**
      * Mede o tempo de execução de uma operação.
      * @param operation Operação a ser medida
-     * @param cleanup Operação para limpar/restaurar estado
      * @return Tempo de execução em nanossegundos
      */
-    private static long measureOperation(Runnable operation, Runnable cleanup) {
+    private static long measureOperation(Runnable operation) {
         long startTime = System.nanoTime();
         operation.run();
         long endTime = System.nanoTime();
-        // Executa limpeza/restauração
-        cleanup.run();
-        // Pausa entre medições
-        sleep();
         return endTime - startTime;
     }
 }
