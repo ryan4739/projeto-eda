@@ -5,10 +5,12 @@
 #include <algorithm>
 #include <chrono>
 #include <stdexcept>
+#include <filesystem>
 #include "queue.cpp"
 
 using namespace std;
 using namespace std::chrono;
+namespace fs = std::filesystem;
 
 // Lista de nomes das operações que serão testadas
 const vector<string> METHOD_NAMES = {
@@ -146,6 +148,15 @@ int main(int argc, char* argv[]) {
     string inputFile = argv[1];
     // Diretório de saída
     string outputDir = "data/results/time/";
+
+    // Cria o diretório de saída, caso não exista
+    try {
+        fs::create_directories(outputDir);
+    } catch (const fs::filesystem_error& e) {
+        cerr << "ERRO: Não foi possível criar o diretório de saída: "
+             << outputDir << "\n" << e.what() << endl;
+        return 1;
+    }
 
     // Prepara os arquivos de saída (um para cada operação)
     ofstream writers[METHOD_NAMES.size()];
