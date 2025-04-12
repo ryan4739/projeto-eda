@@ -140,7 +140,7 @@ void testQueueOperations(const vector<int>& elements, ofstream writers[], int cu
 int main(int argc, char* argv[]) {
     // Verifica se o arquivo de entrada foi fornecido
     if (argc < 2) {
-        cerr << "ERRO: nenhum argumento!" << endl;
+        cerr << "ERRO: número de argumentos inválido!" << endl;
         return 1;
     }
 
