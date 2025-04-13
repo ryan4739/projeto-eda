@@ -99,7 +99,7 @@ class ExecTime:
         """
         length = len(elements) # Tamanho atual da fila
         middle = length // 2 # Índice do elemento do meio
-        RUNS = 30# Número de execuções para cada operação
+        RUNS = 30 # Número de execuções para cada operação
         all_times = [[] for _ in range(len(ExecTime.METHOD_NAMES))] # Armazena tempos de cada operação
 
         # Preenche a fila com os elementos iniciais
