@@ -45,15 +45,14 @@ void testQueueOperations(const vector<int>& elements, ofstream writers[], int cu
     // Cada linha representa uma operação, cada coluna uma execução
     vector<vector<long>> allTimes(METHOD_NAMES.size(), vector<long>(RUNS));
 
+    // Cria e preenche a fila com os elementos iniciais
+    Queue<int> queue(length);
+    for (int num : elements) {
+        queue.addLast(num);
+    }
+
     // Executa cada operação RUNS vezes para obter dados estatísticos
     for (int run = 0; run < RUNS; run++) {
-        Queue<int> queue(length);
-        
-        // Preenche a fila com os elementos iniciais
-        for (int num : elements) {
-            queue.addLast(num);
-        }
-
         // Testa removeLast
         auto startTime = high_resolution_clock::now();
         queue.removeLast();
