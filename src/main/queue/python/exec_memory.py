@@ -99,7 +99,7 @@ class ExecMemory:
         """
         length = len(elements) # Tamanho atual da fila
         middle = length // 2 # Índice do elemento do meio
-        RUNS = 30 # Número de execuções para cada operação
+        RUNS = 10 # Número de execuções para cada operação
         all_memory = [[] for _ in range(len(ExecMemory.METHOD_NAMES))] # Armazena tempos de cada operação
 
         # Preenche a fila com os elementos iniciais
