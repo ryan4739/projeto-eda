@@ -1,110 +1,95 @@
-#include <iostream>
-#include <stdexcept>
 #include "ArrayList.h"
+#include <algorithm>  // std::copy
 
-void ArrayList::resize() {
-    capacity *= 2;
-    int* newData = new int[capacity];
-    for (int i = 0; i < size; i++) {
-        newData[i] = data[i];
-    }
-    delete[] data;
-    data = newData;
-}
-
-void ArrayList::shiftDireita(int index) {
-    testeTamanho();
-    for (int i = ++size; i > index; i--) {
-        data[i] = data[i - 1];
-    }
-}
-
-void ArrayList::shiftEsquerda(int index) {
-    testeRmv();
-    if(index == 0){
-	rmvLast();
-    }
-    else{
-    	for (int i = index; i < --size; i++) {
-        	data[i] = data[i + 1];
-	}
-    }
-}
-
-bool ArrayList::isEmpty() {
-    return size == -1;
-}
-
-bool ArrayList::isFull() {
-    return size == capacity-1;
-}
-
-void ArrayList::testeTamanho() {
-    if (isFull())
-        resize();
-}
-
-void ArrayList::testeRmv() {
-    if (isEmpty())
-        throw std::out_of_range("Lista vazia");
-}
-
-ArrayList::ArrayList(size_t initialCapacity) : capacity(initialCapacity), size(0) {
-    data = new int[capacity];
-}
-
-ArrayList::ArrayList() : capacity(20), size(-1) {
-    data = new int[capacity];
-}
+ArrayList::ArrayList(size_t capacidadeInicial)
+    : data(new int[capacidadeInicial]), capacity(capacidadeInicial), size(0) {}
 
 ArrayList::~ArrayList() {
     delete[] data;
 }
 
-bool ArrayList::addLast(int value) {
-    data[++size] = value;
-    return true;
+bool ArrayList::isEmpty() const {
+    return size == 0;
 }
 
-bool ArrayList::addFirst(int value) {
-    shiftDireita(0);
-    data[0] = value;
-    return true;
+size_t ArrayList::getSize() const {
+    return size;
 }
 
-bool ArrayList::addIndex(int value, int index) {
-    shiftDireita(index);
-    data[index] = value;
-    return true;
-}
-
-bool ArrayList::contains(int value) {
-    if (isEmpty()) {
-        return false;
-    }
-    for (int i = 0; i <= size; i++) {
-        if (data[i] == value)
-            return true;
+bool ArrayList::contains(int value) const {
+    for (size_t i = 0; i < size; ++i) {
+        if (data[i] == value) return true;
     }
     return false;
 }
 
+void ArrayList::testeTamanho() {
+    if (size < capacity) return;
+    size_t novaCap = capacity * 2;
+    int* novoData = new int[novaCap];
+    std::copy(data, data + size, novoData);
+    delete[] data;
+    data = novoData;
+    capacity = novaCap;
+}
+
+void ArrayList::shiftDireita(size_t index) {
+    for (size_t i = size; i > index; --i) {
+        data[i] = data[i - 1];
+    }
+}
+
+void ArrayList::shiftEsquerda(size_t index) {
+    for (size_t i = index; i < size - 1; ++i) {
+        data[i] = data[i + 1];
+    }
+}
+
+bool ArrayList::addLast(int value) {
+    testeTamanho();
+    data[size++] = value;
+    return true;
+}
+
+bool ArrayList::addFirst(int value) {
+    return addIndex(value, 0);
+}
+
+bool ArrayList::addIndex(int value, size_t index) {
+    if (index > size) {
+        throw std::out_of_range("Índice fora do intervalo");
+    }
+    testeTamanho();
+    shiftDireita(index);
+    data[index] = value;
+    ++size;
+    return true;
+}
+
 bool ArrayList::rmvLast() {
-    testeRmv();
+    if (isEmpty()) return false;
     --size;
     return true;
 }
 
 bool ArrayList::rmvFirst() {
-    shiftEsquerda(0);
-    return true;
+    return rmvIndex(0);
 }
 
-bool ArrayList::rmvIndex(int index) {
+bool ArrayList::rmvIndex(size_t index) {
+    if (index >= size) {
+        throw std::out_of_range("Índice fora do intervalo");
+    }
     shiftEsquerda(index);
+    --size;
     return true;
 }
 
-int ArrayList::getSize() const {
-    return size;
+int ArrayList::get(size_t index) const {
+    if (index >= size) {
+        throw std::out_of_range("Índice fora do intervalo");
+    }
+    return data[index];
 }
+
+
