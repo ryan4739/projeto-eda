@@ -21,6 +21,8 @@ public:
     bool rmvIndex(size_t index);
 
     int get(size_t index) const;
+    int getFirst();
+    int getLast();
 
 private:
     int* data;

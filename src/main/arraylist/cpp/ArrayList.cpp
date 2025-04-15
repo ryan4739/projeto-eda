@@ -92,4 +92,18 @@ int ArrayList::get(size_t index) const {
     return data[index];
 }
 
+int ArrayList::getFirst(){
+	if(isEmpty()){
+		throw std::out_of_range("Arraylist vazia");
+	}
+	return data[0];
+}
+
+int ArrayList::getLast(){
+	if(isEmpty()){
+		throw std::out_of_range("ArrayList vazia");
+	}
+	return data[size];
+}
+
 

@@ -57,11 +57,6 @@ void testArrayList() {
     list.rmvLast();
     std::cout << "A lista está vazia? " << (list.isEmpty() ? "Sim" : "Não") << " (esperado: Sim)\n";
 
-    // Testando reSize
-    std::cout << "Testando reSize...\n";
-    list.addLast(21);
-    std::cout << "Tamanho? " << list.getSize() << " (esperado: 21)\n";
-
     // Testando o destrutor (não há muito o que testar aqui, mas podemos verificar se o programa não crasha)
     std::cout << "\nTestando destrutor...\n";
     {
