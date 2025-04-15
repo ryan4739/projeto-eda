@@ -1,13 +1,13 @@
-import time
 import sys
 import os
+import tracemalloc
 from statistics import median
 
 from deque import Deque
 
-class ExecTime:
+class ExecMemory:
     """
-    Classe responsável por medir e registrar os tempos de execução de operações em uma fila.
+    Classe responsável por medir e registrar as memórias de execução de operações em uma fila.
     Os resultados são salvos em arquivos separados para cada tipo de operação.
     """
 
@@ -37,7 +37,7 @@ class ExecTime:
             return
 
         input_file = sys.argv[1] # Arquivo de entrada contendo os tamanhos das filas
-        output_dir = "data/results/time/" # Diretório onde serão salvos os resultados
+        output_dir = "data/results/memory/" # Diretório onde serão salvos os resultados
 
         try:
             # Cria o diretório de saída se não existir
@@ -46,13 +46,13 @@ class ExecTime:
             # Abre os arquivos de saída para escrita
             writers = []
             try:
-                for method in ExecTime.METHOD_NAMES:
+                for method in ExecMemory.METHOD_NAMES:
                     file_path = f"{output_dir}{method}.data"
                     # Abre o arquivo em modo de leitura e append
                     f = open(file_path, 'a+')
                     # Verifica se o arquivo está vazio e adiciona cabeçalho, se necessário
                     if os.fstat(f.fileno()).st_size == 0:
-                        f.write("estrutura_linguagem tempo tamanho\n")
+                        f.write("estrutura_linguagem memoria tamanho\n")
                     writers.append(f)
             except IOError as e:
                 for f in writers:
@@ -77,7 +77,7 @@ class ExecTime:
                     # Converte a linha em uma lista de inteiros
                     elements = list(map(int, line.split()))
                     # Testa as operações com os elementos da linha atual
-                    ExecTime.test_deque_opDeque(writers, elements)
+                    ExecMemory.test_deque_operations(writers, elements)
 
             print(f"\rConcluído! Processadas {total_lines} linhas.")
 
@@ -89,9 +89,9 @@ class ExecTime:
                 writer.close()
 
     @staticmethod
-    def test_deque_opDeque(writers, elements):
+    def test_deque_operations(writers, elements):
         """
-        Testa as operações da fila com os elementos fornecidos e registra os tempos.
+        Testa as operações da fila com os elementos fornecidos e registra as memórias.
 
         Args:
             writers: Lista de arquivos abertos para escrita dos resultados
@@ -99,8 +99,8 @@ class ExecTime:
         """
         length = len(elements) # Tamanho atual da fila
         middle = length // 2 # Índice do elemento do meio
-        RUNS = 30 # Número de execuções para cada operação
-        all_times = [[] for _ in range(len(ExecTime.METHOD_NAMES))] # Armazena tempos de cada operação
+        RUNS = 5 # Número de execuções para cada operação
+        all_memory = [[] for _ in range(len(ExecMemory.METHOD_NAMES))] # Armazena tempos de cada operação
 
         # Preenche a fila com os elementos iniciais
         deque = Deque(length)
@@ -110,66 +110,75 @@ class ExecTime:
         # Executa os testes determinada quantia de vezes para extrair a mediana
         for run in range(RUNS):
             # Testa removeLast
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.remove_last()
-            end_time = time.perf_counter_ns()
-            all_times[0].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[0].append(peak)
+            tracemalloc.stop()
 
             # Testa addLast
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.add_last(999)
-            end_time = time.perf_counter_ns()
-            all_times[1].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[1].append(peak)
+            tracemalloc.stop()
 
             # Testa getLast
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.get_last()
-            end_time = time.perf_counter_ns()
-            all_times[2].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[2].append(peak)
+            tracemalloc.stop()
 
             # Testa removeFirst
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.remove_first()
-            end_time = time.perf_counter_ns()
-            all_times[3].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[3].append(peak)
+            tracemalloc.stop()
 
             # Testa addFirst
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.add_first(999)
-            end_time = time.perf_counter_ns()
-            all_times[4].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[4].append(peak)
+            tracemalloc.stop()
 
             # Testa getFirst
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.get_first()
-            end_time = time.perf_counter_ns()
-            all_times[5].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[5].append(peak)
+            tracemalloc.stop()
 
             # Testa remove (middle)
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.remove(middle)
-            end_time = time.perf_counter_ns()
-            all_times[6].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[6].append(peak)
+            tracemalloc.stop()
 
             # Testa add (middle)
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.add(999, middle)
-            end_time = time.perf_counter_ns()
-            all_times[7].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[7].append(peak)
+            tracemalloc.stop()
 
             # Testa get (middle)
-            start_time = time.perf_counter_ns()
+            tracemalloc.start()
             deque.get(middle)
-            end_time = time.perf_counter_ns()
-            all_times[8].append(end_time - start_time)
+            current, peak = tracemalloc.get_traced_memory()
+            all_memory[8].append(peak)
+            tracemalloc.stop()
 
         # Calcula a mediana dos tempos e escreve nos arquivos
-        for i, method in enumerate(ExecTime.METHOD_NAMES):
-            if all_times[i]:
-                median_time = int(median(all_times[i]))
-                writers[i].write(f"deque_python {median_time} {length}\n")
+        for i, method in enumerate(ExecMemory.METHOD_NAMES):
+            if all_memory[i]:
+                median_memory = int(median(all_memory[i]))
+                writers[i].write(f"deque_python {median_memory} {length}\n")
                 writers[i].flush()
 
 if __name__ == "__main__":
-    ExecTime.main()
+    ExecMemory.main()
 

@@ -7,9 +7,15 @@ from deque import Deque
 output_dir = "data/results/memory"
 os.makedirs(output_dir, exist_ok=True)
 
-methods = ["add_first", "add_last", "add_middle",
-           "remove_first", "remove_last", "remove_middle",
-           "get_first", "get_last", "get_middle"]
+methods = ["add_first",
+           "add_last",
+           "add_middle",
+           "remove_first",
+           "remove_last",
+           "remove_middle",
+           "get_first",
+           "get_last",
+           "get_middle"]
 
 def mem_diff(snapshot1, snapshot2):
     return sum(stat.size_diff for stat in snapshot2.compare_to(snapshot1, 'lineno'))
@@ -41,7 +47,6 @@ for line_number, line in enumerate(sys.stdin, 1):
     mem_usage = {method: [] for method in methods}
 
     for _ in range(30):
-        # ADD FIRST
         tracemalloc.start()
         snapshot1 = tracemalloc.take_snapshot()
         dq.add_first(999)
@@ -50,7 +55,6 @@ for line_number, line in enumerate(sys.stdin, 1):
         dq.remove_first()
         mem_usage["add_first"].append(mem_diff(snapshot1, snapshot2))
 
-        # ADD LAST
         tracemalloc.start()
         snapshot1 = tracemalloc.take_snapshot()
         dq.add_last(999)
@@ -59,7 +63,6 @@ for line_number, line in enumerate(sys.stdin, 1):
         dq.remove_last()
         mem_usage["add_last"].append(mem_diff(snapshot1, snapshot2))
 
-        # ADD (middle)
         tracemalloc.start()
         snapshot1 = tracemalloc.take_snapshot()
         dq.add(999, middle)
@@ -74,7 +77,7 @@ for line_number, line in enumerate(sys.stdin, 1):
         dq.remove_first()
         snapshot2 = tracemalloc.take_snapshot()
         tracemalloc.stop()
-        dq.addFirst(val)
+        dq.add_first(val)
         mem_usage["remove_first"].append(mem_diff(snapshot1, snapshot2))
 
         val = dq.get_last()

@@ -35,6 +35,7 @@ public class ExecMemory {
             int currentLine = 0;
 
             while ((line = processingReader.readLine()) != null) {
+                System.out.println("linha "+ currentLine);
                 currentLine++;
                 if (line.isBlank()) continue;
 
@@ -64,11 +65,12 @@ public class ExecMemory {
         int RUNS = 30;
         long[][] allMemory = new long[METHOD_NAMES.length][RUNS];
 
+        Deque deque = new Deque(length + 3);
+        for (int num : elements) {
+            deque.addLast(num);
+        }
         for (int run = 0; run < RUNS; run++) {
-            Deque deque = new Deque(length + 3);
-            for (int num : elements) {
-                deque.addLast(num);
-            }
+            
 
             // Executa o garbage collector antes dos testes
             System.gc();
