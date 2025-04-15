@@ -105,24 +105,24 @@ public class ArrayList{
 		return false;
 	}
     
-  public int get(int index) {
-    if (index < 0 || index > last) {
-        throw new IndexOutOfBoundsException();
-    }
-    return lista[index];
-    }
+  	public int get(int index) {
+    		if (index < 0 || index > last) {
+        		throw new IndexOutOfBoundsException();
+    		}
+    		return lista[index];
+    	}
 
-  public int getFirst(){
-    return lista[0];
-  }
+  	public int getFirst(){
+    		return lista[0];
+  	}
 
-  public int getLast(){
-    return lista[last];
-  }
+  	public int getLast(){
+    		return lista[last];
+  	}
 
-  public int size() {
-    return last + 1;
-    }
+  	public int size() {
+    		return last + 1;
+    	}
 
 	public boolean rmvLast(){
 		if (isEmpty()){
