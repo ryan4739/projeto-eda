@@ -1,10 +1,12 @@
 import sys
 import time
 import os
+
 from deque import Deque
 
 output_dir = "data/results/time"
 os.makedirs(output_dir, exist_ok=True)
+
 def measure_time(func_name, input_list):
     n = len(input_list)
     results = []
@@ -12,7 +14,7 @@ def measure_time(func_name, input_list):
     
     for _ in range(30):
         for num in input_list:
-            dq.addLast(num)
+            dq.add_last(num)
 
         func = getattr(dq, func_name)
         if not callable(func):
@@ -46,10 +48,17 @@ def measure_time(func_name, input_list):
         file.write(output_line + "\n")
 
 
-methods = ["addFirst", "add", "addLast",
-    "getFirst", "get", "getLast",
-    "removeFirst", "remove", "removeLast"]
-
+METHOD_NAMES = [
+        "remove_last",
+        "add_last",
+        "get_last",
+        "remove_first",
+        "add_first",
+        "get_first",
+        "remove_middle",
+        "add_middle",
+        "get_middle"
+    ]
 
 
 for line in sys.stdin:
@@ -58,7 +67,7 @@ for line in sys.stdin:
         continue
     
     input_list = list(map(int, line.split()))
-    n = len(input_list)
     
-    for method in methods:
+    
+    for method in METHOD_NAMES:
         measure_time(method,input_list)

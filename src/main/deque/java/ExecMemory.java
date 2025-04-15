@@ -4,15 +4,15 @@ import java.util.*;
 public class ExecMemory {
 
     private static final String[] METHOD_NAMES = {
-        "addLast",
-        "addFirst",
-        "add",
-        "removeFirst",
-        "removeLast",
-        "remove",
-        "getFirst",
-        "getLast",
-        "get"
+        "add_last",
+        "add_first",
+        "add_middle",
+        "remove_first",
+        "remove_last",
+        "remove_middle",
+        "get_first",
+        "get_last",
+        "get_middle"
     };
 
     public static void main(String[] args) {

@@ -15,7 +15,7 @@ class Deque:
         self.head = 0  # Índice do primeiro elemento
         self.tail = -1  # Índice do último elemento
 
-    def addFirst(self, value):
+    def add_first(self, value):
         """
         Insere um elemento no início do deque.
 
@@ -29,7 +29,7 @@ class Deque:
         if self.size == 1:
             self.tail = self.head
 
-    def addLast(self, value):
+    def add_last(self, value):
         """
         Insere um elemento no final do deque.
 
@@ -79,7 +79,7 @@ class Deque:
         self.size += 1
 
         
-    def removeFirst(self):
+    def remove_first(self):
         """
         Remove e retorna o elemento do início do deque.
 
@@ -96,7 +96,7 @@ class Deque:
             self.tail = -1
         return value
 
-    def removeLast(self):
+    def remove_last(self):
         """
         Remove e retorna o elemento do final do deque.
 
@@ -154,7 +154,7 @@ class Deque:
         return value
         
 
-    def getFirst(self):
+    def get_first(self):
         """
         Retorna o elemento do início do deque sem removê-lo.
 
@@ -165,7 +165,7 @@ class Deque:
             raise IndexError("Deque está vazio")
         return self.dq[self.head]
 
-    def getLast(self):
+    def get_last(self):
         """
         Retorna o elemento do final do deque sem removê-lo.
 

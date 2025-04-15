@@ -71,6 +71,38 @@ public:
         deque[tail] = entrada;
         size++;
     }
+    void add(int valor, int index) {
+        if (index < 0 || index > size) {
+            throw out_of_range("Índice fora do intervalo");
+        }
+        if (isFull()) {
+            resize();
+        }
+    
+        int insertPos = (head + index) % capacity;
+    
+        if (index < size / 2) {
+            // Move elementos para a esquerda
+            head = (head - 1 + capacity) % capacity;
+            for (int i = 0; i < index; i++) {
+                int from = (head + i + 1) % capacity;
+                int to = (head + i) % capacity;
+                deque[to] = deque[from];
+            }
+            deque[insertPos] = valor;
+        } else {
+            // Move elementos para a direita
+            for (int i = size; i > index; i--) {
+                int from = (head + i - 1) % capacity;
+                int to = (head + i) % capacity;
+                deque[to] = deque[from];
+            }
+            deque[insertPos] = valor;
+            tail = (tail + 1) % capacity;
+        }
+    
+        size++;
+    }
 
     int removeFirst() {
         if (isEmpty()) {
@@ -100,6 +132,41 @@ public:
         return val;
     }
 
+    int remove(int index) {
+        if (index < 0 || index >= size) {
+            throw out_of_range("Índice fora do intervalo");
+        }
+    
+        int removePos = (head + index) % capacity;
+        int value = deque[removePos];
+    
+        if (index < size / 2) {
+            // Move elementos para a direita
+            for (int i = index; i > 0; i--) {
+                int from = (head + i - 1) % capacity;
+                int to = (head + i) % capacity;
+                deque[to] = deque[from];
+            }
+            head = (head + 1) % capacity;
+        } else {
+            // Move elementos para a esquerda
+            for (int i = index; i < size - 1; i++) {
+                int from = (head + i + 1) % capacity;
+                int to = (head + i) % capacity;
+                deque[to] = deque[from];
+            }
+            tail = (tail - 1 + capacity) % capacity;
+        }
+    
+        size--;
+        if (size == 0) {
+            head = -1;
+            tail = -1;
+        }
+    
+        return value;
+    }    
+
     int getFirst() {
         if (isEmpty()) {
             throw out_of_range("Deque está vazio");
@@ -113,6 +180,13 @@ public:
         }
         return deque[tail];
     }
+
+    int get(int index) {
+        if (index < 0 || index >= size) {
+            throw out_of_range("Índice fora do intervalo");
+        }
+        return deque[(head + index) % capacity];
+    }    
 
     int getSize() {
         return size;

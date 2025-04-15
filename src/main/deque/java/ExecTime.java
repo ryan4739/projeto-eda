@@ -15,9 +15,9 @@ public class ExecTime {
             new File("data/results/time").mkdirs();
 
             // Definir os métodos a serem testados
-            String[] methods = { "addFirst", "add", "addLast",
-                                  "getFirst", "get", "getLast",
-                                  "removeFirst", "remove", "removeLast" };
+            String[] methods = { "add_first", "add_middle", "add_last",
+                                  "get_first", "get", "get_last",
+                                  "remove_first", "remove_middle", "remove_last" };
 
             // Lendo o arquivo de entrada
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -43,25 +43,25 @@ public class ExecTime {
                         long end = 0;
 
                         switch (method) {
-                            case "addFirst":
+                            case "add_first":
                                 start = System.nanoTime();
                                 dq.addFirst(10);
                                 end = System.nanoTime();
                                 break;
 
-                            case "add":
+                            case "add_middle":
                                 start = System.nanoTime();
                                 dq.add(10, input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
-                            case "addLast":
+                            case "add_last":
                                 start = System.nanoTime();
                                 dq.addLast(10);
                                 end = System.nanoTime();
                                 break;
 
-                            case "getFirst":
+                            case "get_first":
                                 start = System.nanoTime();
                                 dq.getFirst();
                                 end = System.nanoTime();
@@ -73,25 +73,25 @@ public class ExecTime {
                                 end = System.nanoTime();
                                 break;
 
-                            case "getLast":
+                            case "get_last":
                                 start = System.nanoTime();
                                 dq.getLast();
                                 end = System.nanoTime();
                                 break;
 
-                            case "removeFirst":
+                            case "remove_first":
                                 start = System.nanoTime();
                                 dq.removeFirst();
                                 end = System.nanoTime();
                                 break;
 
-                            case "remove":
+                            case "remove_middle":
                                 start = System.nanoTime();
                                 dq.remove(input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
-                            case "removeLast":
+                            case "remove_last":
                                 start = System.nanoTime();
                                 dq.removeLast();
                                 end = System.nanoTime();
