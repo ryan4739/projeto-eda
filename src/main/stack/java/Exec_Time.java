@@ -1,109 +1,113 @@
-import java.io.*;
-import java.util.*;
 
-public class Exec {
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Arrays;
+
+public class ExecTime {
     public static void main(String[] args) {
-            
-        private static final String[] methods = {
-                "pushIndex", "push", "pushLast",
-                "popIndex", "pop", "popLast",
-                "peekIndex", "peek", "peekLast"
-            };
-    
-            // Leitura do input
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
-            String line;
+        try {
+            // Criar a pasta de saída, se não existir
+            new File("data/results/time").mkdirs();
 
+            // Definir os métodos a serem testados
+            String[] methods = { "add_first", "add_middle", "add_last",
+                                  "get_first", "get", "get_last",
+                                  "remove_first", "remove_middle", "remove_last" };
+
+            // Lendo o arquivo de entrada
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String line;
+            int line_number = 0;
             while ((line = reader.readLine()) != null) {
+                System.out.println("linha "+line_number);
+                line_number++;
                 if (line.isBlank()) continue;
 
-                int[] input = Arrays.stream(line.trim().split("\\s+"))
-                                    .mapToInt(Integer::parseInt)
-                                    .toArray();
+                int[] input = Arrays.stream(line.split(" ")).mapToInt(Integer::parseInt).toArray();
 
+                //começa aqui a processar os dados
                 for (String method : methods) {
                     long[] results = new long[30];
 
-                    for (int i = 0; i < 30; i++) {
-                        Stack stack = new Stack(100); // capacidade grande o suficiente
+                    for (int i = 0; i < 30; i++) {    
+                        Stack st = new Stack();
 
-                        // Preenche a pilha com os elementos de entrada
-                        for (int value : input) {
-                            stack.push(value);
-                        }
+                        // Adicionando os valores na Stack
+                        for (String num: line.split(" "))
+                            st.addLast(Integer.parseInt(num));
 
                         long start = 0;
                         long end = 0;
 
-                        try {
-                            switch (method) {
-                                case "push":
-                                    start = System.nanoTime();
-                                    stack.push(10);
-                                    end = System.nanoTime();
-                                    break;
+                        switch (method) {
+                            case "add_first":
+                                start = System.nanoTime();
+                                st.push(10);
+                                end = System.nanoTime();
+                                break;
 
-                                case "pushLast":
-                                    start = System.nanoTime();
-                                    stack.pushLast(10);
-                                    end = System.nanoTime();
-                                    break;
+                            case "add_middle":
+                                start = System.nanoTime();
+                                st.pushIndex(10, input.length / 2);
+                                end = System.nanoTime();
+                                break;
 
-                                case "pushIndex":
-                                    start = System.nanoTime();
-                                    stack.pushIndex(10, input.length / 2);
-                                    end = System.nanoTime();
-                                    break;
+                            case "add_last":
+                                start = System.nanoTime();
+                                st.pushLast(10);
+                                end = System.nanoTime();
+                                break;
 
-                                case "pop":
-                                    start = System.nanoTime();
-                                    stack.pop();
-                                    end = System.nanoTime();
-                                    break;
+                            case "get_first":
+                                start = System.nanoTime();
+                                st.peekLast();
+                                end = System.nanoTime();
+                                break;
 
-                                case "popLast":
-                                    start = System.nanoTime();
-                                    stack.popLast();
-                                    end = System.nanoTime();
-                                    break;
+                            case "get":
+                                start = System.nanoTime();
+                                st.peekIndex(input.length / 2);
+                                end = System.nanoTime();
+                                break;
 
-                                case "popIndex":
-                                    start = System.nanoTime();
-                                    stack.popIndex(input.length / 2);
-                                    end = System.nanoTime();
-                                    break;
+                            case "get_last":
+                                start = System.nanoTime();
+                                st.peek();
+                                end = System.nanoTime();
+                                break;
 
-                                case "peek":
-                                    start = System.nanoTime();
-                                    stack.peek();
-                                    end = System.nanoTime();
-                                    break;
+                            case "remove_first":
+                                start = System.nanoTime();
+                                st.popLast();
+                                end = System.nanoTime();
+                                break;
 
-                                case "peekLast":
-                                    start = System.nanoTime();
-                                    stack.peekLast();
-                                    end = System.nanoTime();
-                                    break;
+                            case "remove_middle":
+                                start = System.nanoTime();
+                                st.popIndex(input.length / 2);
+                                end = System.nanoTime();
+                                break;
 
-                                case "peekIndex":
-                                    start = System.nanoTime();
-                                    stack.peekIndex(input.length / 2);
-                                    end = System.nanoTime();
-                                    break;
-                            }
-                        } catch (Exception e) {
-                            end = start; // Se deu exceção, ignora tempo
+                            case "remove_last":
+                                start = System.nanoTime();
+                                st.pop();
+                                end = System.nanoTime();
+                                break;
                         }
 
-                        results[i] = end - start;
+                        results[i] = (end - start);
                     }
 
-                    Arrays.sort(results);
-                    long median = results[14]; // valor mediano
-                    String outputLine = "stack-java-time " + median + " " + input.length;
+                    Arrays.sort(results); // Ordena para buscar a mediana
+                    String outputLine = "Stack-java " + results[14] + " " + input.length;
 
-                    // Define arquivo de saída
-                    File file = new File(method + ".data");
+                    // Define o arquivo de saída baseado no método
+                    File file = new File("data/results/time/" + method + ".data");
                     boolean isNewFile = !file.exists() || file.length() == 0;
 
                     try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))) {
@@ -119,4 +123,3 @@ public class Exec {
         }
     }
 }
-
