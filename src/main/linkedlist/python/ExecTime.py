@@ -5,63 +5,63 @@ import statistics
 from linked_list import LinkedList
 
 methods = [
-    "addFirst", "add", "addLast",
-    "getFirst", "get", "getLast",
-    "removeFirst", "remove", "removeLast"
+    "add_first", "add_middle", "add_last",
+    "get_first", "get_middle", "get_last",
+    "remove_first", "remove_middle", "remove_last"
 ]
 
 def mede_tempo(ll, method, n):
     index = n // 2
     start = end = 0
 
-    if method == "addFirst":
+    if method == "add_first":
         start = time.perf_counter_ns()
         ll.add_first(10)
         end = time.perf_counter_ns()
         ll.remove_first()
 
-    elif method == "add":
+    elif method == "add_middle":
         start = time.perf_counter_ns()
         ll.add(10, index)
         end = time.perf_counter_ns()
         ll.remove_by_index(index)
 
-    elif method == "addLast":
+    elif method == "add_last":
         start = time.perf_counter_ns()
         ll.add_last(10)
         end = time.perf_counter_ns()
         ll.remove_last()
 
-    elif method == "getFirst":
+    elif method == "get_first":
         start = time.perf_counter_ns()
         ll.get_first()
         end = time.perf_counter_ns()
 
-    elif method == "get":
+    elif method == "get_middle":
         start = time.perf_counter_ns()
         ll.get(index)
         end = time.perf_counter_ns()
 
-    elif method == "getLast":
+    elif method == "get_last":
         start = time.perf_counter_ns()
         ll.get_last()
         end = time.perf_counter_ns()
 
-    elif method == "removeFirst":
+    elif method == "remove_first":
         val = ll.get_first()
         start = time.perf_counter_ns()
         ll.remove_first()
         end = time.perf_counter_ns()
         ll.add_first(val)
 
-    elif method == "remove":
+    elif method == "remove_middle":
         val = ll.get(index)
         start = time.perf_counter_ns()
         ll.remove_by_index(index)
         end = time.perf_counter_ns()
         ll.add(val, index)
 
-    elif method == "removeLast":
+    elif method == "remove_last":
         val = ll.get_last()
         start = time.perf_counter_ns()
         ll.remove_last()
@@ -77,8 +77,8 @@ def salva_resultado(method, tempo, tamanho):
 
     with open(file_name, "a") as file:
         if is_new_file:
-            file.write("estrutura-linguagem tempo tamanho_da_entrada\n")
-        file.write(f"linkedlist-python {tempo} {tamanho}\n")
+            file.write("estrutura_linguagem tempo tamanho\n")
+        file.write(f"linkedlist_python {tempo} {tamanho}\n")
 
 
 def main():

@@ -5,9 +5,9 @@ public class ExecTime {
     public static void main(String[] args) {
         try {
             String[] methods = {
-                "addFirst", "add", "addLast",
-                "getFirst", "get", "getLast",
-                "removeFirst", "remove", "removeLast"
+                "add_first", "add_middle", "add_last",
+                "get_first", "get_middle", "get_last",
+                "remove_first", "remove_middle", "remove_last"
             };
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -44,46 +44,46 @@ public class ExecTime {
         long end = 0;
 
         switch (method) {
-            case "addFirst":
+            case "add_first":
                 start = System.nanoTime();
                 ll.addFirst(10);
                 end = System.nanoTime();
                 ll.removeFirst();
                 break;
 
-            case "add":
+            case "add_middle":
                 start = System.nanoTime();
                 ll.add(10, index);
                 end = System.nanoTime();
                 ll.removeByIndex(index);
                 break;
 
-            case "addLast":
+            case "add_last":
                 start = System.nanoTime();
                 ll.addLast(10);
                 end = System.nanoTime();
                 ll.removeLast();
                 break;
 
-            case "getFirst":
+            case "get_first":
                 start = System.nanoTime();
                 ll.getFirst();
                 end = System.nanoTime();
                 break;
 
-            case "get":
+            case "get_middle":
                 start = System.nanoTime();
                 ll.get(index);
                 end = System.nanoTime();
                 break;
 
-            case "getLast":
+            case "get_last":
                 start = System.nanoTime();
                 ll.getLast();
                 end = System.nanoTime();
                 break;
 
-            case "removeFirst":
+            case "remove_first":
                 int first = ll.getFirst();
                 start = System.nanoTime();
                 ll.removeFirst();
@@ -91,7 +91,7 @@ public class ExecTime {
                 ll.addFirst(first);
                 break;
 
-            case "remove":
+            case "remove_middle":
                 int valueAtIndex = ll.get(index);
                 start = System.nanoTime();
                 ll.removeByIndex(index);
@@ -112,13 +112,13 @@ public class ExecTime {
     }
 
     private static void salvaResultado(String method, long tempo, int tamanhoEntrada) {
-        String outputLine = "linkedlist-java " + tempo + " " + tamanhoEntrada;
+        String outputLine = "linkedlist_java " + tempo + " " + tamanhoEntrada;
         File file = new File(method + ".data");
         boolean isNewFile = !file.exists() || file.length() == 0;
 
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))) {
             if (isNewFile) {
-                writer.println("estrutura-linguagem tempo tamanho_da_entrada");
+                writer.println("estrutura_linguagem tempo tamanho");
             }
             writer.println(outputLine);
         } catch (IOException e) {
