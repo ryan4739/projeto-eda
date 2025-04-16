@@ -1,110 +1,211 @@
 #include <iostream>
 #include <fstream>
-#include <chrono>
 #include <string>
-#include <sstream>
-#include "Deque.cpp"
+#include <vector>
+#include <algorithm>
+#include <chrono>
+#include <stdexcept>
+#include <filesystem>
+#include "Deque.cpp"  // Inclua a implementação da sua classe Deque
 
 using namespace std;
-using namespace chrono;
+using namespace std::chrono;
+namespace fs = std::filesystem;
 
+// Lista de nomes das operações que serão testadas
+const vector<string> METHOD_NAMES = {
+    "remove_last",
+    "add_last",
+    "get_last",
+    "remove_first",
+    "add_first",
+    "get_first",
+    "remove_middle",
+    "add_middle",
+    "get_middle"
+};
+
+/**
+ * Testa todas as operações da deque e registra os tempos de execução
+ *
+ * @param elements Vetor contendo os elementos iniciais da deque
+ * @param writers Array de arquivos de saída para gravar os resultados
+ * @param currentLine Número da linha atual sendo processada (para exibir progresso)
+ * @param totalLines Total de linhas a processar (para exibir progresso)
+ */
+void testDequeOperations(const vector<int>& elements, ofstream writers[], int currentLine, int totalLines) {
+    // Tamanho da deque
+    int length = elements.size();
+    // Posição do meio para algumas operações
+    int middle = length / 2;
+    // Número de execuções para cada teste
+    const int RUNS = 30;
+
+    // Matriz para armazenar todos os tempos de execução
+    vector<vector<long>> allTimes(METHOD_NAMES.size(), vector<long>(RUNS));
+
+    // Cria e preenche a deque com os elementos iniciais
+    Deque deque;  // Supondo que a classe Deque tenha esse construtor
+    for (int num : elements) {
+        deque.addLast(num);  // Usando addLast para adicionar elementos
+    }
+
+    // Executa cada operação RUNS vezes para obter dados estatísticos
+    for (int run = 0; run < RUNS; run++) {
+        // Testa removeLast
+        auto startTime = high_resolution_clock::now();
+        deque.removeLast();
+        auto endTime = high_resolution_clock::now();
+        allTimes[0][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa addLast
+        startTime = high_resolution_clock::now();
+        deque.addLast(999);  // Adiciona 999 no final
+        endTime = high_resolution_clock::now();
+        allTimes[1][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa getLast
+        startTime = high_resolution_clock::now();
+        deque.getLast();  // Obtém o último valor
+        endTime = high_resolution_clock::now();
+        allTimes[2][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa removeFirst
+        startTime = high_resolution_clock::now();
+        deque.removeFirst();  // Remove o primeiro elemento
+        endTime = high_resolution_clock::now();
+        allTimes[3][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa addFirst
+        startTime = high_resolution_clock::now();
+        deque.addFirst(999);  // Adiciona 999 no começo
+        endTime = high_resolution_clock::now();
+        allTimes[4][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa getFirst
+        startTime = high_resolution_clock::now();
+        deque.getFirst();  // Obtém o primeiro valor
+        endTime = high_resolution_clock::now();
+        allTimes[5][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa remove (middle)
+        startTime = high_resolution_clock::now();
+        deque.remove(middle);  // Remove o valor no meio
+        endTime = high_resolution_clock::now();
+        allTimes[6][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+
+        // Testa add (middle)
+        startTime = high_resolution_clock::now();
+        deque.add(999, middle);  // Adiciona 999 no meio
+        endTime = high_resolution_clock::now();
+        allTimes[7][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+        
+        // Testa get (middle)
+        startTime = high_resolution_clock::now();
+        deque.get(middle);  // Obtém o valor no meio
+        endTime = high_resolution_clock::now();
+        allTimes[8][run] = duration_cast<nanoseconds>(endTime - startTime).count();
+    }
+
+    // Processa os resultados: calcula a mediana para cada operação
+    for (size_t method = 0; method < METHOD_NAMES.size(); method++) {
+        sort(allTimes[method].begin(), allTimes[method].end());
+        long medianTime = allTimes[method][RUNS / 2];
+        
+        writers[method] << "deque_cpp " << medianTime << " " << length << endl;
+        writers[method].flush();
+    }
+
+    cerr << "\rProcessando linha " << currentLine << "/" << totalLines << flush;
+}
+
+/**
+ * Função principal do programa
+ *
+ * @param argc Número de argumentos de linha de comando
+ * @param argv Array de argumentos (argv[1] = arquivo de entrada)
+ * @return 0 em caso de sucesso, 1 em caso de erro
+ */
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        cerr << "Uso: " << argv[0] << " <arquivo_de_entrada>" << endl;
+        cerr << "ERRO: número de argumentos inválido!" << endl;
         return 1;
     }
 
-    ifstream entrada(argv[1]);
-    if (!entrada.is_open()) {
-        cerr << "Erro ao abrir o arquivo de entrada." << endl;
+    string inputFile = argv[1];
+    string outputDir = "data/results/time/";
+
+    try {
+        fs::create_directories(outputDir);
+    } catch (const fs::filesystem_error& e) {
+        cerr << "ERRO: Não foi possível criar o diretório de saída: "
+             << outputDir << "\n" << e.what() << endl;
         return 1;
     }
 
-    Deque deque;
-    string linha;
-    int valor;
-
-    while (getline(entrada, linha)) {
-        stringstream ss(linha);
-        string operacao;
-        ss >> operacao;
-
-        if (operacao == "add_first") {
-            ss >> valor;
-            auto inicio = high_resolution_clock::now();
-            deque.addFirst(valor);
-            auto fim = high_resolution_clock::now();
-            cout << "add_first: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
+    ofstream writers[METHOD_NAMES.size()];
+    for (size_t i = 0; i < METHOD_NAMES.size(); i++) {
+        string outputFile = outputDir + METHOD_NAMES[i] + ".data";
+        bool fileExists = fs::exists(outputFile);
+        bool fileIsEmpty = fileExists ? fs::file_size(outputFile) == 0 : true;
+        writers[i].open(outputFile, ios::app);
+        if (!writers[i]) {
+            cerr << "\nErro ao abrir arquivo de saída: " << outputFile << endl;
+            return 1;
         }
-        else if (operacao == "add_last") {
-            ss >> valor;
-            auto inicio = high_resolution_clock::now();
-            deque.addLast(valor);
-            auto fim = high_resolution_clock::now();
-            cout << "add_last: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
-        }
-        else if (operacao == "add_middle") {
-            ss >> valor;
-            int index = deque.getSize() / 2;
-            auto inicio = high_resolution_clock::now();
-            try {
-                deque.add(valor, index);
-            } catch (const out_of_range& e) {}
-            auto fim = high_resolution_clock::now();
-            cout << "add_middle: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
-        }
-        else if (operacao == "remove_first") {
-            auto inicio = high_resolution_clock::now();
-            try {
-                deque.removeFirst();
-            } catch (const out_of_range& e) {}
-            auto fim = high_resolution_clock::now();
-            cout << "remove_first: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
-        }
-        else if (operacao == "remove_last") {
-            auto inicio = high_resolution_clock::now();
-            try {
-                deque.removeLast();
-            } catch (const out_of_range& e) {}
-            auto fim = high_resolution_clock::now();
-            cout << "remove_last: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
-        }
-        else if (operacao == "remove_middle") {
-            int index = deque.getSize() / 2;
-            auto inicio = high_resolution_clock::now();
-            try {
-                deque.remove(index);
-            } catch (const out_of_range& e) {}
-            auto fim = high_resolution_clock::now();
-            cout << "remove_middle: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
-        }
-        else if (operacao == "get_first") {
-            auto inicio = high_resolution_clock::now();
-            try {
-                deque.getFirst();
-            } catch (const out_of_range& e) {}
-            auto fim = high_resolution_clock::now();
-            cout << "get_first: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
-        }
-        else if (operacao == "get_last") {
-            auto inicio = high_resolution_clock::now();
-            try {
-                deque.getLast();
-            } catch (const out_of_range& e) {}
-            auto fim = high_resolution_clock::now();
-            cout << "get_last: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
-        }
-        else if (operacao == "get_middle") {
-            int index = deque.getSize() / 2;
-            auto inicio = high_resolution_clock::now();
-            try {
-                deque.get(index);
-            } catch (const out_of_range& e) {}
-            auto fim = high_resolution_clock::now();
-            cout << "get_middle: " << duration<double, micro>(fim - inicio).count() << " us" << endl;
+        if (!fileExists || fileIsEmpty) {
+            writers[i] << "estrutura_linguagem tempo tamanho" << endl;
         }
     }
 
-    entrada.close();
+    try {
+        ifstream reader(inputFile);
+        if (!reader) {
+            throw runtime_error("\nNão foi possível abrir o arquivo de entrada: " + inputFile);
+        }
+
+        int totalLines = 0;
+        string line;
+        while (getline(reader, line)) {
+            if (!line.empty()) totalLines++;
+        }
+        reader.clear();
+        reader.seekg(0);
+
+        int currentLine = 0;
+        while (getline(reader, line)) {
+            if (line.empty()) continue;
+            currentLine++;
+            
+            vector<int> elements;
+            size_t pos = 0;
+            while ((pos = line.find(' ')) != string::npos) {
+                string token = line.substr(0, pos);
+                elements.push_back(stoi(token));
+                line.erase(0, pos + 1);
+            }
+            if (!line.empty()) {
+                elements.push_back(stoi(line));
+            }
+
+            testDequeOperations(elements, writers, currentLine, totalLines);
+        }
+
+        cerr << "\rConcluído! Processadas " << totalLines << " linhas." << endl;
+
+        for (size_t i = 0; i < METHOD_NAMES.size(); i++) {
+            writers[i].close();
+        }
+
+    } catch (const exception& e) {
+        cerr << "\nErro: " << e.what() << endl;
+        for (size_t i = 0; i < METHOD_NAMES.size(); i++) {
+            if (writers[i].is_open()) {
+                writers[i].close();
+            }
+        }
+        return 1;
+    }
+
     return 0;
 }

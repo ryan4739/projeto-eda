@@ -21,7 +21,7 @@ def mem_diff(snapshot1, snapshot2):
     return sum(stat.size_diff for stat in snapshot2.compare_to(snapshot1, 'lineno'))
 
 def write_result(method, median_mem, n):
-    file_path = os.path.join(output_dir, f"{method}MEMO.data")
+    file_path = os.path.join(output_dir, f"{method}.data")
     is_new_file = not os.path.exists(file_path) or os.stat(file_path).st_size == 0
 
     with open(file_path, "a") as f:
@@ -30,6 +30,7 @@ def write_result(method, median_mem, n):
         f.write(f"deque-python {median_mem} {n}\n")
 
 for line_number, line in enumerate(sys.stdin, 1):
+    
     line = line.strip()
     if not line:
         continue

@@ -22,8 +22,10 @@ public class ExecTime {
             // Lendo o arquivo de entrada
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             String line;
-
+            int line_number = 0;
             while ((line = reader.readLine()) != null) {
+                System.out.println("linha "+line_number);
+                line_number++;
                 if (line.isBlank()) continue;
 
                 int[] input = Arrays.stream(line.split(" ")).mapToInt(Integer::parseInt).toArray();
