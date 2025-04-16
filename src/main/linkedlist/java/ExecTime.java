@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Exec {
+public class ExecTime {
     public static void main(String[] args) {
         try {
             String[] methods = {
