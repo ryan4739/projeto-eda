@@ -10,7 +10,7 @@
 #include "ArrayList.h"
 #include <malloc_count.h>
 // Compile com: 
-// g++ ExecMemo.cpp ../../../../lib/malloc_count/malloc_count.c -o ExecMemo.out -I../../../../malloc_count
+// g++ ExecMemo.cpp ArrayList.cpp ../../../../lib/malloc_count/malloc_count.c -o ExecMemo.out -I../../../../lib/malloc_count
 
 using namespace std;
 namespace fs = std::filesystem;
