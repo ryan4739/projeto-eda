@@ -1,5 +1,3 @@
-package arraylist;
-
 /**
  * uma classe genérica de ArrayList criada para criar uma lista de tamanho indeterminado
 * e realizar operações simples com ela tais quais, adicionar e remover elementos baseado em indices
@@ -86,7 +84,7 @@ public class ArrayList{
 	}
 
 	public void resize(){
-		int[] listaAux = new int[capacidade*2];
+		int[] listaAux = new int[capacidade*=2];
 		for (int i = 0; i<lista.length;i++){
 			listaAux[i] = lista[i];
 		}

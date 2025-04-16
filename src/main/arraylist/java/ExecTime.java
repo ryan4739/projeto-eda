@@ -38,7 +38,7 @@ public class ExecTime {
                             al.addLast(Integer.parseInt(num));
 
                         long start = 0;
-                        long end = 0
+                        long end = 0;
 
 			switch (method) {
                             case "add_first":
