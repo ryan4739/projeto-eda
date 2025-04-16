@@ -11,9 +11,9 @@ import java.util.List;
 // Inclui a biblioteca para contagem de alocação de memória
 import org.github.jamm.MemoryMeter;
 // Comando de compilação sugerido:
-// javac -cp lib/jamm-0.4.0.jar src/main/ll/java/*.java
+// javac -cp lib/jamm-0.4.0.jar src/main/linkedlist/java/*.java
 // Comando de execução sugerido:
-// java -cp lib/jamm-0.4.0.jar:. src/main/ll/java/ExecMemory <arquivo_de_entrada>
+// java -cp lib/jamm-0.4.0.jar:. src/main/linkedlist/java/ExecMemory <arquivo_de_entrada>
 
 /**
  * Classe para medição de consumo de memória de operações em uma estrutura ll.
@@ -22,15 +22,15 @@ import org.github.jamm.MemoryMeter;
 public class ExecMemory {
     // Nomes das operações que serão medidas
     private static final String[] METHOD_NAMES = {
-        "removeLast",
-        "addLast",
-        "getLast",
-        "removeFirst",
-        "addFirst",
-        "getFirst",
-        "removeByIndex",
-        "add",
-        "get"
+        "remove_last",
+        "add_last",
+        "get_last",
+        "remove_first",
+        "add_first",
+        "get_first",
+        "remove_middle",
+        "add_middle",
+        "get_middle"
     };
 
     // Número de execuções para medição (deve ser ímpar para cálculo da mediana)
@@ -172,7 +172,7 @@ public class ExecMemory {
         memoryPeaks[3][currentRun] = measureMemoryPeak(ll, () -> ll.removeFirst());
         memoryPeaks[4][currentRun] = measureMemoryPeak(ll, () -> ll.addFirst(999));
         memoryPeaks[5][currentRun] = measureMemoryPeak(ll, () -> ll.getFirst());
-        memoryPeaks[6][currentRun] = measureMemoryPeak(ll, () -> ll.remove(middle));
+        memoryPeaks[6][currentRun] = measureMemoryPeak(ll, () -> ll.removeByIndex(middle));
         memoryPeaks[7][currentRun] = measureMemoryPeak(ll, () -> ll.add(999, middle));
         memoryPeaks[8][currentRun] = measureMemoryPeak(ll, () -> ll.get(middle));
     }
