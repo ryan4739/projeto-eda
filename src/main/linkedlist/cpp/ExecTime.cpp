@@ -14,46 +14,46 @@ long medeTempo(LinkedList& ll, const string& metodo, const vector<int>& entrada)
     auto start = high_resolution_clock::now();
     auto end = high_resolution_clock::now();
 
-    if (metodo == "addFirst") {
+    if (metodo == "add_first") {
         start = high_resolution_clock::now();
         ll.addFirst(10);
         end = high_resolution_clock::now();
         ll.removeFirst();
-    } else if (metodo == "add") {
+    } else if (metodo == "add_middle") {
         start = high_resolution_clock::now();
         ll.add(10, indice);
         end = high_resolution_clock::now();
         ll.removeByIndex(indice);
-    } else if (metodo == "addLast") {
+    } else if (metodo == "add_last") {
         start = high_resolution_clock::now();
         ll.addLast(10);
         end = high_resolution_clock::now();
         ll.removeLast();
-    } else if (metodo == "getFirst") {
+    } else if (metodo == "get_first") {
         start = high_resolution_clock::now();
         ll.getFirst();
         end = high_resolution_clock::now();
-    } else if (metodo == "get") {
+    } else if (metodo == "get_middle") {
         start = high_resolution_clock::now();
         ll.get(indice);
         end = high_resolution_clock::now();
-    } else if (metodo == "getLast") {
+    } else if (metodo == "get_last") {
         start = high_resolution_clock::now();
         ll.getLast();
         end = high_resolution_clock::now();
-    } else if (metodo == "removeFirst") {
+    } else if (metodo == "remove_first") {
         int val = ll.getFirst();
         start = high_resolution_clock::now();
         ll.removeFirst();
         end = high_resolution_clock::now();
         ll.addFirst(val);
-    } else if (metodo == "remove") {
+    } else if (metodo == "remove_middle") {
         int val = ll.get(indice);
         start = high_resolution_clock::now();
         ll.removeByIndex(indice);
         end = high_resolution_clock::now();
         ll.add(val, indice);
-    } else if (metodo == "removeLast") {
+    } else if (metodo == "remove_last") {
         int val = ll.getLast();
         start = high_resolution_clock::now();
         ll.removeLast();
@@ -74,9 +74,9 @@ void salvaResultado(const string& metodo, long tempo, size_t tamanhoEntrada) {
 
     ofstream out(nomeArquivo, ios::app);
     if (novoArquivo) {
-        out << "estrutura-linguagem tempo tamanho_da_entrada" << endl;
+        out << "estrutura_linguagem tempo tamanho" << endl;
     }
-    out << "linkedlist-cpp " << tempo << " " << tamanhoEntrada << endl;
+    out << "linkedlist_cpp " << tempo << " " << tamanhoEntrada << endl;
 }
 
 int main() {
@@ -84,9 +84,9 @@ int main() {
     cin.tie(nullptr);
 
     vector<string> metodos = {
-        "addFirst", "add", "addLast",
-        "getFirst", "get", "getLast",
-        "removeFirst", "remove", "removeLast"
+        "add_first", "add_middle", "add_last",
+        "get_first", "get_middle", "get_last",
+        "remove_first", "remove_middle", "remove_last"
     };
 
     string linha;

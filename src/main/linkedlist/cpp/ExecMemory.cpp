@@ -12,7 +12,7 @@
 // Inclui a biblioteca para contagem de alocação de memória
 #include <malloc_count.h>
 // Comando de compilação sugerido:
-// g++ exec_memory.cpp ../../../../lib/malloc_count/malloc_count.c -o exec_memory.out -I../../../../lib/malloc_count
+// g++ ExecMemory.cpp ../../../../lib/malloc_count/malloc_count.c -o ExecMemory.out -I../../../../lib/malloc_count
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -24,15 +24,15 @@ namespace fs = std::filesystem;
  * para medição do pico de memória durante cada operação.
  */
 const vector<string> METHOD_NAMES = {
-    "removeLast",
-    "addLast",
-    "getLast",
-    "removeFirst",
-    "addFirst",
-    "getFirst",
-    "removeByIndex",
-    "add",
-    "get"
+    "remove_last",
+    "add_last",
+    "get_last",
+    "remove_first",
+    "add_first",
+    "get_first",
+    "remove_middle",
+    "add_middle",
+    "get_middle"
 };
 
 /**

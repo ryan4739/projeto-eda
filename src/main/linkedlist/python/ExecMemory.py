@@ -7,9 +7,9 @@ from linked_list import LinkedList
 from multiprocessing import Process
 
 methods = [
-    "addFirst", "add", "addLast",
-    "getFirst", "get", "getLast",
-    "removeFirst", "remove", "removeLast"
+    "add_first", "add_middle", "add_last",
+    "get_first", "get_middle", "get_last",
+    "remove_first", "remove_middle", "remove_last"
 ]
 
 def mede_memoria_peak_e_delta(ll, method, n):
@@ -18,46 +18,46 @@ def mede_memoria_peak_e_delta(ll, method, n):
     tracemalloc.start()
     before = tracemalloc.take_snapshot()
 
-    if method == "addFirst":
+    if method == "add_first":
         ll.add_first(10)
         peak = tracemalloc.get_traced_memory()[1]
         ll.remove_first()
 
-    elif method == "add":
+    elif method == "add_middle":
         ll.add(10, index)
         peak = tracemalloc.get_traced_memory()[1]
         ll.remove_by_index(index)
 
-    elif method == "addLast":
+    elif method == "add_last":
         ll.add_last(10)
         peak = tracemalloc.get_traced_memory()[1]
         ll.remove_last()
 
-    elif method == "getFirst":
+    elif method == "get_first":
         ll.get_first()
         peak = tracemalloc.get_traced_memory()[1]
 
-    elif method == "get":
+    elif method == "get_middle":
         ll.get(index)
         peak = tracemalloc.get_traced_memory()[1]
 
-    elif method == "getLast":
+    elif method == "get_last":
         ll.get_last()
         peak = tracemalloc.get_traced_memory()[1]
 
-    elif method == "removeFirst":
+    elif method == "remove_first":
         val = ll.get_first()
         ll.remove_first()
         peak = tracemalloc.get_traced_memory()[1]
         ll.add_first(val)
 
-    elif method == "remove":
+    elif method == "remove_middle":
         val = ll.get(index)
         ll.remove_by_index(index)
         peak = tracemalloc.get_traced_memory()[1]
         ll.add(val, index)
 
-    elif method == "removeLast":
+    elif method == "remove_last":
         val = ll.get_last()
         ll.remove_last()
         peak = tracemalloc.get_traced_memory()[1]
@@ -77,8 +77,8 @@ def salva_resultado(method, peak_bytes, delta_bytes, tamanho):
 
     with open(file_name, "a") as file:
         if is_new_file:
-            file.write("estrutura-linguagem uso_peak_bytes delta_bytes tamanho_entrada\n")
-        file.write(f"linkedlist-python {peak_bytes} {delta_bytes} {tamanho}\n")
+            file.write("estrutura_linguagem memoria tamanho\n")
+        file.write(f"linkedlist_python {peak_bytes} {tamanho}\n")
 
 def processa_method(method, input_list, n):
     ll = LinkedList()
