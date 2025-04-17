@@ -3,7 +3,7 @@ import os
 import tracemalloc
 from statistics import median
 
-from Stack import Stack
+from stack import Stack
 
 class ExecMemory:
     """
