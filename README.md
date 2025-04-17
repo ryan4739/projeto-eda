@@ -18,7 +18,7 @@ Comparar a eficiência das estruturas de dados lineares **ArrayList, LinkedList,
 
 A ideia do projeto é:
 
-a) Implementar os algoritmos referentes às estruturas de dados [ArrayList](), [LinkedList](), [Stack](), [Queue](https://joaoarthurbm.github.io/eda/posts/fifoarray/) e [Deque](https://www.simplilearn.com/tutorials/data-structure-tutorial/dequeue-in-data-structure) nas linguagens de programação Python, Java e C++, com suas respectivas documentações e testes. Para os testes, usaremos: JUnit para Java; Unittest para Python; e, funções de assert da linguagem para C++;
+a) Implementar os algoritmos referentes às estruturas de dados [ArrayList](), [LinkedList](https://joaoarthurbm.github.io/eda/posts/linkedlist/), [Stack](), [Queue](https://joaoarthurbm.github.io/eda/posts/fifoarray/) e [Deque](https://www.simplilearn.com/tutorials/data-structure-tutorial/dequeue-in-data-structure) nas linguagens de programação Python, Java e C++, com suas respectivas documentações e testes. Para os testes, usaremos: JUnit para Java; Unittest para Python; e, funções de assert da linguagem para C++;
 
 b) Gerar os dados de entrada para testagens e comparações de eficiências de tempo, de memória e limites. Para isso, utilizaremos um script bash para gerar um documento simples de texto, com valores inteiros, que será a entrada de todas as estruturas de dados;
 
@@ -70,7 +70,7 @@ Nesta etapa, estamos gerando os dados de entrada para testagem de eficiência de
 
 Nesta etapa, implementaremos os códigos, para cada combinação de método, estrutura e linguagem, responsáveis por monitorar os parâmetros estudados e gerar um arquivo de saída padronizado com estes dados. Para monitoramento da eficiência de tempo, utilizaremos algoritmos que contarão o tempo de execução do algoritmo monitorado. Para monitoramento da eficiência de memória, utilizaremos técnica de perfilamento de memória. E, para o monitoramento das cargas suportadas, analisaremos as quebras dos algoritmos para entradas de determinados tamanhos.
 
-### Etapa 5: gerar gráficos comparativos entre as combinações de métodos, estruturas e linguagens (por fazer)
+### Etapa 5: gerar gráficos comparativos entre as combinações de métodos, estruturas e linguagens
 
 Nesta etapa, implementaremos um script na linguagem R responsável por gerar um gráfico a partir dos valores de saída. Geraremos os gráficos comparativos entre as combinações de métodos, estruturas e linguagens.
 
@@ -78,3 +78,8 @@ Nesta etapa, implementaremos um script na linguagem R responsável por gerar um 
 
 Nesta etapa, realizaremos a relatoria dos resultados obtidos, contendo: a) explicação detalhada dos métodos seguidos; b) divulgação dos gráficos obtidos; c) explicações a respeito dos resultados obtidos.
 
+[LinkedList](https://github.com/ryan4739/projeto-eda/blob/main/data/reports/AnaliseLinkedList.md)
+[Queue]()
+[Deque]()
+[ArrayList]()
+[Stack]()
