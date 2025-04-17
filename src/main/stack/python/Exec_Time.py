@@ -3,7 +3,7 @@ import sys
 import os
 from statistics import median
 
-from stack import Stack
+from Stack import Stack
 
 class Exec_Time:
     """
@@ -171,4 +171,4 @@ class Exec_Time:
                 writers[i].flush()
 
 if __name__ == "__main__":
-    ExecTime.main()
+    Exec_Time.main()
