@@ -1,6 +1,6 @@
-# Análise de Comparação de Desempenho de Tempo de Execução e Uso de Memória Voltada para Diferentes Implementações de LinkedList (Java, Python, C++) e Entre Diferentes Estruturas 
+# Análise de Comparação de Desempenho de Tempo de Execução e Uso de Memória para Implementações de Stack (Java, Python, C++)
 
-Este relatório analisa o desempenho de diversas operações em diferentes estruturas de dados, com foco especial em listas encadeadas (Linked List) que contém head e tail implementadas em C++, Java e Python. A análise é baseada na visão teórica das implementações e resultados reais de tempo de execução e de uso de memória, e também faz comparações mais gerais entre as diferentes estruturas.
+Este relatório analisa o desempenho de diferentes implementações de Stack (Pilha) em C++, Java e Python, considerando tempo de execução e consumo de memória. Além disso, compara a Stack com outras estruturas de dados (LinkedList, ArrayList, Deque, Queue) para operações típicas.
 
 ---
 
