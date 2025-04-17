@@ -74,12 +74,12 @@ Nesta etapa, implementaremos os códigos, para cada combinação de método, est
 
 Nesta etapa, implementaremos um script na linguagem R responsável por gerar um gráfico a partir dos valores de saída. Geraremos os gráficos comparativos entre as combinações de métodos, estruturas e linguagens.
 
-### Etapa 6: fazer relatório com resultados obtidos e explicações (por fazer)
+### Etapa 6: fazer relatório com resultados obtidos e explicações 
 
 Nesta etapa, realizaremos a relatoria dos resultados obtidos, contendo: a) explicação detalhada dos métodos seguidos; b) divulgação dos gráficos obtidos; c) explicações a respeito dos resultados obtidos.
 
-[LinkedList](https://github.com/ryan4739/projeto-eda/blob/main/data/reports/AnaliseLinkedList.md)
-[Queue]()
-[Deque]()
-[ArrayList]()
-[Stack]()
+[LinkedList](https://github.com/ryan4739/projeto-eda/blob/main/data/reports/AnaliseLinkedList.md);
+[Queue]();
+[Deque]();
+[ArrayList]();
+[Stack]();
