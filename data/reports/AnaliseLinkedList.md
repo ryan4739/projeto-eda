@@ -50,7 +50,7 @@ Este relatório analisa o desempenho de diversas operações em diferentes estru
 
 #### get_middle
 - **Tempo**: ArrayList é a melhor com acesso direto em O(1). LinkedList é a pior, pois exige travessia.
-- **Memória**: ArrayList usa menos memória. LinkedList consome mais por nó.
+- **Memória**: Todas as estruturas apresentam uso de memória constante esperado. As variações vistas nos gráficos podem ser causadas por coleta de lixo ou ruídos na medição
 
 #### remove_first / remove_last
 - **Tempo**: LinkedList e Deque são as melhores com acesso direto aos extremos. ArrayList é a pior para remove_first devido ao deslocamento. Queue e Stack também são eficientes nas extremidades.
