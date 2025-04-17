@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
-public class ExecTime {
+public class Exec_Time {
     public static void main(String[] args) {
         try {
             // Criar a pasta de saída, se não existir
