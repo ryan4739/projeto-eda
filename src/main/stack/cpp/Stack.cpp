@@ -165,12 +165,3 @@ public:
         delete[] array;
     }
 };
-
-int main() {
-    Stack stacks(7);
-    stacks.PushIndex(6, 0);
-    stacks.PushIndex(5, 1);
-    stacks.PushIndex(4, 2);
-    stacks.toString();
-    return 0;
-}

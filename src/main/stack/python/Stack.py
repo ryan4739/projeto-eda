@@ -98,11 +98,3 @@ class Stack:
             if(self.array[i]==valor):
                 primeiro=i
         return primeiro
-class main:
-   stack1 = Stack(4)
-   stack1.pushIndex(1,0)
-   stack1.pushIndex(2,1)
-   stack1.push(3)
-   stack1.push(4)
-   print(stack1.toString())
-   print(stack1.toString())
