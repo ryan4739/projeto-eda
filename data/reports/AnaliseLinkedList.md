@@ -26,9 +26,9 @@ Este relatório analisa o desempenho de diversas operações em diferentes estru
 | Python   | ~150ms                     | ~130–180 MB             |
 
 #### Conclusão 
-> **Java** se vê mais adequado quando buscamos um equilíbrio e estabilidade no desempenho, sendo apenas ligeiramente inferior a C++; 
-> **C++** quando temos mais restrições de controle de recursos e uso de memória;
-> **Python** apenas para usos mais pontuais, já que sofre tanto em tempo quanto em memória devido a sua natureza interpretada. Essas diferenças de tempo e memória observadas entre as linguagens se dão principalmente pela forma como cada uma lida com alocação de memória, coleta de lixo, e desempenho bruto do ambiente de execução:
+- **Java** se vê mais adequado quando buscamos um equilíbrio e estabilidade no desempenho, sendo apenas ligeiramente inferior a C++; 
+- **C++** quando temos mais restrições de controle de recursos e uso de memória;
+- **Python** apenas para usos mais pontuais, já que sofre tanto em tempo quanto em memória devido a sua natureza interpretada. Essas diferenças de tempo e memória observadas entre as linguagens se dão principalmente pela forma como cada uma lida com alocação de memória, coleta de lixo, e desempenho bruto do ambiente de execução:
 
 ### Comparação geral entre estruturas para cada operação
 
