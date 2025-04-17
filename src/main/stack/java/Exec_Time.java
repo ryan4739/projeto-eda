@@ -35,11 +35,11 @@ public class ExecTime {
                     long[] results = new long[30];
 
                     for (int i = 0; i < 30; i++) {    
-                        Stack st = new Stack();
+                        Stack dq = new Stack();
 
                         // Adicionando os valores na Stack
                         for (String num: line.split(" "))
-                            st.addLast(Integer.parseInt(num));
+                            dq.addLast(Integer.parseInt(num));
 
                         long start = 0;
                         long end = 0;
@@ -47,55 +47,55 @@ public class ExecTime {
                         switch (method) {
                             case "add_first":
                                 start = System.nanoTime();
-                                st.push(10);
+                                dq.addFirst(10);
                                 end = System.nanoTime();
                                 break;
 
                             case "add_middle":
                                 start = System.nanoTime();
-                                st.pushIndex(10, input.length / 2);
+                                dq.add(10, input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
                             case "add_last":
                                 start = System.nanoTime();
-                                st.pushLast(10);
+                                dq.addLast(10);
                                 end = System.nanoTime();
                                 break;
 
                             case "get_first":
                                 start = System.nanoTime();
-                                st.peekLast();
+                                dq.getFirst();
                                 end = System.nanoTime();
                                 break;
 
                             case "get":
                                 start = System.nanoTime();
-                                st.peekIndex(input.length / 2);
+                                dq.get(input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
                             case "get_last":
                                 start = System.nanoTime();
-                                st.peek();
+                                dq.getLast();
                                 end = System.nanoTime();
                                 break;
 
                             case "remove_first":
                                 start = System.nanoTime();
-                                st.popLast();
+                                dq.removeFirst();
                                 end = System.nanoTime();
                                 break;
 
                             case "remove_middle":
                                 start = System.nanoTime();
-                                st.popIndex(input.length / 2);
+                                dq.remove(input.length / 2);
                                 end = System.nanoTime();
                                 break;
 
                             case "remove_last":
                                 start = System.nanoTime();
-                                st.pop();
+                                dq.removeLast();
                                 end = System.nanoTime();
                                 break;
                         }
