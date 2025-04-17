@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class ExecMemory {
+public class Exec_memory {
 
     private static final String[] METHOD_NAMES = {
         "add_last",
