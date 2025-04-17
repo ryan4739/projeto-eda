@@ -3,7 +3,7 @@ import sys
 import os
 from statistics import median
 
-from Stack import stack
+from stack import Stack
 
 class ExecTime:
     """
