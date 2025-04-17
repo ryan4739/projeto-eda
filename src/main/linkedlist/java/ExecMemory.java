@@ -13,7 +13,7 @@ import org.github.jamm.MemoryMeter;
 // Comando de compilação sugerido:
 // javac -cp lib/jamm-0.4.0.jar src/main/linkedlist/java/*.java
 // Comando de execução sugerido:
-// java -cp lib/jamm-0.4.0.jar:. src/main/linkedlist/java/ExecMemory <arquivo_de_entrada>
+// java -cp lib/jamm-0.4.0.jar:src/main/linkedlist/java ExecMemory <arquivo_de_entrada>
 
 /**
  * Classe para medição de consumo de memória de operações em uma estrutura ll.
