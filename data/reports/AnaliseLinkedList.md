@@ -18,7 +18,7 @@ Este relatório analisa o desempenho de diversas operações em diferentes estru
 - **Java**: O uso de memória é razoável, mas inclui sobrecarga de objetos, alinhamento de bytes, e metadados para a JVM. Cada nó tem mais overhead que em C++, mas o gerenciamento automático evita vazamentos.
 - **Python**:  É a linguagem com maior consumo de memória entre as três implementações analisadas. Cada instância de nó é um objeto completo, com cabeçalhos adicionais do interpretador. Além disso, o uso dinâmico de tipos e dicionários internos (em alguns casos) agrava o consumo por elemento.
 
-#### Comparativo Numérico Estimado (para 1 milhão de elementos)
+#### Exemplo Comparativo Entre as Implementações (para 1 milhão de elementos)
 | Linguagem | Tempo total (`add_first`) | Memória estimada total |
 |----------|----------------------------|-------------------------|
 | C++      | ~20ms                      | ~40–60 MB               |
@@ -33,15 +33,15 @@ Este relatório analisa o desempenho de diversas operações em diferentes estru
 ### Comparação geral entre estruturas para cada operação
 
 #### add_first
-- **Tempo**: LinkedList é a melhor estrutura em tempo para esta operação, pois realiza inserção no início diretamente com tempo constante. Deque também é eficiente. ArrayList é a pior, pois desloca todos os elementos. Queue e Stack não são indicadas.
-- **Memória**: ArrayList é a melhor em uso de memória com vetor contínuo e sem ponteiros extras. LinkedList consome mais memória por nó, devido ao armazenamento de ponteiros e overhead de linguagem.
+- **Tempo**: LinkedList é a melhor estrutura para esta operação, pois realiza inserção no início diretamente com tempo constante. ArrayList é a pior, pois desloca todos os elementos.
+- **Memória**: ArrayList é a melhor em uso de memória com vetor contínuo e sem ponteiros extras. LinkedList consome mais memória por nó, devido ao armazenamento de ponteiros e sobrecarga de linguagem.
 
 #### add_last
-- **Tempo**: LinkedList e Deque são as melhores com inserção em O(1). ArrayList é eficiente com O(1) amortizado. Stack e Queue também são rápidas, mas dependem da semântica da aplicação. Nenhuma estrutura tem desempenho ruim aqui.
+- **Tempo**: LinkedList e Deque são as melhores com inserção em O(1). ArrayList é eficiente com O(1) amortizado e Stack e Queue também são rápida. Nenhuma estrutura tem desempenho ruim aqui.
 - **Memória**: Deque é a mais econômica. LinkedList apresenta maior consumo por nó, enquanto ArrayList pode desperdiçar memória por alocação antecipada.
 
 #### add_middle
-- **Tempo**: ArrayList é mais eficiente em listas pequenas devido ao acesso direto e deslocamento simples. LinkedList é pior, pois precisa percorrer até o ponto de inserção. Deque, Queue e Stack não são recomendadas.
+- **Tempo**: ArrayList é mais eficiente em listas pequenas devido ao acesso direto e deslocamento simples. LinkedList é pior, pois precisa percorrer até o ponto de inserção.
 - **Memória**: ArrayList é mais compacta. LinkedList consome mais memória por nó.
 
 #### get_first, get_last
@@ -57,7 +57,7 @@ Este relatório analisa o desempenho de diversas operações em diferentes estru
 - **Memória**: Deque e Stack são mais econômicas. LinkedList consome mais por ponteiros.
 
 #### remove_middle
-- **Tempo**: ArrayList tem melhor desempenho em listas pequenas com acesso por índice. LinkedList é a pior, por exigir travessia e ajuste de ponteiros. Deque, Queue e Stack não suportam essa operação.
+- **Tempo**: ArrayList tem melhor desempenho em listas pequenas com acesso por índice. LinkedList é a pior, por exigir travessia e ajuste de ponteiros.
 - **Memória**: ArrayList continua mais eficiente. LinkedList mantém maior uso por ponteiros e objetos separados.
 
 ---
