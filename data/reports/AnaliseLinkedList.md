@@ -31,7 +31,7 @@ Este relatório analisa o desempenho de diversas operações em diferentes estru
 - **Python** apenas para usos mais pontuais, já que sofre tanto em tempo quanto em memória devido a sua natureza interpretada. Essas diferenças de tempo e memória observadas entre as linguagens se dão principalmente pela forma como cada uma lida com alocação de memória, coleta de lixo, e desempenho bruto do ambiente de execução:
 
 ### Comparação geral entre estruturas para cada operação
-
+ 
 #### add_first
 - **Tempo**: LinkedList é a melhor estrutura para esta operação, pois realiza inserção no início diretamente com tempo constante. ArrayList é a pior, pois desloca todos os elementos.
 - **Memória**: ArrayList é a melhor em uso de memória com vetor contínuo e sem ponteiros extras. LinkedList consome mais memória por nó, devido ao armazenamento de ponteiros e sobrecarga de linguagem.
