@@ -5,7 +5,7 @@ from statistics import median
 
 from stack import Stack
 
-class ExecMemory:
+class Exec_memory:
     """
     Classe responsável por medir e registrar as memórias de execução de operações em uma fila.
     Os resultados são salvos em arquivos separados para cada tipo de operação.
