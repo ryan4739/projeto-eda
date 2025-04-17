@@ -5,7 +5,7 @@ from statistics import median
 
 from stack import Stack
 
-class ExecTime:
+class Exec_Time:
     """
     Classe responsável por medir e registrar os tempos de execução de operações em uma fila.
     Os resultados são salvos em arquivos separados para cada tipo de operação.
