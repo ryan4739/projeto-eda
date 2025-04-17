@@ -3,7 +3,7 @@ import os
 import tracemalloc
 from statistics import median
 
-from stack import Stack
+from Stack import Stack
 
 class Exec_memory:
     """
@@ -180,4 +180,4 @@ class Exec_memory:
                 writers[i].flush()
 
 if __name__ == "__main__":
-    ExecMemory.main()
+    Exec_memory.main()
